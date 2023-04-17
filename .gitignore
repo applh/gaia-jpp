@@ -1,1 +1,4 @@
 yarn.lock
+
+# ignore local files starting with my-
+my-*

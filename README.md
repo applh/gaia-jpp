@@ -63,4 +63,33 @@ We suggest that you begin by typing:
 
 npx playwright test -g "test"
 
+
+
+```
+
+
+### playwright
+
+* add playwright
+
+```
+npm i -D playwright
+```
+
+* launch test with nodejs
+
+```
+node test.js
+````
+
+```test.js
+
+// https://playwright.dev/docs/library
+import { chromium, devices } from 'playwright';
+
+(async () => {
+  const browser = await chromium.launch();
+  // Create pages, interact with UI elements, assert values
+  await browser.close();
+})();
 ```
