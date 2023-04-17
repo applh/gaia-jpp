@@ -14126,7 +14126,7 @@ const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) {
     })).then(() => baseModule());
 };
 
-const App_vue_vue_type_style_index_0_scoped_609e734f_lang = '';
+const App_vue_vue_type_style_index_0_scoped_9b2cad73_lang = '';
 
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -14144,19 +14144,25 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const MyTest = defineAsyncComponent(() => {
-  return __vitePreload(() => import('./MyTest-605f7c22.js'),true?[]:void 0,import.meta.url)
+const XpBox = defineAsyncComponent(() => {
+  return __vitePreload(() => import('./XpBox-fc0b3af9.js'),true?[]:void 0,import.meta.url)
 });
 
 
+
 return (_ctx, _cache) => {
-  return (openBlock(), createBlock(unref(MyTest)))
+  return (openBlock(), createBlock(Suspense, null, {
+    default: withCtx(() => [
+      createVNode(unref(XpBox))
+    ]),
+    _: 1
+  }))
 }
 }
 
 };
-const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-609e734f"]]);
+const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-9b2cad73"]]);
 
 createApp(App).mount('#app');
 
-export { __vitePreload as _, reactive as r };
+export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, createVNode as f, openBlock as o, reactive as r, toDisplayString as t, unref as u, withAsyncContext as w };

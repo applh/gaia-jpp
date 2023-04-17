@@ -1,16 +1,16 @@
 {
   "index.css": {
-    "file": "assets/index-b2997a0f.css",
+    "file": "assets/index-4baabbd4.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-b2997a0f.css"
+      "assets/index-4baabbd4.css"
     ],
     "dynamicImports": [
-      "src/components/MyTest.js"
+      "src/components/XpBox.vue"
     ],
-    "file": "assets/index-80c7bd63.js",
+    "file": "assets/index-02695ace.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -18,15 +18,74 @@
     "dynamicImports": [
       "src/components/data-store.js"
     ],
-    "file": "assets/MyTest-605f7c22.js",
+    "file": "assets/MyTest-4753bd0c.js",
     "imports": [
       "index.html"
     ],
     "isDynamicEntry": true,
     "src": "src/components/MyTest.js"
   },
+  "src/components/XpBox.vue": {
+    "dynamicImports": [
+      "src/components/data-store.js",
+      "src/components/XpBox1.vue",
+      "src/components/XpBox2.vue",
+      "src/components/XpBox3.vue",
+      "src/components/XpBox4.vue"
+    ],
+    "file": "assets/XpBox-fc0b3af9.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpBox.vue"
+  },
+  "src/components/XpBox1.vue": {
+    "dynamicImports": [
+      "src/components/MyTest.js"
+    ],
+    "file": "assets/XpBox1-57846fed.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpBox1.vue"
+  },
+  "src/components/XpBox2.vue": {
+    "dynamicImports": [
+      "src/components/MyTest.js"
+    ],
+    "file": "assets/XpBox2-326fe502.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpBox2.vue"
+  },
+  "src/components/XpBox3.vue": {
+    "dynamicImports": [
+      "src/components/MyTest.js"
+    ],
+    "file": "assets/XpBox3-c962e56a.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpBox3.vue"
+  },
+  "src/components/XpBox4.vue": {
+    "dynamicImports": [
+      "src/components/MyTest.js"
+    ],
+    "file": "assets/XpBox4-cde50d9c.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpBox4.vue"
+  },
   "src/components/data-store.js": {
-    "file": "assets/data-store-cd608a39.js",
+    "file": "assets/data-store-f00b767f.js",
     "imports": [
       "index.html"
     ],

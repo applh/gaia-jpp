@@ -4,14 +4,17 @@ import { defineAsyncComponent } from 'vue'
 // import HelloWorld from './components/HelloWorld.vue'
 
 // async component
-const MyTest = defineAsyncComponent(() => {
-  return import('./components/MyTest')
+const XpBox = defineAsyncComponent(() => {
+  return import('./components/XpBox.vue')
 })
+
 
 </script>
 
 <template>
-  <MyTest />
+  <Suspense>
+    <XpBox />
+  </Suspense>
 </template>
 
 <style scoped>

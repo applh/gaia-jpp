@@ -10,6 +10,5 @@ $index_js = $js_files[0] ?? "";
 $index_js = basename($index_js);
 
 ?>
-<h1>GAIA</h1>
 <div id="app"></div>
 <script type="module" src="<?php echo $plugin_url . "dist/assets/$index_js"; ?>"></script>
