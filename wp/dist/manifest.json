@@ -1,0 +1,36 @@
+{
+  "index.css": {
+    "file": "assets/index-b2997a0f.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "assets/index-b2997a0f.css"
+    ],
+    "dynamicImports": [
+      "src/components/MyTest.js"
+    ],
+    "file": "assets/index-80c7bd63.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/components/MyTest.js": {
+    "dynamicImports": [
+      "src/components/data-store.js"
+    ],
+    "file": "assets/MyTest-605f7c22.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/MyTest.js"
+  },
+  "src/components/data-store.js": {
+    "file": "assets/data-store-cd608a39.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/data-store.js"
+  }
+}
