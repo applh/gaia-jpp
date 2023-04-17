@@ -4,10 +4,7 @@ import { defineAsyncComponent } from 'vue'
 // import HelloWorld from './components/HelloWorld.vue'
 
 // async component
-const XpBox = defineAsyncComponent(() => {
-  return import('./components/XpBox.vue')
-})
-
+const XpBox = defineAsyncComponent(() => import('./components/XpBox.vue'))
 
 </script>
 

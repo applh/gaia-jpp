@@ -5,18 +5,10 @@ let data_store = await import('./data-store.js')
 
 const store = computed(() => data_store.default.store)
 
-const XpBox1 = defineAsyncComponent(() => {
-  return import('./XpBox1.vue')
-})
-const XpBox2 = defineAsyncComponent(() => {
-  return import('./XpBox2.vue')
-})
-const XpBox3 = defineAsyncComponent(() => {
-  return import('./XpBox3.vue')
-})
-const XpBox4 = defineAsyncComponent(() => {
-  return import('./XpBox4.vue')
-})
+const XpBox1 = defineAsyncComponent(() => import('./XpBox1.vue'))
+const XpBox2 = defineAsyncComponent(() => import('./XpBox2.vue'))
+const XpBox3 = defineAsyncComponent(() => import('./XpBox3.vue'))
+const XpBox4 = defineAsyncComponent(() => import('./XpBox4.vue'))
 
 </script>
 

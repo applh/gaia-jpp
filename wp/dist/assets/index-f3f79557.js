@@ -14126,7 +14126,7 @@ const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) {
     })).then(() => baseModule());
 };
 
-const App_vue_vue_type_style_index_0_scoped_9b2cad73_lang = '';
+const App_vue_vue_type_style_index_0_scoped_34b1e1ad_lang = '';
 
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -14144,10 +14144,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => {
-  return __vitePreload(() => import('./XpBox-fc0b3af9.js'),true?[]:void 0,import.meta.url)
-});
-
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-0ea14743.js'),true?[]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14161,8 +14158,73 @@ return (_ctx, _cache) => {
 }
 
 };
-const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-9b2cad73"]]);
+const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-34b1e1ad"]]);
 
-createApp(App).mount('#app');
+let store = reactive({
+    counter: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    forms: {
+        'contact': {
+            'name': {
+                'label': 'Name',
+                'type': 'text',
+                'value': '',
+                'required': true,
+                'min': 3,
+                'max': 20,
+                'pattern': '^[a-zA-Z0-9]+$',
+                'error': 'Name must be between 3 and 20 characters and contain only letters and numbers'
+            },
+            'email': {
+                'label': 'Email',
+                'type': 'email',
+                'value': '',
+                'required': true,
+                'min': 3,
+                'max': 20,
+                'pattern': '^[a-zA-Z0-9]+$',
+                'error': 'Email must be between 3 and 20 characters and contain only letters and numbers'
+            },
+            'message': {
+                'label': 'Message',
+                'type': 'textarea',
+                'value': '',
+                'required': true,
+                'min': 3,
+                'max': 20,
+                'pattern': '^[a-zA-Z0-9]+$',
+                'error': 'Message must be between 3 and 20 characters and contain only letters and numbers'
+            },
+        }
+    },
+});
 
-export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, createVNode as f, openBlock as o, reactive as r, toDisplayString as t, unref as u, withAsyncContext as w };
+// add event listener on window resize
+window.addEventListener('resize', () => {
+    store.width = window.innerWidth;
+    store.height = window.innerHeight;
+});
+
+let pjs = {
+    app: null,
+};
+
+const dataStore = {
+    store,
+    pjs
+};
+
+const dataStore$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+    __proto__: null,
+    default: dataStore,
+    pjs
+}, Symbol.toStringTag, { value: 'Module' }));
+
+let app  = createApp(App);
+app.mount('#app');
+pjs.app = app;
+// let data_store = await import('./components/data-store.js') 
+// data_store.default.pjs.app = app
+
+export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, createVNode as f, _export_sfc as g, withDirectives as h, vModelDynamic as i, withModifiers as j, popScopeId as k, dataStore$1 as l, openBlock as o, pushScopeId as p, renderList as r, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w };
