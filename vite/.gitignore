@@ -28,4 +28,6 @@ dist-ssr
 
 # cache
 */.vitepress/cache
-
+/test-results/
+/playwright-report/
+/playwright/.cache/
