@@ -2,3 +2,6 @@ yarn.lock
 
 # ignore local files starting with my-
 my-*
+
+# ignore node_modules in all subdirectories
+node_modules
