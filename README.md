@@ -1,6 +1,14 @@
 # GAIA-JPP
 
-GAIA with JS, Python and PHP support.
+* GAIA: GeoCMS Artificial Intelligence Applications
+* JPP: JavaScript, Python, PHP
+
+* GAIA-JPP is some crazy VSCode dev environment
+* Build AI appications with JS, Python and PHP support.
+  * And even WordPress + Gutenberg + React 
+
+* Automatic testing is provided by Playwright
+* 3D is powered by Blender
 
 ## Installation
 
