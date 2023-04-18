@@ -42,6 +42,33 @@ class xp_action
         // so don't register before init hook
         xp_action::register_block("render", "Render (xp)");
 
+        // add new rest route for json data: xperia/v1/json
+        add_action("rest_api_init", "xp_action::rest_api_init");
+    }
+
+    static function rest_api_init ()
+    {
+        register_rest_route(
+            "xperia/v1", 
+            "/json",
+            array(
+                'methods' => ['GET', 'POST'],
+                // FIXME: SHOULD BE MORE SECURE 😱
+                "permission_callback" => function () { return true; },    
+                "callback" => "xp_action::wp_json"
+            )
+        );
+    }
+
+    static function wp_json ()
+    {
+        $json = [];
+
+        $json['time'] = date("Y-m-d H:i:s");
+        $json['request'] = $_REQUEST;
+        $json['files'] = $_FILES;
+
+        return $json;
     }
 
     static function register_block($block_name, $title)

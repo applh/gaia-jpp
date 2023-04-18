@@ -19,7 +19,7 @@ $title = $_GET['title'] ?? $block;
         apiVersion: 2,
         title: '<?php echo $title ?>',
         icon: 'megaphone',
-        category: 'widgets',
+        category: 'text',
         edit: function () {
             // TODO: use wp.apiFetch
             // https://developer.wordpress.org/block-editor/reference-guides/packages/packages-api-fetch/
