@@ -10,25 +10,23 @@ class gaia_jpp
 {
     static function init()
     {
+        // add autoload
+        spl_autoload_register("gaia_jpp::autoload");
+
+        // add plugins_loaded action
+        add_action("plugins_loaded", "xp_action::plugins_loaded");
+
         // add admin menu in plugins
-        add_action("admin_menu", "gaia_jpp::admin_menu");
+        add_action("admin_menu", "xp_action::admin_menu");
     }
-
-    static function admin_menu()
+    
+    static function autoload($class)
     {
-        // add submenu in plugins
-        add_plugins_page(
-            "gaia-jpp", 
-            "gaia-jpp",
-             "manage_options", 
-             "gaia-jpp", 
-             "gaia_jpp::admin_page"
-        );
-    }
-
-    static function admin_page()
-    {
-        include __DIR__ . "/admin.php";
+        $class = str_replace("\\", "/", $class);
+        $file = __DIR__ . "/class/$class.php";
+        if (file_exists($file)) {
+            include $file;
+        }
     }
 }
 
