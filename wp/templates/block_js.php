@@ -27,11 +27,12 @@ $title = $_GET['title'] ?? $block;
             /* method needed if you want to see block in the editor */
             /* react can't activate script tags in gutenberg editor */
             let blockProps = useBlockProps();
-            let content = 'testing...';
+            let content = '...';
             // react element
             let h1 = el('h1', null, 'title1');
-
-            let elem = el('div', blockProps, h1, content);
+            // add custom element defined by Vue 🔥
+            let xp_box = el('xp-box');
+            let elem = el('div', blockProps, h1, content, xp_box);
 
             return elem;
         },

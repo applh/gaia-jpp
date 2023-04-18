@@ -38,12 +38,36 @@ class xp_action
 
     static function init () 
     {
+        $plugin_url ??= plugin_dir_url(__DIR__);
+
+        // add vue 
+        $vue_js_url = "$plugin_url/media/vue-app.js";
+        wp_register_script(
+            "xperia/vue",
+            $vue_js_url,
+            [],
+            "0.0.1"
+        );
+        // add vue as module
+        // HACK: add type="module" to script tag
+        add_filter("script_loader_tag", "xp_action::script_loader_tag", 10, 3);
+        wp_enqueue_script("xperia/vue");
+
         // blocks need to enqueue scripts 
         // so don't register before init hook
         xp_action::register_block("render", "Render (xp)");
 
         // add new rest route for json data: xperia/v1/json
         add_action("rest_api_init", "xp_action::rest_api_init");
+    }
+
+    static function script_loader_tag ($tag, $handle, $src)
+    {
+        // HACK: add type="module" to script tag
+        if ($handle == "xperia/vue") {
+            $tag = str_replace('id=', 'type="module" id=', $tag);
+        }
+        return $tag;
     }
 
     static function rest_api_init ()
@@ -92,7 +116,7 @@ class xp_action
 
         // get plugin_url
         $block_js_url = "$plugin_url/templates/block_js.php?block=$block_name&title=$title";
-        header("xp-block-js-url: $block_js_url");
+        // header("xp-block-js-url: $block_js_url");
 
         wp_register_script(
             "xperia/$block_name",
