@@ -8,6 +8,5 @@ const MyTest = defineAsyncComponent(() => {
 </script>
 
 <template>
-    <h1>XpBox4</h1>
     <MyTest />
 </template>

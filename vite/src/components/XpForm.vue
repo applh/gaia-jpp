@@ -22,13 +22,14 @@ function act_submit ($event) {
 
 <template>
     <form v-if="form" @submit.prevent="act_submit">
-        <em>XpForm</em>
+        <component :is="form?.tags?.title ?? 'em'" class="title">{{ form.labels.title }}</component>
         <label v-for="fin in form.inputs">
             <span>{{ fin.label }}</span>
             <textarea v-if="fin.type === 'textarea'" :name="fin.name" v-model="fin.value" cols="80" rows="10"/>
-            <input v-else :type="fin.type" :name="fin.name" v-model="fin.value" />
+            <input v-else :type="fin.type" :name="fin.name" v-model="fin.value" :required="fin.required"/>
         </label>
         <button type="submit">{{ form.labels.submit }}</button>
+        <div class="feedback">{{ form.labels.feedback }}</div>
     </form>
 </template>
 
@@ -39,6 +40,7 @@ function act_submit ($event) {
         gap: 1rem;
         width: 100%;
         max-width: 800px;
+        margin: 0 auto;
     }
     label {
         display: flex;

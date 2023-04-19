@@ -658,4 +658,5 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .xpmap {
     width: 50vmin;
     height: 50vmin;
+    margin: 0 auto;
 }

@@ -1,13 +1,12 @@
-import { g as _export_sfc, w as withAsyncContext, _ as __vitePreload, c as computed, u as unref, o as openBlock, a as createElementBlock, F as Fragment, r as renderList, e as createBaseVNode, t as toDisplayString, h as withDirectives, v as vModelText, i as vModelDynamic, j as withModifiers, k as createCommentVNode, p as pushScopeId, l as popScopeId } from './index-c9832ef1.js';
+import { f as _export_sfc, w as withAsyncContext, _ as __vitePreload, c as computed, u as unref, o as openBlock, a as createElementBlock, b as createBlock, g as withCtx, h as createTextVNode, t as toDisplayString, r as resolveDynamicComponent, F as Fragment, i as renderList, e as createBaseVNode, j as withDirectives, v as vModelText, k as vModelDynamic, l as withModifiers, m as createCommentVNode } from './index-b6dfd5b9.js';
 
-const XpForm_vue_vue_type_style_index_0_scoped_25cec0eb_lang = '';
+const XpForm_vue_vue_type_style_index_0_scoped_18f2f082_lang = '';
 
-const _withScopeId = n => (pushScopeId("data-v-25cec0eb"),n=n(),popScopeId(),n);
 const _hoisted_1 = ["onSubmit"];
-const _hoisted_2 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createBaseVNode("em", null, "XpForm", -1));
-const _hoisted_3 = ["name", "onUpdate:modelValue"];
-const _hoisted_4 = ["type", "name", "onUpdate:modelValue"];
-const _hoisted_5 = { type: "submit" };
+const _hoisted_2 = ["name", "onUpdate:modelValue"];
+const _hoisted_3 = ["type", "name", "onUpdate:modelValue", "required"];
+const _hoisted_4 = { type: "submit" };
+const _hoisted_5 = { class: "feedback" };
 
 // add prop name with default value contact
 
@@ -28,7 +27,7 @@ const props = __props;
 
 
 let data_store = (
-  ([__temp,__restore] = withAsyncContext(() => __vitePreload(() => import('./index-c9832ef1.js').then(n => n.m),true?["./index-c9832ef1.js","./index-bf99ff62.css"]:void 0,import.meta.url))),
+  ([__temp,__restore] = withAsyncContext(() => __vitePreload(() => import('./index-b6dfd5b9.js').then(n => n.p),true?["./index-b6dfd5b9.js","./index-bf99ff62.css"]:void 0,import.meta.url))),
   __temp = await __temp,
   __restore(),
   __temp
@@ -48,7 +47,12 @@ return (_ctx, _cache) => {
         key: 0,
         onSubmit: withModifiers(act_submit, ["prevent"])
       }, [
-        _hoisted_2,
+        (openBlock(), createBlock(resolveDynamicComponent(unref(form)?.tags?.title ?? 'em'), { class: "title" }, {
+          default: withCtx(() => [
+            createTextVNode(toDisplayString(unref(form).labels.title), 1)
+          ]),
+          _: 1
+        })),
         (openBlock(true), createElementBlock(Fragment, null, renderList(unref(form).inputs, (fin) => {
           return (openBlock(), createElementBlock("label", null, [
             createBaseVNode("span", null, toDisplayString(fin.label), 1),
@@ -59,26 +63,28 @@ return (_ctx, _cache) => {
                   "onUpdate:modelValue": $event => ((fin.value) = $event),
                   cols: "80",
                   rows: "10"
-                }, null, 8, _hoisted_3)), [
+                }, null, 8, _hoisted_2)), [
                   [vModelText, fin.value]
                 ])
               : withDirectives((openBlock(), createElementBlock("input", {
                   key: 1,
                   type: fin.type,
                   name: fin.name,
-                  "onUpdate:modelValue": $event => ((fin.value) = $event)
-                }, null, 8, _hoisted_4)), [
+                  "onUpdate:modelValue": $event => ((fin.value) = $event),
+                  required: fin.required
+                }, null, 8, _hoisted_3)), [
                   [vModelDynamic, fin.value]
                 ])
           ]))
         }), 256)),
-        createBaseVNode("button", _hoisted_5, toDisplayString(unref(form).labels.submit), 1)
+        createBaseVNode("button", _hoisted_4, toDisplayString(unref(form).labels.submit), 1),
+        createBaseVNode("div", _hoisted_5, toDisplayString(unref(form).labels.feedback), 1)
       ], 40, _hoisted_1))
     : createCommentVNode("", true)
 }
 }
 
 };
-const XpForm = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-25cec0eb"]]);
+const XpForm = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-18f2f082"]]);
 
 export { XpForm as default };

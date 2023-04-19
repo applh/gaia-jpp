@@ -19,3 +19,13 @@ const XpBox4 = defineAsyncComponent(() => import('./XpBox4.vue'))
     <XpBox4 v-else />
     <h3>{{ store.width }}x{{ store.height }}</h3>
 </template>
+
+<style>
+label {
+    display: inline-block;
+    padding: 1rem;
+}
+label span {
+    padding-left: 0.5rem;
+}
+</style>

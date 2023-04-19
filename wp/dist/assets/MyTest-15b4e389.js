@@ -1,6 +1,6 @@
-import { _ as __vitePreload, d as defineAsyncComponent } from './index-c9832ef1.js';
+import { _ as __vitePreload, d as defineAsyncComponent } from './index-b6dfd5b9.js';
 
-let data_store = await __vitePreload(() => import('./index-c9832ef1.js').then(n => n.m),true?["./index-c9832ef1.js","./index-bf99ff62.css"]:void 0,import.meta.url);
+let data_store = await __vitePreload(() => import('./index-b6dfd5b9.js').then(n => n.p),true?["./index-b6dfd5b9.js","./index-bf99ff62.css"]:void 0,import.meta.url);
 
 // console.log('data_store', data_store)
 // let dyn_compo = function (name) {
@@ -25,12 +25,12 @@ let setup = () => {
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpForm-18424b43.js'),true?["./XpForm-18424b43.js","./index-c9832ef1.js","./index-bf99ff62.css","./XpForm-49be5755.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpForm-4d542977.js'),true?["./XpForm-4d542977.js","./index-b6dfd5b9.js","./index-bf99ff62.css","./XpForm-a224c341.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpMap-e5c16c99.js'),true?["./XpMap-e5c16c99.js","./index-c9832ef1.js","./index-bf99ff62.css","./XpMap-c51ccf3b.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpMap-6bd4c306.js'),true?["./XpMap-6bd4c306.js","./index-b6dfd5b9.js","./index-bf99ff62.css","./XpMap-204e3752.css"]:void 0,import.meta.url)
             ));
         }
     }
@@ -39,10 +39,9 @@ let setup = () => {
 
 let template = `
     <div>
-        <h1>My Test</h1>
-        <p>{{msg}}</p>
+        <h1>{{ store.h1 }}</h1>
+        <p>{{ store.msg }}</p>
         <div>
-            <button @click.prevent="store.counter++">Counter: {{store.counter}}</button>
             <hr />
             <label>
                 <input type="checkbox" v-model="store.options.map" />
@@ -71,7 +70,6 @@ let template = `
     };
 
     let data = {
-        msg: 'Hello World'
     };
 
     const MyTest = {

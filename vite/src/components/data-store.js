@@ -1,16 +1,30 @@
 import { reactive } from 'vue'
 
 let store = reactive({
+    h1: 'GAIA',
+    msg: 'Hello World',
     counter: 0,
     width: window.innerWidth,
     height: window.innerHeight,
+    map : {
+        center: { // paris location
+            lat: 48.8566,
+            lng: 2.3522,
+        },
+        zoom: 12,
+    },
     options: {
         map: false
     },
     forms: {
         'newsletter': {
+            tags: {
+                title: 'h4',
+            },
             'labels': {
+                'title' : 'Subscribe to our newsletter',
                 'submit' : 'Subscribe',
+                'feedback': '...'
             },
             inputs: {
                 'name': {
@@ -36,8 +50,13 @@ let store = reactive({
             },
         },
         'contact': {
+            tags: {
+                title: 'h4',
+            },
             'labels': {
+                'title': 'Contact us',
                 'submit' : 'Send',
+                'feedback': '...please fill our contact form...'
             },
             inputs: {
                 'name': {

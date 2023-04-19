@@ -40,10 +40,9 @@ let setup = () => {
 
 let template = `
     <div>
-        <h1>My Test</h1>
-        <p>{{msg}}</p>
+        <h1>{{ store.h1 }}</h1>
+        <p>{{ store.msg }}</p>
         <div>
-            <button @click.prevent="store.counter++">Counter: {{store.counter}}</button>
             <hr />
             <label>
                 <input type="checkbox" v-model="store.options.map" />
@@ -72,7 +71,6 @@ let template = `
     }
 
     let data = {
-        msg: 'Hello World'
     }
 
     export default {

@@ -2,12 +2,17 @@
 // import leaflet css
 import 'leaflet/dist/leaflet.css'
 
+// https://vitejs.dev/guide/assets.html
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 
 // import leaflet from 'leaflet'
 import L from 'leaflet';
+
+// let data_store = await import('./data-store.js')
+import data_store from './data-store.js'
+// console.log('data_store', data_store)
 
 let mounted = function () {
     const iconDefault = L.icon({
@@ -23,8 +28,11 @@ let mounted = function () {
 
     L.Marker.prototype.options.icon = iconDefault;
 
-    const map = L.map(this.$refs.boxmap).setView([51.505, -0.09], 13);
+    // set center
+    let center = data_store.store?.map?.center ?? [51.505, -0.09];
+    let zoom = data_store.store?.map?.zoom ?? 13;
 
+    const map = L.map(this.$refs.boxmap).setView(center, zoom);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -35,20 +43,37 @@ let mounted = function () {
         map.invalidateSize();
     });
 
-    const marker = L.marker([51.5, -0.09]).addTo(map);
+    // add marker around center
+    let pos = center;
+    // console.log('pos', pos)
 
-    const circle = L.circle([51.508, -0.11], {
+    // move pos randomly around 1km radius
+    pos.lat += (Math.random() - 0.5) * 0.05;
+    pos.lng += (Math.random() - 0.5) * 0.05;
+    const marker = L.marker(pos).addTo(map);
+
+    // move pos randomly around 1km radius
+    pos.lat += (Math.random() - 0.5) * 0.05;
+    pos.lng += (Math.random() - 0.5) * 0.05;
+    // console.log('pos', pos)
+    const circle = L.circle(pos, {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5,
 		radius: 500
 	}).addTo(map);
 
-	const polygon = L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map);
+    let points = [];
+    let ppos = pos;
+    for (let i = 0; i < 10; i++) {
+        // move pos randomly around 1km radius
+        ppos.lat += (Math.random() - 0.5) * 0.1;
+        ppos.lng += (Math.random() - 0.5) * 0.1;
+        // console.log('ppos', ppos)
+
+        points.push([ppos.lat, ppos.lng]);
+    }
+	const polygon = L.polygon(points).addTo(map);
 }
 
 export default {
@@ -66,5 +91,6 @@ export default {
 .xpmap {
     width: 50vmin;
     height: 50vmin;
+    margin: 0 auto;
 }
 </style>

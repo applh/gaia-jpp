@@ -10,7 +10,7 @@
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-c9832ef1.js",
+    "file": "assets/index-b6dfd5b9.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -21,14 +21,21 @@
       "src/components/XpForm.vue",
       "src/components/XpMap.vue"
     ],
-    "file": "assets/MyTest-9e3a9a11.js",
+    "file": "assets/MyTest-15b4e389.js",
     "imports": [
       "index.html"
     ],
     "isDynamicEntry": true,
     "src": "src/components/MyTest.js"
   },
+  "src/components/XpBox.css": {
+    "file": "assets/XpBox-a1633fc0.css",
+    "src": "src/components/XpBox.css"
+  },
   "src/components/XpBox.vue": {
+    "css": [
+      "assets/XpBox-a1633fc0.css"
+    ],
     "dynamicImports": [
       "index.html",
       "src/components/XpBox1.vue",
@@ -36,7 +43,7 @@
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-113aebda.js",
+    "file": "assets/XpBox-5ff899bd.js",
     "imports": [
       "index.html"
     ],
@@ -47,7 +54,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-dad94b5a.js",
+    "file": "assets/XpBox1-b762168d.js",
     "imports": [
       "index.html"
     ],
@@ -58,7 +65,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-f751bf48.js",
+    "file": "assets/XpBox2-24d5b549.js",
     "imports": [
       "index.html"
     ],
@@ -69,7 +76,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-7eed6ea7.js",
+    "file": "assets/XpBox3-b880e4c2.js",
     "imports": [
       "index.html"
     ],
@@ -80,7 +87,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-2653384d.js",
+    "file": "assets/XpBox4-c2c3c10d.js",
     "imports": [
       "index.html"
     ],
@@ -88,17 +95,17 @@
     "src": "src/components/XpBox4.vue"
   },
   "src/components/XpForm.css": {
-    "file": "assets/XpForm-49be5755.css",
+    "file": "assets/XpForm-a224c341.css",
     "src": "src/components/XpForm.css"
   },
   "src/components/XpForm.vue": {
     "css": [
-      "assets/XpForm-49be5755.css"
+      "assets/XpForm-a224c341.css"
     ],
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-18424b43.js",
+    "file": "assets/XpForm-4d542977.js",
     "imports": [
       "index.html"
     ],
@@ -106,14 +113,14 @@
     "src": "src/components/XpForm.vue"
   },
   "src/components/XpMap.css": {
-    "file": "assets/XpMap-c51ccf3b.css",
+    "file": "assets/XpMap-204e3752.css",
     "src": "src/components/XpMap.css"
   },
   "src/components/XpMap.vue": {
     "css": [
-      "assets/XpMap-c51ccf3b.css"
+      "assets/XpMap-204e3752.css"
     ],
-    "file": "assets/XpMap-e5c16c99.js",
+    "file": "assets/XpMap-6bd4c306.js",
     "imports": [
       "index.html"
     ],

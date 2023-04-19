@@ -14142,7 +14142,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-113aebda.js'),true?[]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-5ff899bd.js'),true?["./XpBox-5ff899bd.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14159,16 +14159,30 @@ return (_ctx, _cache) => {
 const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-67827f9d"]]);
 
 let store = reactive({
+    h1: 'GAIA',
+    msg: 'Hello World',
     counter: 0,
     width: window.innerWidth,
     height: window.innerHeight,
+    map : {
+        center: { // paris location
+            lat: 48.8566,
+            lng: 2.3522,
+        },
+        zoom: 12,
+    },
     options: {
         map: false
     },
     forms: {
         'newsletter': {
+            tags: {
+                title: 'h4',
+            },
             'labels': {
+                'title' : 'Subscribe to our newsletter',
                 'submit' : 'Subscribe',
+                'feedback': '...'
             },
             inputs: {
                 'name': {
@@ -14194,8 +14208,13 @@ let store = reactive({
             },
         },
         'contact': {
+            tags: {
+                title: 'h4',
+            },
             'labels': {
+                'title': 'Contact us',
                 'submit' : 'Send',
+                'feedback': '...please fill our contact form...'
             },
             inputs: {
                 'name': {
@@ -14243,14 +14262,14 @@ let pjs = {
     app: null,
 };
 
-const dataStore = {
+const data_store = {
     store,
     pjs
 };
 
-const dataStore$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+const dataStore = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
     __proto__: null,
-    default: dataStore,
+    default: data_store,
     pjs
 }, Symbol.toStringTag, { value: 'Module' }));
 
@@ -14262,4 +14281,4 @@ pjs.app = app;
 // let data_store = await import('./components/data-store.js') 
 // data_store.default.pjs.app = app
 
-export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, createVNode as f, _export_sfc as g, withDirectives as h, vModelDynamic as i, withModifiers as j, createCommentVNode as k, popScopeId as l, dataStore$1 as m, openBlock as o, pushScopeId as p, renderList as r, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w };
+export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, _export_sfc as f, withCtx as g, createTextVNode as h, renderList as i, withDirectives as j, vModelDynamic as k, withModifiers as l, createCommentVNode as m, data_store as n, openBlock as o, dataStore as p, resolveDynamicComponent as r, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w };

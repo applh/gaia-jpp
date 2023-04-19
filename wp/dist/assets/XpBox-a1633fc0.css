@@ -1,0 +1,8 @@
+
+label {
+    display: inline-block;
+    padding: 1rem;
+}
+label span {
+    padding-left: 0.5rem;
+}

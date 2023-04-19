@@ -1,4 +1,4 @@
-import { g as _export_sfc, o as openBlock, a as createElementBlock, e as createBaseVNode, F as Fragment } from './index-c9832ef1.js';
+import { f as _export_sfc, o as openBlock, a as createElementBlock, e as createBaseVNode, F as Fragment, n as data_store } from './index-b6dfd5b9.js';
 
 const leaflet = '';
 
@@ -14469,6 +14469,8 @@ const L$1 = leafletSrcExports;
 
 const XpMap_vue_vue_type_style_index_0_lang = '';
 
+// console.log('data_store', data_store)
+
 let mounted = function () {
     const iconDefault = L$1.icon({
     iconRetinaUrl,
@@ -14483,8 +14485,11 @@ let mounted = function () {
 
     L$1.Marker.prototype.options.icon = iconDefault;
 
-    const map = L$1.map(this.$refs.boxmap).setView([51.505, -0.09], 13);
+    // set center
+    let center = data_store.store?.map?.center ?? [51.505, -0.09];
+    let zoom = data_store.store?.map?.zoom ?? 13;
 
+    const map = L$1.map(this.$refs.boxmap).setView(center, zoom);
     L$1.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -14495,20 +14500,37 @@ let mounted = function () {
         map.invalidateSize();
     });
 
-    L$1.marker([51.5, -0.09]).addTo(map);
+    // add marker around center
+    let pos = center;
+    // console.log('pos', pos)
 
-    L$1.circle([51.508, -0.11], {
+    // move pos randomly around 1km radius
+    pos.lat += (Math.random() - 0.5) * 0.05;
+    pos.lng += (Math.random() - 0.5) * 0.05;
+    L$1.marker(pos).addTo(map);
+
+    // move pos randomly around 1km radius
+    pos.lat += (Math.random() - 0.5) * 0.05;
+    pos.lng += (Math.random() - 0.5) * 0.05;
+    // console.log('pos', pos)
+    L$1.circle(pos, {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5,
 		radius: 500
 	}).addTo(map);
 
-	L$1.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map);
+    let points = [];
+    let ppos = pos;
+    for (let i = 0; i < 10; i++) {
+        // move pos randomly around 1km radius
+        ppos.lat += (Math.random() - 0.5) * 0.1;
+        ppos.lng += (Math.random() - 0.5) * 0.1;
+        // console.log('ppos', ppos)
+
+        points.push([ppos.lat, ppos.lng]);
+    }
+	L$1.polygon(points).addTo(map);
 };
 
 const _sfc_main = {
