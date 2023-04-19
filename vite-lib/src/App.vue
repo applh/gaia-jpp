@@ -1,9 +1,12 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import { MyTestA } from '../lib/mytest.js'
+
 </script>
 
 <template>
   <h1>{{ $mytest('hello') }} / {{ $mytest('test') }}</h1>
+  <MyTestA />
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />

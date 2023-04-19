@@ -1,4 +1,7 @@
-export default {
+import MyTestA from './MyTestA.vue'
+
+
+let mytest = {
     install: (app, options) => {
         // inject a globally available $translate() method
         app.config.globalProperties.$mytest = (key) => {
@@ -8,4 +11,9 @@ export default {
             return 'not test'
         }
     }
+}
+
+export {
+    mytest,
+    MyTestA
 }
