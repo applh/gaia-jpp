@@ -10,7 +10,7 @@
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-7fddaa5f.js",
+    "file": "assets/index-c9832ef1.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -21,7 +21,7 @@
       "src/components/XpForm.vue",
       "src/components/XpMap.vue"
     ],
-    "file": "assets/MyTest-17c594b7.js",
+    "file": "assets/MyTest-9e3a9a11.js",
     "imports": [
       "index.html"
     ],
@@ -36,7 +36,7 @@
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-9117f78d.js",
+    "file": "assets/XpBox-113aebda.js",
     "imports": [
       "index.html"
     ],
@@ -47,7 +47,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-81079baf.js",
+    "file": "assets/XpBox1-dad94b5a.js",
     "imports": [
       "index.html"
     ],
@@ -58,7 +58,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-72cf7663.js",
+    "file": "assets/XpBox2-f751bf48.js",
     "imports": [
       "index.html"
     ],
@@ -69,7 +69,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-f90c41da.js",
+    "file": "assets/XpBox3-7eed6ea7.js",
     "imports": [
       "index.html"
     ],
@@ -80,7 +80,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-653cd5c8.js",
+    "file": "assets/XpBox4-2653384d.js",
     "imports": [
       "index.html"
     ],
@@ -98,7 +98,7 @@
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-d5e00f1b.js",
+    "file": "assets/XpForm-18424b43.js",
     "imports": [
       "index.html"
     ],
@@ -113,7 +113,7 @@
     "css": [
       "assets/XpMap-c51ccf3b.css"
     ],
-    "file": "assets/XpMap-794c2594.js",
+    "file": "assets/XpMap-e5c16c99.js",
     "imports": [
       "index.html"
     ],
