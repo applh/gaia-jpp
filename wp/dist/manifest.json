@@ -10,7 +10,7 @@
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-b6dfd5b9.js",
+    "file": "assets/index-e1c3e359.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -21,7 +21,7 @@
       "src/components/XpForm.vue",
       "src/components/XpMap.vue"
     ],
-    "file": "assets/MyTest-15b4e389.js",
+    "file": "assets/MyTest-5f5cfd3d.js",
     "imports": [
       "index.html"
     ],
@@ -37,13 +37,12 @@
       "assets/XpBox-a1633fc0.css"
     ],
     "dynamicImports": [
-      "index.html",
       "src/components/XpBox1.vue",
       "src/components/XpBox2.vue",
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-5ff899bd.js",
+    "file": "assets/XpBox-1124ee1f.js",
     "imports": [
       "index.html"
     ],
@@ -54,7 +53,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-b762168d.js",
+    "file": "assets/XpBox1-827ef8d9.js",
     "imports": [
       "index.html"
     ],
@@ -65,7 +64,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-24d5b549.js",
+    "file": "assets/XpBox2-4e89297c.js",
     "imports": [
       "index.html"
     ],
@@ -76,7 +75,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-b880e4c2.js",
+    "file": "assets/XpBox3-936af2a6.js",
     "imports": [
       "index.html"
     ],
@@ -87,7 +86,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-c2c3c10d.js",
+    "file": "assets/XpBox4-84ed894a.js",
     "imports": [
       "index.html"
     ],
@@ -105,7 +104,7 @@
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-4d542977.js",
+    "file": "assets/XpForm-5980c3cc.js",
     "imports": [
       "index.html"
     ],
@@ -120,7 +119,7 @@
     "css": [
       "assets/XpMap-204e3752.css"
     ],
-    "file": "assets/XpMap-6bd4c306.js",
+    "file": "assets/XpMap-ae927e6c.js",
     "imports": [
       "index.html"
     ],

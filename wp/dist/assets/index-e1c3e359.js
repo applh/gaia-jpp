@@ -14142,7 +14142,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-5ff899bd.js'),true?["./XpBox-5ff899bd.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-1124ee1f.js'),true?["./XpBox-1124ee1f.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14165,11 +14165,13 @@ let store = reactive({
     width: window.innerWidth,
     height: window.innerHeight,
     map : {
+        title: 'Map',
         center: { // paris location
             lat: 48.8566,
             lng: 2.3522,
         },
         zoom: 12,
+        tiles_url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     },
     options: {
         map: false
@@ -14258,6 +14260,11 @@ window.addEventListener('resize', () => {
     store.height = window.innerHeight;
 });
 
+// HACK: custom window.xp_config
+if (window.xp_config) {
+    store.map.tiles_url = window.xp_config.map_tiles_url ?? store.map.tiles_url;
+}
+
 let pjs = {
     app: null,
 };
@@ -14281,4 +14288,4 @@ pjs.app = app;
 // let data_store = await import('./components/data-store.js') 
 // data_store.default.pjs.app = app
 
-export { Fragment as F, __vitePreload as _, createElementBlock as a, createBlock as b, computed as c, defineAsyncComponent as d, createBaseVNode as e, _export_sfc as f, withCtx as g, createTextVNode as h, renderList as i, withDirectives as j, vModelDynamic as k, withModifiers as l, createCommentVNode as m, data_store as n, openBlock as o, dataStore as p, resolveDynamicComponent as r, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w };
+export { Fragment as F, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, _export_sfc as g, withCtx as h, createTextVNode as i, renderList as j, withDirectives as k, vModelDynamic as l, withModifiers as m, createCommentVNode as n, openBlock as o, dataStore as p, resolveDynamicComponent as r, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w };

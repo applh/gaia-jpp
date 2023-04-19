@@ -1,4 +1,4 @@
-import { f as _export_sfc, o as openBlock, a as createElementBlock, e as createBaseVNode, F as Fragment, n as data_store } from './index-b6dfd5b9.js';
+import { g as _export_sfc, o as openBlock, b as createElementBlock, t as toDisplayString, n as createCommentVNode, f as createBaseVNode, F as Fragment, d as data_store } from './index-e1c3e359.js';
 
 const leaflet = '';
 
@@ -14489,8 +14489,9 @@ let mounted = function () {
     let center = data_store.store?.map?.center ?? [51.505, -0.09];
     let zoom = data_store.store?.map?.zoom ?? 13;
 
+    let tiles_url = data_store.store?.map?.tiles_url ?? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
     const map = L$1.map(this.$refs.boxmap).setView(center, zoom);
-    L$1.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L$1.tileLayer(tiles_url, {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
@@ -14533,12 +14534,19 @@ let mounted = function () {
 	L$1.polygon(points).addTo(map);
 };
 
-const _sfc_main = {
-    name: 'XpMap',
-    mounted
+let computed = {
+    store: function () {
+        return data_store.store;
+    }
 };
 
-const _hoisted_1 = /*#__PURE__*/createBaseVNode("em", null, "XpMap", -1);
+const _sfc_main = {
+    name: 'XpMap',
+    mounted,
+    computed,
+};
+
+const _hoisted_1 = { key: 0 };
 const _hoisted_2 = {
   ref: "boxmap",
   class: "xpmap"
@@ -14546,7 +14554,9 @@ const _hoisted_2 = {
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock(Fragment, null, [
-    _hoisted_1,
+    (_ctx.store.map.title)
+      ? (openBlock(), createElementBlock("em", _hoisted_1, toDisplayString(_ctx.store.map.title), 1))
+      : createCommentVNode("", true),
     createBaseVNode("div", _hoisted_2, null, 512)
   ], 64))
 }

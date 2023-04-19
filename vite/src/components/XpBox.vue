@@ -1,9 +1,10 @@
 <script setup>
 import { defineAsyncComponent, reactive, computed } from 'vue'
 
-let data_store = await import('./data-store.js') 
+// let data_store = await import('./data-store.js') 
+import data_store from './data-store.js'
 
-const store = computed(() => data_store.default.store)
+const store = computed(() => data_store.store)
 
 const XpBox1 = defineAsyncComponent(() => import('./XpBox1.vue'))
 const XpBox2 = defineAsyncComponent(() => import('./XpBox2.vue'))

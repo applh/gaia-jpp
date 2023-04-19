@@ -32,8 +32,9 @@ let mounted = function () {
     let center = data_store.store?.map?.center ?? [51.505, -0.09];
     let zoom = data_store.store?.map?.zoom ?? 13;
 
+    let tiles_url = data_store.store?.map?.tiles_url ?? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
     const map = L.map(this.$refs.boxmap).setView(center, zoom);
-    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const tiles = L.tileLayer(tiles_url, {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
@@ -76,14 +77,21 @@ let mounted = function () {
 	const polygon = L.polygon(points).addTo(map);
 }
 
+let computed = {
+    store: function () {
+        return data_store.store;
+    }
+}
+
 export default {
     name: 'XpMap',
-    mounted
+    mounted,
+    computed,
 }
 </script>
 
 <template>
-    <em>XpMap</em>
+    <em v-if="store.map.title">{{ store.map.title }}</em>
     <div ref="boxmap" class="xpmap"></div>
 </template>
 

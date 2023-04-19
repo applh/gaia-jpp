@@ -11,4 +11,12 @@ $index_js = basename($index_js);
 
 ?>
 <div id="app"></div>
+<script type="module">
+// add custom config to data-store
+window.xp_config = {
+    "plugin_url": "<?php echo $plugin_url; ?>",
+    "map_tiles_url": "/wp-content/cache/osm-tiles/{s}/{z}/{x}/{y}.png",
+    // "map_tiles_url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+}
+</script>
 <script type="module" src="<?php echo $plugin_url . "dist/assets/$index_js"; ?>"></script>

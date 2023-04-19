@@ -1,6 +1,7 @@
-import { _ as __vitePreload, d as defineAsyncComponent } from './index-b6dfd5b9.js';
+import { _ as __vitePreload, a as defineAsyncComponent } from './index-e1c3e359.js';
 
-let data_store = await __vitePreload(() => import('./index-b6dfd5b9.js').then(n => n.p),true?["./index-b6dfd5b9.js","./index-bf99ff62.css"]:void 0,import.meta.url);
+let data_store = await __vitePreload(() => import('./index-e1c3e359.js').then(n => n.p),true?["./index-e1c3e359.js","./index-bf99ff62.css"]:void 0,import.meta.url);
+// import data_store from '../assets/data-store.js'
 
 // console.log('data_store', data_store)
 // let dyn_compo = function (name) {
@@ -25,12 +26,12 @@ let setup = () => {
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpForm-4d542977.js'),true?["./XpForm-4d542977.js","./index-b6dfd5b9.js","./index-bf99ff62.css","./XpForm-a224c341.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpForm-5980c3cc.js'),true?["./XpForm-5980c3cc.js","./index-e1c3e359.js","./index-bf99ff62.css","./XpForm-a224c341.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpMap-6bd4c306.js'),true?["./XpMap-6bd4c306.js","./index-b6dfd5b9.js","./index-bf99ff62.css","./XpMap-204e3752.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpMap-ae927e6c.js'),true?["./XpMap-ae927e6c.js","./index-e1c3e359.js","./index-bf99ff62.css","./XpMap-204e3752.css"]:void 0,import.meta.url)
             ));
         }
     }

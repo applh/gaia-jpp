@@ -2,6 +2,7 @@ import { defineAsyncComponent } from 'vue'
 
 
 let data_store = await import('./data-store.js')
+// import data_store from '../assets/data-store.js'
 
 // console.log('data_store', data_store)
 // let dyn_compo = function (name) {

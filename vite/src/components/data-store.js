@@ -7,11 +7,13 @@ let store = reactive({
     width: window.innerWidth,
     height: window.innerHeight,
     map : {
+        title: 'Map',
         center: { // paris location
             lat: 48.8566,
             lng: 2.3522,
         },
         zoom: 12,
+        tiles_url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     },
     options: {
         map: false
@@ -99,6 +101,11 @@ window.addEventListener('resize', () => {
     store.width = window.innerWidth
     store.height = window.innerHeight
 })
+
+// HACK: custom window.xp_config
+if (window.xp_config) {
+    store.map.tiles_url = window.xp_config.map_tiles_url ?? store.map.tiles_url
+}
 
 export let pjs = {
     app: null,
