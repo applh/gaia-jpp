@@ -18,10 +18,12 @@ let mod_xp_box = await import('./xp-box.js')
 //     `,
 // }
 
-let ce_xp_box = defineCustomElement(mod_xp_box.default)
-customElements.define('xp-box', ce_xp_box)
+// let ce_xp_box = defineCustomElement(mod_xp_box.default)
+// customElements.define('xp-box', ce_xp_box)
 
-let appBox = document.getElementById('app')
+// FIXME: avoid conflict with admin page 
+let appBox = null;
+// let appBox = document.getElementById('app')
 console.log('appBox', appBox)
 if (appBox) {
     let data = {

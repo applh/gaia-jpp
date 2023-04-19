@@ -1,7 +1,6 @@
-import { defineAsyncComponent } from 'vue'
+import { _ as __vitePreload, d as defineAsyncComponent } from './index-7fddaa5f.js';
 
-
-let data_store = await import('./data-store.js')
+let data_store = await __vitePreload(() => import('./index-7fddaa5f.js').then(n => n.m),true?["./index-7fddaa5f.js","./index-bf99ff62.css"]:void 0,import.meta.url);
 
 // console.log('data_store', data_store)
 // let dyn_compo = function (name) {
@@ -22,21 +21,21 @@ let setup = () => {
     // console.log('MyTest setup')
     // HACK: this is a hack to get the app instance
     if (data_store.default.pjs.app) {
-        let app = data_store.default.pjs.app
+        let app = data_store.default.pjs.app;
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                import('./XpForm.vue')
-            ))
+                __vitePreload(() => import('./XpForm-d5e00f1b.js'),true?["./XpForm-d5e00f1b.js","./index-7fddaa5f.js","./index-bf99ff62.css","./XpForm-49be5755.css"]:void 0,import.meta.url)
+            ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                import('./XpMap.vue')
-            ))
+                __vitePreload(() => import('./XpMap-794c2594.js'),true?["./XpMap-794c2594.js","./index-7fddaa5f.js","./index-bf99ff62.css","./XpMap-c51ccf3b.css"]:void 0,import.meta.url)
+            ));
         }
     }
 
-}
+};
 
 let template = `
     <div>
@@ -63,22 +62,24 @@ let template = `
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />
         <XpForm v-if="store.options.form_contact" name="contact" />
     </div>
-`
+`;
 
     let computed = {
         store() {
             return data_store.default.store
         }
-    }
+    };
 
     let data = {
         msg: 'Hello World'
-    }
+    };
 
-    export default {
+    const MyTest = {
         name: 'MyTest',
         setup,
         template,
         data: () => data,
         computed
-    }
+    };
+
+export { MyTest as default };

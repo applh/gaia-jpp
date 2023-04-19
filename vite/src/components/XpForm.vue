@@ -1,10 +1,18 @@
 <script setup>
 import { computed } from 'vue'
 
+// add prop name with default value contact
+const props = defineProps({
+    name: {
+        type: String,
+        default: 'contact'
+    }
+})
+
 let data_store = await import('./data-store.js')
 
 let store = computed(() => data_store.default.store)
-let forms = computed(() => data_store.default.store.forms.contact ?? {})
+let form = computed(() => data_store.default.store.forms[props.name ?? 'contact'] ?? null)
 
 function act_submit ($event) {
     console.log('act_submit', $event.target)
@@ -13,14 +21,14 @@ function act_submit ($event) {
 </script>
 
 <template>
-    <h3>XpForm</h3>
-    <form @submit.prevent="act_submit">
-        <label v-for="inout in forms">
-            <span>{{ inout.label }}</span>
-            <textarea v-if="inout.type === 'textarea'" :name="inout.name" v-model="inout.value" cols="80" rows="10"/>
-            <input v-else :type="inout.type" :name="inout.name" v-model="inout.value" />
+    <form v-if="form" @submit.prevent="act_submit">
+        <em>XpForm</em>
+        <label v-for="fin in form.inputs">
+            <span>{{ fin.label }}</span>
+            <textarea v-if="fin.type === 'textarea'" :name="fin.name" v-model="fin.value" cols="80" rows="10"/>
+            <input v-else :type="fin.type" :name="fin.name" v-model="fin.value" />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">{{ form.labels.submit }}</button>
     </form>
 </template>
 
@@ -30,7 +38,6 @@ function act_submit ($event) {
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-        min-width: 400px;
         max-width: 800px;
     }
     label {

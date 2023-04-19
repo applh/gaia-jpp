@@ -1,18 +1,17 @@
 
-form[data-v-b6c857b0] {
+form[data-v-25cec0eb] {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-        min-width: 400px;
         max-width: 800px;
 }
-label[data-v-b6c857b0] {
+label[data-v-25cec0eb] {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
 }
-input[data-v-b6c857b0], textarea[data-v-b6c857b0] {
+input[data-v-25cec0eb], textarea[data-v-25cec0eb] {
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 0.25rem;

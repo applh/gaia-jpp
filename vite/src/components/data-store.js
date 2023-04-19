@@ -4,37 +4,72 @@ let store = reactive({
     counter: 0,
     width: window.innerWidth,
     height: window.innerHeight,
+    options: {
+        map: false
+    },
     forms: {
+        'newsletter': {
+            'labels': {
+                'submit' : 'Subscribe',
+            },
+            inputs: {
+                'name': {
+                    'label': 'Name',
+                    'type': 'text',
+                    'value': '',
+                    'required': true,
+                    'min': 3,
+                    'max': 20,
+                    'pattern': '^[a-zA-Z0-9]+$',
+                    'error': 'Name must be between 3 and 20 characters and contain only letters and numbers'
+                },
+                'email': {
+                    'label': 'Email',
+                    'type': 'email',
+                    'value': '',
+                    'required': true,
+                    'min': 3,
+                    'max': 20,
+                    'pattern': '^[a-zA-Z0-9]+$',
+                    'error': 'Email must be between 3 and 20 characters and contain only letters and numbers'
+                },
+            },
+        },
         'contact': {
-            'name': {
-                'label': 'Name',
-                'type': 'text',
-                'value': '',
-                'required': true,
-                'min': 3,
-                'max': 20,
-                'pattern': '^[a-zA-Z0-9]+$',
-                'error': 'Name must be between 3 and 20 characters and contain only letters and numbers'
+            'labels': {
+                'submit' : 'Send',
             },
-            'email': {
-                'label': 'Email',
-                'type': 'email',
-                'value': '',
-                'required': true,
-                'min': 3,
-                'max': 20,
-                'pattern': '^[a-zA-Z0-9]+$',
-                'error': 'Email must be between 3 and 20 characters and contain only letters and numbers'
-            },
-            'message': {
-                'label': 'Message',
-                'type': 'textarea',
-                'value': '',
-                'required': true,
-                'min': 3,
-                'max': 20,
-                'pattern': '^[a-zA-Z0-9]+$',
-                'error': 'Message must be between 3 and 20 characters and contain only letters and numbers'
+            inputs: {
+                'name': {
+                    'label': 'Name',
+                    'type': 'text',
+                    'value': '',
+                    'required': true,
+                    'min': 3,
+                    'max': 20,
+                    'pattern': '^[a-zA-Z0-9]+$',
+                    'error': 'Name must be between 3 and 20 characters and contain only letters and numbers'
+                },
+                'email': {
+                    'label': 'Email',
+                    'type': 'email',
+                    'value': '',
+                    'required': true,
+                    'min': 3,
+                    'max': 20,
+                    'pattern': '^[a-zA-Z0-9]+$',
+                    'error': 'Email must be between 3 and 20 characters and contain only letters and numbers'
+                },
+                'message': {
+                    'label': 'Message',
+                    'type': 'textarea',
+                    'value': '',
+                    'required': true,
+                    'min': 3,
+                    'max': 20,
+                    'pattern': '^[a-zA-Z0-9]+$',
+                    'error': 'Message must be between 3 and 20 characters and contain only letters and numbers'
+                },
             },
         }
     },

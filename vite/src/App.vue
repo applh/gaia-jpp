@@ -1,8 +1,6 @@
 <script setup>
 import { defineAsyncComponent } from 'vue'
 
-// import HelloWorld from './components/HelloWorld.vue'
-
 // async component
 const XpBox = defineAsyncComponent(() => import('./components/XpBox.vue'))
 
@@ -12,6 +10,7 @@ const XpBox = defineAsyncComponent(() => import('./components/XpBox.vue'))
   <Suspense>
     <XpBox />
   </Suspense>
+
 </template>
 
 <style scoped>

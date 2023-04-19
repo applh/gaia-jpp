@@ -30,9 +30,11 @@ $title = $_GET['title'] ?? $block;
             let content = '...';
             // react element
             let h1 = el('h1', null, 'title1');
+            let elem = el('div', blockProps, h1, content);
+            
             // add custom element defined by Vue 🔥
-            let xp_box = el('xp-box');
-            let elem = el('div', blockProps, h1, content, xp_box);
+            // let xp_box = el('xp-box');
+            // let elem = el('div', blockProps, h1, content, xp_box);
 
             return elem;
         },

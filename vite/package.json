@@ -17,6 +17,7 @@
   "devDependencies": {
     "@playwright/test": "^1.32.3",
     "@vitejs/plugin-vue": "^4.1.0",
+    "leaflet": "^1.9.3",
     "playwright": "^1.32.3",
     "vite": "^4.2.0",
     "vitepress": "^1.0.0-alpha.71"
