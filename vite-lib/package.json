@@ -1,0 +1,27 @@
+{
+  "name": "vite-lib",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/my-test.umd.cjs",
+  "module": "dist/my-test.js",
+  "exports": {
+    ".": {
+      "import": "./dist/my-test.js",
+      "require": "./dist/my-test.umd.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.1.0",
+    "vite": "^4.2.0"
+  }
+}
