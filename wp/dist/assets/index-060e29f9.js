@@ -14142,7 +14142,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-1124ee1f.js'),true?["./XpBox-1124ee1f.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-99ff7655.js'),true?["./XpBox-99ff7655.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14157,6 +14157,21 @@ return (_ctx, _cache) => {
 
 };
 const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-67827f9d"]]);
+
+// console.log('xp-plugin.js: loading...')
+
+let xp_plugin = {
+    install: (app, options) => {
+        // inject a globally available $xp() method
+        app.config.globalProperties.$xp = (cmd='', key={}) => {
+            let res = null;
+            if (cmd == 'reverse') {
+                res = key.split('').reverse().join('');
+            }
+            return res
+        };
+    }
+};
 
 let store = reactive({
     h1: 'GAIA',
@@ -14260,13 +14275,10 @@ window.addEventListener('resize', () => {
     store.height = window.innerHeight;
 });
 
-// HACK: custom window.xp_config
-if (window.xp_config) {
-    store.map.tiles_url = window.xp_config.map_tiles_url ?? store.map.tiles_url;
-}
 
 let pjs = {
     app: null,
+    store: store,
 };
 
 const data_store = {
@@ -14274,13 +14286,18 @@ const data_store = {
     pjs
 };
 
+// HACK: make it available in the browser console
+window.pjs = pjs;
+
 const dataStore = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
     __proto__: null,
     default: data_store,
-    pjs
+    pjs,
+    store
 }, Symbol.toStringTag, { value: 'Module' }));
 
 let app  = createApp(App);
+app.use(xp_plugin);
 app.mount('#app');
 pjs.app = app;
 

@@ -58,6 +58,7 @@ let template = `
                 <span>Contact</span>
             </label>
             <hr />
+            <p>{{ $xp('reverse', store.msg) }}</p>
         </div>
         <XpMap v-if="store.options.map" />
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />

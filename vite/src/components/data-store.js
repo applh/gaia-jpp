@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 
-let store = reactive({
+export let store = reactive({
     h1: 'GAIA',
     msg: 'Hello World',
     counter: 0,
@@ -102,13 +102,10 @@ window.addEventListener('resize', () => {
     store.height = window.innerHeight
 })
 
-// HACK: custom window.xp_config
-if (window.xp_config) {
-    store.map.tiles_url = window.xp_config.map_tiles_url ?? store.map.tiles_url
-}
 
 export let pjs = {
     app: null,
+    store: store,
 }
 
 export default {
@@ -116,4 +113,6 @@ export default {
     pjs
 }
 
+// HACK: make it available in the browser console
+window.pjs = pjs
 

@@ -2,8 +2,11 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 
+// import xp_plugin
+import { xp_plugin } from './lib/xp-plugin.js'
 
 let app  = createApp(App)
+app.use(xp_plugin)
 app.mount('#app')
 
 // HACK: to publish the app instance
