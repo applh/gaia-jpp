@@ -35,6 +35,11 @@ let setup = () => {
                 import('./XpMap.vue')
             ))
         }
+        if (!app.component('XpBuilder')) {
+            app.component('XpBuilder', defineAsyncComponent(() =>
+                import('./XpBuilder.vue')
+            ))
+        }
     }
 
 }
@@ -42,12 +47,17 @@ let setup = () => {
 let template = `
     <div>
         <h1>{{ store.h1 }}</h1>
-        <p>{{ store.msg }}</p>
+        <input v-model="store.msg" />
+        <p>{{ $xp('reverse', store.msg) }}</p>
         <div>
             <hr />
             <label>
                 <input type="checkbox" v-model="store.options.map" />
                 <span>Map</span>
+            </label>
+            <label>
+                <input type="checkbox" v-model="store.options.builder" />
+                <span>Builder</span>
             </label>
             <label>
                 <input type="checkbox" v-model="store.options.form_newsletter" />
@@ -58,11 +68,11 @@ let template = `
                 <span>Contact</span>
             </label>
             <hr />
-            <p>{{ $xp('reverse', store.msg) }}</p>
         </div>
         <XpMap v-if="store.options.map" />
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />
         <XpForm v-if="store.options.form_contact" name="contact" />
+        <XpBuilder v-if="store.options.builder" name="builder" />
     </div>
 `
 
