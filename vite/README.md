@@ -14,3 +14,9 @@
 npm i -S vuedraggable@next
 
 ```
+
+### SLIDEV
+
+* https://sli.dev/
+* https://github.com/antfu/drauu
+

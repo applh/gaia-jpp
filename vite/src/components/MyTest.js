@@ -40,6 +40,11 @@ let setup = () => {
                 import('./XpBuilder.vue')
             ))
         }
+        if (!app.component('XpDraw')) {
+            app.component('XpDraw', defineAsyncComponent(() =>
+                import('./XpDraw.vue')
+            ))
+        }
     }
 
 }
@@ -60,6 +65,10 @@ let template = `
                 <span>Builder</span>
             </label>
             <label>
+                <input type="checkbox" v-model="store.options.draw" />
+                <span>Draw</span>
+            </label>
+            <label>
                 <input type="checkbox" v-model="store.options.form_newsletter" />
                 <span>Newsletter</span>
             </label>
@@ -73,6 +82,7 @@ let template = `
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />
         <XpForm v-if="store.options.form_contact" name="contact" />
         <XpBuilder v-if="store.options.builder" name="builder" />
+        <XpDraw v-if="store.options.draw" name="draw" />
     </div>
 `
 

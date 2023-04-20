@@ -153,6 +153,13 @@
     "@docsearch/css" "3.3.3"
     algoliasearch "^4.0.0"
 
+"@drauu/core@0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@drauu/core/-/core-0.3.2.tgz#e6ba620bd4d2ef72e0850e4b7ba3ca708dafdfd1"
+  integrity sha512-7G3qIuMBkDkrzvZOs6Rm/7rKWuhZOe8iimHooTmy4vpKGsPimaNC1jGCSPSM8ys/johhcIvx+1ZvnMJ5+UAXJA==
+  dependencies:
+    perfect-freehand "^1.2.0"
+
 "@esbuild/android-arm64@0.17.17":
   version "0.17.17"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.17.17.tgz#164b054d58551f8856285f386e1a8f45d9ba3a31"
@@ -440,6 +447,13 @@ csstype@^2.6.8:
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.21.tgz"
   integrity sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==
 
+drauu@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/drauu/-/drauu-0.3.2.tgz#1d35e37bb370a38bba7f455fc9a5842f3ea3f6ee"
+  integrity sha512-NnRQU6uM9uk1zAd33nFZ6FqZGGmT3jiYS/ERdDIDuTUgDsweSgpf1D3X7vYZwRSxCZayOnnt1sKWj9swbR8q4Q==
+  dependencies:
+    "@drauu/core" "0.3.2"
+
 esbuild@^0.17.5:
   version "0.17.17"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.17.17.tgz"
@@ -533,6 +547,11 @@ path-parse@^1.0.7:
   version "1.0.7"
   resolved "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
+
+perfect-freehand@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/perfect-freehand/-/perfect-freehand-1.2.0.tgz#706a0f854544f6175772440c51d3b0563eb3988a"
+  integrity sha512-h/0ikF1M3phW7CwpZ5MMvKnfpHficWoOEyr//KVNTxV4F6deRK1eYMtHyBKEAKFK0aXIEUK9oBvlF6PNXMDsAw==
 
 picocolors@^1.0.0:
   version "1.0.0"
