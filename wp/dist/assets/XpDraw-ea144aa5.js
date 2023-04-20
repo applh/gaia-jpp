@@ -1,4 +1,5 @@
-import { g as _export_sfc, o as openBlock, b as createElementBlock, F as Fragment, E as pushScopeId, G as popScopeId, f as createBaseVNode } from './index-68ea15ed.js';
+import { q as ref, z as watch, g as _export_sfc, o as openBlock, b as createElementBlock, f as createBaseVNode, F as Fragment, j as renderList, A as normalizeClass, u as unref, s as normalizeStyle, m as withModifiers, k as withDirectives, v as vModelText, y as isRef, t as toDisplayString } from './index-1be2dd73.js';
+import { a as unrefElement, t as tryOnScopeDispose, c as createEventHook, b as toRefs } from './index-af9af1a0.js';
 
 function $(e,t,u,x=h=>h){return e*x(.5-t*(.5-u))}function se(e){return [-e[0],-e[1]]}function l(e,t){return [e[0]+t[0],e[1]+t[1]]}function a(e,t){return [e[0]-t[0],e[1]-t[1]]}function b(e,t){return [e[0]*t,e[1]*t]}function he(e,t){return [e[0]/t,e[1]/t]}function R(e){return [e[1],-e[0]]}function B(e,t){return e[0]*t[0]+e[1]*t[1]}function ue(e,t){return e[0]===t[0]&&e[1]===t[1]}function ge(e){return Math.hypot(e[0],e[1])}function de(e){return e[0]*e[0]+e[1]*e[1]}function A(e,t){return de(a(e,t))}function G(e){return he(e,ge(e))}function ie(e,t){return Math.hypot(e[1]-t[1],e[0]-t[0])}function L(e,t,u){let x=Math.sin(u),h=Math.cos(u),y=e[0]-t[0],n=e[1]-t[1],f=y*h-n*x,d=y*x+n*h;return [f+t[0],d+t[1]]}function K(e,t,u){return l(e,b(a(t,e),u))}function ee(e,t,u){return l(e,b(t,u))}var{min:C,PI:xe}=Math,pe=.275,V=xe+1e-4;function ce(e,t={}){let{size:u=16,smoothing:x=.5,thinning:h=.5,simulatePressure:y=!0,easing:n=r=>r,start:f={},end:d={},last:D=!1}=t,{cap:S=!0,easing:j=r=>r*(2-r)}=f,{cap:q=!0,easing:c=r=>--r*r*r+1}=d;if(e.length===0||u<=0)return [];let p=e[e.length-1].runningLength,g=f.taper===!1?0:f.taper===!0?Math.max(u,p):f.taper,T=d.taper===!1?0:d.taper===!0?Math.max(u,p):d.taper,te=Math.pow(u*x,2),_=[],M=[],H=e.slice(0,10).reduce((r,i)=>{let o=i.pressure;if(y){let s=C(1,i.distance/u),W=C(1,1-s);o=C(1,r+(W-r)*(s*pe));}return (r+o)/2},e[0].pressure),m=$(u,h,e[e.length-1].pressure,n),U,X=e[0].vector,z=e[0].point,F=z,O=z,E=F,J=!1;for(let r=0;r<e.length;r++){let{pressure:i}=e[r],{point:o,vector:s,distance:W,runningLength:I}=e[r];if(r<e.length-1&&p-I<3)continue;if(h){if(y){let v=C(1,W/u),Z=C(1,1-v);i=C(1,H+(Z-H)*(v*pe));}m=$(u,h,i,n);}else m=u/2;U===void 0&&(U=m);let le=I<g?j(I/g):1,fe=p-I<T?c((p-I)/T):1;m=Math.max(.01,m*Math.min(le,fe));let re=(r<e.length-1?e[r+1]:e[r]).vector,Y=r<e.length-1?B(s,re):1,be=B(s,X)<0&&!J,ne=Y!==null&&Y<0;if(be||ne){let v=b(R(X),m);for(let Z=1/13,w=0;w<=1;w+=Z)O=L(a(o,v),o,V*w),_.push(O),E=L(l(o,v),o,V*-w),M.push(E);z=O,F=E,ne&&(J=!0);continue}if(J=!1,r===e.length-1){let v=b(R(s),m);_.push(a(o,v)),M.push(l(o,v));continue}let oe=b(R(K(re,s,Y)),m);O=a(o,oe),(r<=1||A(z,O)>te)&&(_.push(O),z=O),E=l(o,oe),(r<=1||A(F,E)>te)&&(M.push(E),F=E),H=i,X=s;}let P=e[0].point.slice(0,2),k=e.length>1?e[e.length-1].point.slice(0,2):l(e[0].point,[1,1]),Q=[],N=[];if(e.length===1){if(!(g||T)||D){let r=ee(P,G(R(a(P,k))),-(U||m)),i=[];for(let o=1/13,s=o;s<=1;s+=o)i.push(L(r,P,V*2*s));return i}}else {if(!(g||T&&e.length===1))if(S)for(let i=1/13,o=i;o<=1;o+=i){let s=L(M[0],P,V*o);Q.push(s);}else {let i=a(_[0],M[0]),o=b(i,.5),s=b(i,.51);Q.push(a(P,o),a(P,s),l(P,s),l(P,o));}let r=R(se(e[e.length-1].vector));if(T||g&&e.length===1)N.push(k);else if(q){let i=ee(k,r,m);for(let o=1/29,s=o;s<1;s+=o)N.push(L(i,k,V*3*s));}else N.push(l(k,b(r,m)),l(k,b(r,m*.99)),a(k,b(r,m*.99)),a(k,b(r,m)));}return _.concat(N,M.reverse(),Q)}function me(e,t={}){var q;let{streamline:u=.5,size:x=16,last:h=!1}=t;if(e.length===0)return [];let y=.15+(1-u)*.85,n=Array.isArray(e[0])?e:e.map(({x:c,y:p,pressure:g=.5})=>[c,p,g]);if(n.length===2){let c=n[1];n=n.slice(0,-1);for(let p=1;p<5;p++)n.push(K(n[0],c,p/4));}n.length===1&&(n=[...n,[...l(n[0],[1,1]),...n[0].slice(2)]]);let f=[{point:[n[0][0],n[0][1]],pressure:n[0][2]>=0?n[0][2]:.25,vector:[1,1],distance:0,runningLength:0}],d=!1,D=0,S=f[0],j=n.length-1;for(let c=1;c<n.length;c++){let p=h&&c===j?n[c].slice(0,2):K(S.point,n[c],y);if(ue(S.point,p))continue;let g=ie(p,S.point);if(D+=g,c<j&&!d){if(D<x)continue;d=!0;}S={point:p,pressure:n[c][2]>=0?n[c][2]:.5,vector:G(a(S.point,p)),distance:g,runningLength:D},f.push(S);}return f[0].vector=((q=f[1])==null?void 0:q.vector)||[0,0],f}function ae(e,t={}){return ce(me(e,t),t)}
 
@@ -820,47 +821,187 @@ function createDrauu(options) {
   return new Drauu(options);
 }
 
-const XpDraw_vue_vue_type_style_index_0_scoped_0cce7c68_lang = '';
+var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+function useDrauu(target, options) {
+  const drauuInstance = ref();
+  let disposables = [];
+  const onChangedHook = createEventHook();
+  const onCanceledHook = createEventHook();
+  const onCommittedHook = createEventHook();
+  const onStartHook = createEventHook();
+  const onEndHook = createEventHook();
+  const canUndo = ref(false);
+  const canRedo = ref(false);
+  const altPressed = ref(false);
+  const shiftPressed = ref(false);
+  const brush = ref({
+    color: "black",
+    size: 3,
+    arrowEnd: false,
+    cornerRadius: 0,
+    dasharray: void 0,
+    fill: "transparent",
+    mode: "draw"
+  });
+  watch(brush, () => {
+    const instance = drauuInstance.value;
+    if (instance) {
+      instance.brush = brush.value;
+      instance.mode = brush.value.mode;
+    }
+  }, { deep: true });
+  const undo = () => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.undo();
+  };
+  const redo = () => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.redo();
+  };
+  const clear = () => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.clear();
+  };
+  const cancel = () => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.cancel();
+  };
+  const load = (svg) => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.load(svg);
+  };
+  const dump = () => {
+    var _a;
+    return (_a = drauuInstance.value) == null ? void 0 : _a.dump();
+  };
+  const cleanup = () => {
+    var _a;
+    disposables.forEach((dispose) => dispose());
+    (_a = drauuInstance.value) == null ? void 0 : _a.unmount();
+  };
+  const syncStatus = () => {
+    if (drauuInstance.value) {
+      canUndo.value = drauuInstance.value.canUndo();
+      canRedo.value = drauuInstance.value.canRedo();
+      altPressed.value = drauuInstance.value.altPressed;
+      shiftPressed.value = drauuInstance.value.shiftPressed;
+    }
+  };
+  watch(
+    () => unrefElement(target),
+    (el) => {
+      if (!el || typeof SVGSVGElement === "undefined" || !(el instanceof SVGSVGElement))
+        return;
+      if (drauuInstance.value)
+        cleanup();
+      drauuInstance.value = createDrauu(__spreadValues({ el }, options));
+      syncStatus();
+      disposables = [
+        drauuInstance.value.on("canceled", () => onCanceledHook.trigger()),
+        drauuInstance.value.on("committed", () => onCommittedHook.trigger()),
+        drauuInstance.value.on("start", () => onStartHook.trigger()),
+        drauuInstance.value.on("end", () => onEndHook.trigger()),
+        drauuInstance.value.on("changed", () => {
+          syncStatus();
+          onChangedHook.trigger();
+        })
+      ];
+    },
+    { flush: "post" }
+  );
+  tryOnScopeDispose(() => cleanup());
+  return {
+    drauuInstance,
+    load,
+    dump,
+    clear,
+    cancel,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    brush,
+    onChanged: onChangedHook.on,
+    onCommitted: onCommittedHook.on,
+    onStart: onStartHook.on,
+    onEnd: onEndHook.on,
+    onCanceled: onCanceledHook.on
+  };
+}
+
+const XpDraw_vue_vue_type_style_index_0_scoped_15c28d3d_lang = '';
+
+const _hoisted_1 = { class: "toolbar" };
+const _hoisted_2 = ["onClick"];
+
 
 const _sfc_main = {
-    name: 'XpDraw',
-    props: {
-        name: {
-            type: String,
-            default: 'draw'
-        }
-    },
-    mounted() {
-        console.log('XpDraw mounted');
-        let boxdrauu = this.$refs.boxdrauu;
-        console.log('boxdrauu', boxdrauu);
-        const drauu = createDrauu({
-            el: boxdrauu,
-            brush: {
-                mode: 'stylus', // 'line', 'reactangle', 'ellipse'
-                color: 'skyblue',
-                size: 5,
-            }
-        });
+  __name: 'XpDraw',
+  setup(__props) {
 
-        // change brush color
-        drauu.options.brush.color = 'red';
-    }
-};
+const colors = ref(['black', '#ef4444', '#22c55e', '#3b82f6']);
 
-const _withScopeId = n => (pushScopeId("data-v-0cce7c68"),n=n(),popScopeId(),n);
-const _hoisted_1 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createBaseVNode("h1", null, "Drauu", -1));
-const _hoisted_2 = {
-  ref: "boxdrauu",
-  class: "box-drauu"
-};
+const target = ref();
+const { undo, redo, canUndo, canRedo, brush } 
+= useDrauu(target, {
+});
 
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+const { color, size } = toRefs(brush);
+
+
+return (_ctx, _cache) => {
   return (openBlock(), createElementBlock(Fragment, null, [
-    _hoisted_1,
-    (openBlock(), createElementBlock("svg", _hoisted_2, null, 512))
+    createBaseVNode("div", _hoisted_1, [
+      (openBlock(true), createElementBlock(Fragment, null, renderList(colors.value, (_color) => {
+        return (openBlock(), createElementBlock("div", {
+          key: _color,
+          class: normalizeClass([{ active: _color === unref(color) }, "color-button"]),
+          style: normalizeStyle({ background: _color }),
+          onClick: withModifiers(() => color.value = _color, ["prevent"])
+        }, "v", 14, _hoisted_2))
+      }), 128)),
+      withDirectives(createBaseVNode("input", {
+        type: "range",
+        min: "1",
+        max: "20",
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (isRef(size) ? (size).value = $event : null))
+      }, null, 512), [
+        [vModelText, unref(size)]
+      ]),
+      createBaseVNode("div", {
+        class: "color-button",
+        style: normalizeStyle({ background: unref(color) })
+      }, toDisplayString(unref(size)), 5),
+      createBaseVNode("div", {
+        class: "color-button",
+        style: normalizeStyle({ background: unref(color) }),
+        onClick: _cache[1] || (_cache[1] = withModifiers((...args) => (unref(undo) && unref(undo)(...args)), ["prevent"]))
+      }, "😅", 4)
+    ]),
+    (openBlock(), createElementBlock("svg", {
+      ref_key: "target",
+      ref: target
+    }, null, 512))
   ], 64))
 }
-const XpDraw = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],['__scopeId',"data-v-0cce7c68"]]);
+}
+
+};
+const XpDraw = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-15c28d3d"]]);
 
 export { XpDraw as default };

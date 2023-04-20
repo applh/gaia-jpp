@@ -18,6 +18,7 @@
     "@playwright/test": "^1.32.3",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vueuse/core": "^10.0.2",
+    "@vueuse/integrations": "^10.0.2",
     "drauu": "^0.3.2",
     "leaflet": "^1.9.3",
     "playwright": "^1.32.3",

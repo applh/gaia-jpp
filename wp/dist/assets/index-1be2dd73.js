@@ -14292,7 +14292,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-2734feef.js'),true?["./XpBox-2734feef.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-736b9187.js'),true?["./XpBox-736b9187.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14455,4 +14455,4 @@ pjs.app = app;
 // let data_store = await import('./components/data-store.js') 
 // data_store.default.pjs.app = app
 
-export { watch as A, vue_esmBundler as B, normalizeStyle as C, createVNode as D, pushScopeId as E, Fragment as F, popScopeId as G, dataStore as H, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, _export_sfc as g, withCtx as h, createTextVNode as i, renderList as j, withDirectives as k, vModelDynamic as l, withModifiers as m, createCommentVNode as n, openBlock as o, isRef as p, toRefs as q, resolveDynamicComponent as r, customRef as s, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w, getCurrentScope as x, onScopeDispose as y, ref as z };
+export { normalizeClass as A, toRefs as B, customRef as C, getCurrentScope as D, onScopeDispose as E, Fragment as F, dataStore as G, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, _export_sfc as g, withCtx as h, createTextVNode as i, renderList as j, withDirectives as k, vModelDynamic as l, withModifiers as m, createCommentVNode as n, openBlock as o, vue_esmBundler as p, ref as q, resolveDynamicComponent as r, normalizeStyle as s, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w, createVNode as x, isRef as y, watch as z };

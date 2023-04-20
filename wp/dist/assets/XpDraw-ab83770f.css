@@ -1,0 +1,16 @@
+
+svg[data-v-15c28d3d] {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #eee;
+}
+.color-button[data-v-15c28d3d] {
+    display: inline-block;
+    aspect-ratio: 1 / 1;
+    width: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin: 0.5rem;
+    cursor: pointer;
+}
