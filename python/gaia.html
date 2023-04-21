@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        h1 {
+            color: #ff0000;
+        }
+
+        #app {
+            color: #00ff00;
+        }
+
+        #appdev {
+            color: #0000ff;
+        }
+
+        #appimg {
+            border: 1px solid #ffffff;
+            width: 100%;
+            aspect-ratio: 1/2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HELLO WORLD</h1>
+    <hr />
+    <h2>app</h2>
+    <div id="app"></div>
+    <hr />
+    <h2>appdev</h2>
+    <div id="appdev"></div>
+    <hr />
+    <img id="appimg" src="http://gaia.test:8666/photon.php?text=xxx" alt="W3Schools.com" width="104" height="142">
+    <script>
+        app.innerHTML = "Hello World from JS";
+        let counter = 0;
+        setInterval(() => {
+            // add time stamp
+            let date = new Date();
+            let time = date.toLocaleTimeString();
+
+            counter++;
+            app.innerHTML = "Counter: " + counter;
+            appdev.innerHTML = "toto World from JS: " + time;
+
+            // COOL 🔥
+            // CAN LAUNCH GET REQUEST ON INTERNET 
+            // change image by loading a new one on internet
+            let src = 'http://gaia.test:8666/photon.php?text=' + counter;
+            appimg.src = src;
+            
+        }, 1000);
+
+        // LIMIT: DRAW IS NOT WORKING IN JUPYTER NOTEBOOK
+
+    </script>
+</body>
+
+</html>
