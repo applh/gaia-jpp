@@ -1,0 +1,12 @@
+h1 {
+    color:red !important;
+}
+
+h2 {
+    color:red !important;
+    text-align: center;
+    padding-bottom: 5vw;
+}
+pre.slidev-code {
+    font-size: 10px !important;
+}

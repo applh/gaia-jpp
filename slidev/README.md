@@ -9,3 +9,15 @@ To start the slide show:
 Edit the [slides.md](./slides.md) to see the changes.
 
 Learn more about Slidev on [documentations](https://sli.dev/).
+
+## command line
+
+https://sli.dev/guide/install.html#slidev-build-entry
+
+```bash
+# export to static site with pdf
+slidev export [your-file.md]
+
+slidev export --dark [your-file.md]
+
+```
