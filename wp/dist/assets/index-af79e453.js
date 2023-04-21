@@ -14292,7 +14292,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-736b9187.js'),true?["./XpBox-736b9187.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-5a1a4300.js'),true?["./XpBox-5a1a4300.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
