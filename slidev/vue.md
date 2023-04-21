@@ -1,17 +1,21 @@
 ---
 title: Vue
 aspectRatio: 1 / 1
+# canvasWidth: 1280
 # canvasWidth: 1024
 # canvasWidth: 800
 # canvasWidth: 600
 # canvasWidth: 512
-canvasWidth: 600
+# canvasWidth: 600
+canvasWidth: 1280
 
 download: true
 # theme: default
 # theme: seriph
 # theme: apple-basic
 theme: seriph
+defaults:
+# layout: center
 
 # transition: slide-left
 htmlAttrs:
@@ -107,6 +111,8 @@ slidev export --dark [your-file.md]
 
 ```
 
+---
+
 ### Slidev: Customization
 
 https://sli.dev/custom/directory-structure.html
@@ -120,6 +126,8 @@ https://sli.dev/custom/directory-structure.html
   * for creating Vue applications 
   * with a server-side rendering 
   * and generating static websites
+
+---
 
 ### Nuxt: Command line
 

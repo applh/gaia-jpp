@@ -4,9 +4,35 @@ h1 {
 
 h2 {
     color:red !important;
-    text-align: center;
+    text-align: left;
     padding-bottom: 5vw;
 }
+h3 {
+    color:red !important;
+    text-align: left;
+    padding-bottom: 5vw;
+}
+
 pre.slidev-code {
     font-size: 10px !important;
 }
+
+
+#slide-content {
+    /* transform: translate(-50%, -50%) scale(1) !important; */
+}
+
+#slideshow {
+}
+
+/* select all .slide-layout except first one */
+.slidev-layout:not(:first-child) {
+    /* transform-origin: top left;
+    transform: scale(3) !important; */
+}
+
+.slidev-layout.cover {
+    /* scale x2 with origin left,top */
+    /* transform: scale(3) !important; */
+}
+
