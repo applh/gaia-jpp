@@ -1,4 +1,4 @@
-import { y as isRef, B as toRefs$1, C as customRef, D as getCurrentScope, E as onScopeDispose, u as unref, q as ref, c as computed, z as watch } from './index-af79e453.js';
+import { y as isRef, B as toRefs$1, C as customRef, D as getCurrentScope, E as onScopeDispose, u as unref, q as ref, c as computed, z as watch } from './index-34d38590.js';
 
 function tryOnScopeDispose(fn) {
   if (getCurrentScope()) {

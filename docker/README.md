@@ -2,8 +2,6 @@
 
 ## TUTO
 
-https://github.com/IshtarStar/docker-compose-nginx-phpfpm
-
 ## LAUNCH
 
 ```bash
@@ -11,7 +9,13 @@ docker ps
 
 docker-compose build
 
+docker-compose up
+
+docker-compose up -d
+
 docker-compose up --detach
+
+docker-compose down
 
 docker-compose stop
 

@@ -1,5 +1,5 @@
-import { p as vue_esmBundler, q as ref, o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, s as normalizeStyle, F as Fragment, j as renderList, x as createVNode, h as withCtx, y as isRef } from './index-af79e453.js';
-import { u as useDraggable } from './index-17b52139.js';
+import { p as vue_esmBundler, q as ref, o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, s as normalizeStyle, F as Fragment, i as renderList, x as createVNode, g as withCtx, y as isRef } from './index-34d38590.js';
+import { u as useDraggable } from './index-da9c79b5.js';
 import { g as getAugmentedNamespace, c as commonjsGlobal, a as getDefaultExportFromCjs } from './_commonjsHelpers-849bcf65.js';
 
 var vuedraggable_umdExports = {};

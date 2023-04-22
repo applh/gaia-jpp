@@ -14276,23 +14276,13 @@ const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) {
     })).then(() => baseModule());
 };
 
-const App_vue_vue_type_style_index_0_scoped_67827f9d_lang = '';
-
-const _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 // async component
 
 const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-5a1a4300.js'),true?["./XpBox-5a1a4300.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-35166abe.js'),true?["./XpBox-35166abe.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14305,22 +14295,6 @@ return (_ctx, _cache) => {
 }
 }
 
-};
-const App = /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',"data-v-67827f9d"]]);
-
-// console.log('xp-plugin.js: loading...')
-
-let xp_plugin = {
-    install: (app, options) => {
-        // inject a globally available $xp() method
-        app.config.globalProperties.$xp = (cmd='', key={}) => {
-            let res = null;
-            if (cmd == 'reverse') {
-                res = key.split('').reverse().join('');
-            }
-            return res
-        };
-    }
 };
 
 let store = reactive({
@@ -14446,13 +14420,26 @@ const dataStore = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty(
     store
 }, Symbol.toStringTag, { value: 'Module' }));
 
-let app  = createApp(App);
-app.use(xp_plugin);
-app.mount('#app');
-pjs.app = app;
+// console.log('xp-plugin.js: loading...')
 
-// WARNING: avoid this syntax
-// let data_store = await import('./components/data-store.js') 
-// data_store.default.pjs.app = app
+let xp_plugin = {
+    install: (app, options) => {
+        // HACK: to publish the app instance
+        pjs.app = app;
 
-export { normalizeClass as A, toRefs as B, customRef as C, getCurrentScope as D, onScopeDispose as E, Fragment as F, dataStore as G, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, _export_sfc as g, withCtx as h, createTextVNode as i, renderList as j, withDirectives as k, vModelDynamic as l, withModifiers as m, createCommentVNode as n, openBlock as o, vue_esmBundler as p, ref as q, resolveDynamicComponent as r, normalizeStyle as s, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w, createVNode as x, isRef as y, watch as z };
+        // inject a globally available $xp() method
+        app.config.globalProperties.$xp = (cmd='', key={}) => {
+            let res = null;
+            if (cmd == 'reverse') {
+                res = key.split('').reverse().join('');
+            }
+            return res
+        };
+    }
+};
+
+createApp(_sfc_main)
+    .use(xp_plugin)
+    .mount('#app');
+
+export { normalizeClass as A, toRefs as B, customRef as C, getCurrentScope as D, onScopeDispose as E, Fragment as F, dataStore as G, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, withCtx as g, createTextVNode as h, renderList as i, withDirectives as j, vModelDynamic as k, withModifiers as l, createCommentVNode as m, defineCustomElement as n, openBlock as o, vue_esmBundler as p, ref as q, resolveDynamicComponent as r, normalizeStyle as s, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w, createVNode as x, isRef as y, watch as z };

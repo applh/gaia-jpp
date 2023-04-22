@@ -1,4 +1,6 @@
 <script>
+import { defineCustomElement } from 'vue'
+
 // import leaflet css
 import 'leaflet/dist/leaflet.css'
 
@@ -13,6 +15,26 @@ import L from 'leaflet';
 // let data_store = await import('./data-store.js')
 import data_store from './data-store.js'
 // console.log('data_store', data_store)
+
+// define XpMapPopup as custom element
+import XpMapPopup from './XpMapPopup.ce.vue'
+const XpMapPopupElement = defineCustomElement(XpMapPopup);
+customElements.define('xp-map-popup', XpMapPopupElement)
+
+
+
+let lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl s'
+
+let cb_popup = function (e) {
+    console.log('popup', e);
+    let html = `
+    <div>
+        <h3>Popup ${e.xp_index}</h3>
+        <xp-map-popup index="${e.xp_index}"/>
+    </div>
+    `
+    return html;
+}
 
 let mounted = function () {
     const iconDefault = L.icon({
@@ -51,7 +73,12 @@ let mounted = function () {
     // move pos randomly around 1km radius
     pos.lat += (Math.random() - 0.5) * 0.05;
     pos.lng += (Math.random() - 0.5) * 0.05;
-    const marker = L.marker(pos).addTo(map);
+    const marker = L.marker(pos, {
+        draggable: true,
+    }).addTo(map);
+    // add popup to marker
+    marker.bindPopup('I am a popup.');
+    
 
     // move pos randomly around 1km radius
     pos.lat += (Math.random() - 0.5) * 0.05;
@@ -75,6 +102,30 @@ let mounted = function () {
         points.push([ppos.lat, ppos.lng]);
     }
 	const polygon = L.polygon(points).addTo(map);
+
+    // insert 1000 random markers
+    // WARNING: 10.000 is too much for UX performance
+    for (let i = 0; i < 1000; i++) {
+        // limit random lat and lng to [-80, 80] and [-170, 170]
+        pos.lat = (Math.random() -0.5) * 160;
+        pos.lng = (Math.random() -0.5) * 340;
+        // console.log('pos', pos)
+
+        const circle = L.marker(pos, {
+            draggable: true,
+        }).addTo(map);
+
+        // add popup to circle
+        // popups can stay open
+        circle.xp_index = i;
+        circle.bindPopup(cb_popup, {
+            autoClose: false,
+            closeOnClick: false,
+            direction: 'center',
+            className: 'my-label',
+            offset: [0, 0]
+        });
+    }
 }
 
 let computed = {
@@ -97,7 +148,7 @@ export default {
 
 <style>
 .xpmap {
-    width: 50vmin;
+    width: 100%;
     height: 50vmin;
     margin: 0 auto;
 }

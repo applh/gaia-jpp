@@ -2,24 +2,27 @@
   "__commonjsHelpers-849bcf65.js": {
     "file": "assets/_commonjsHelpers-849bcf65.js"
   },
-  "_index-17b52139.js": {
-    "file": "assets/index-17b52139.js",
+  "__plugin-vue_export-helper-c4c0bc37.js": {
+    "file": "assets/_plugin-vue_export-helper-c4c0bc37.js"
+  },
+  "_index-da9c79b5.js": {
+    "file": "assets/index-da9c79b5.js",
     "imports": [
       "index.html"
     ]
   },
   "index.css": {
-    "file": "assets/index-bf99ff62.css",
+    "file": "assets/index-2e2dcb74.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-bf99ff62.css"
+      "assets/index-2e2dcb74.css"
     ],
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-af79e453.js",
+    "file": "assets/index-34d38590.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -32,7 +35,7 @@
       "src/components/XpBuilder.vue",
       "src/components/XpDraw.vue"
     ],
-    "file": "assets/MyTest-3e350352.js",
+    "file": "assets/MyTest-c33e591d.js",
     "imports": [
       "index.html"
     ],
@@ -53,7 +56,7 @@
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-5a1a4300.js",
+    "file": "assets/XpBox-35166abe.js",
     "imports": [
       "index.html"
     ],
@@ -64,7 +67,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-c5baf4ff.js",
+    "file": "assets/XpBox1-1078e70e.js",
     "imports": [
       "index.html"
     ],
@@ -75,7 +78,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-ee06261a.js",
+    "file": "assets/XpBox2-a6ebbfe7.js",
     "imports": [
       "index.html"
     ],
@@ -86,7 +89,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-0ab4eb55.js",
+    "file": "assets/XpBox3-434b01bd.js",
     "imports": [
       "index.html"
     ],
@@ -97,7 +100,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-2be63b8f.js",
+    "file": "assets/XpBox4-aab29ac4.js",
     "imports": [
       "index.html"
     ],
@@ -105,27 +108,28 @@
     "src": "src/components/XpBox4.vue"
   },
   "src/components/XpBuilder.vue": {
-    "file": "assets/XpBuilder-7c03abdd.js",
+    "file": "assets/XpBuilder-dc1de1ab.js",
     "imports": [
       "index.html",
-      "_index-17b52139.js",
+      "_index-da9c79b5.js",
       "__commonjsHelpers-849bcf65.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpBuilder.vue"
   },
   "src/components/XpDraw.css": {
-    "file": "assets/XpDraw-9ded8fd7.css",
+    "file": "assets/XpDraw-2377def5.css",
     "src": "src/components/XpDraw.css"
   },
   "src/components/XpDraw.vue": {
     "css": [
-      "assets/XpDraw-9ded8fd7.css"
+      "assets/XpDraw-2377def5.css"
     ],
-    "file": "assets/XpDraw-04ee3ed7.js",
+    "file": "assets/XpDraw-c204e183.js",
     "imports": [
       "index.html",
-      "_index-17b52139.js"
+      "_index-da9c79b5.js",
+      "__plugin-vue_export-helper-c4c0bc37.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpDraw.vue"
@@ -141,25 +145,27 @@
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-151cafd0.js",
+    "file": "assets/XpForm-fe314cbd.js",
     "imports": [
-      "index.html"
+      "index.html",
+      "__plugin-vue_export-helper-c4c0bc37.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpForm.vue"
   },
   "src/components/XpMap.css": {
-    "file": "assets/XpMap-204e3752.css",
+    "file": "assets/XpMap-505d9d9b.css",
     "src": "src/components/XpMap.css"
   },
   "src/components/XpMap.vue": {
     "css": [
-      "assets/XpMap-204e3752.css"
+      "assets/XpMap-505d9d9b.css"
     ],
-    "file": "assets/XpMap-d61b5a78.js",
+    "file": "assets/XpMap-956ccd0e.js",
     "imports": [
+      "index.html",
       "__commonjsHelpers-849bcf65.js",
-      "index.html"
+      "__plugin-vue_export-helper-c4c0bc37.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpMap.vue"

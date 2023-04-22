@@ -1,5 +1,6 @@
+import { o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, n as defineCustomElement, m as createCommentVNode, F as Fragment, d as data_store } from './index-34d38590.js';
 import { c as commonjsGlobal } from './_commonjsHelpers-849bcf65.js';
-import { g as _export_sfc, o as openBlock, b as createElementBlock, t as toDisplayString, n as createCommentVNode, f as createBaseVNode, F as Fragment, d as data_store } from './index-af79e453.js';
+import { _ as _export_sfc } from './_plugin-vue_export-helper-c4c0bc37.js';
 
 const leaflet = '';
 
@@ -14466,9 +14467,63 @@ var leafletSrc = {
 
 const L$1 = leafletSrcExports;
 
+const _hoisted_1$1 = /*#__PURE__*/createBaseVNode("input", {
+  type: "checkbox",
+  value: "Hello"
+}, null, -1);
+const _hoisted_2$1 = /*#__PURE__*/createBaseVNode("button", null, "Click me", -1);
+
+
+const _sfc_main$1 = {
+  __name: 'XpMapPopup.ce',
+  props: {
+    name: {
+        type: String,
+        default: ''
+    },
+    index: {
+        type: Number,
+        default: 0
+    }
+},
+  setup(__props) {
+
+// properties name
+// add prop name with default value ''
+// add prop index with default value 0
+
+
+
+let lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl s';
+
+
+return (_ctx, _cache) => {
+  return (openBlock(), createElementBlock("div", null, [
+    createBaseVNode("h3", null, "XpMapPopup (" + toDisplayString(__props.index) + ")", 1),
+    createBaseVNode("p", null, toDisplayString(unref(lorem)), 1),
+    _hoisted_1$1,
+    _hoisted_2$1
+  ]))
+}
+}
+
+};
+
 const XpMap_vue_vue_type_style_index_0_lang = '';
 
-// console.log('data_store', data_store)
+const XpMapPopupElement = defineCustomElement(_sfc_main$1);
+customElements.define('xp-map-popup', XpMapPopupElement);
+
+let cb_popup = function (e) {
+    console.log('popup', e);
+    let html = `
+    <div>
+        <h3>Popup ${e.xp_index}</h3>
+        <xp-map-popup index="${e.xp_index}"/>
+    </div>
+    `;
+    return html;
+};
 
 let mounted = function () {
     const iconDefault = L$1.icon({
@@ -14507,7 +14562,12 @@ let mounted = function () {
     // move pos randomly around 1km radius
     pos.lat += (Math.random() - 0.5) * 0.05;
     pos.lng += (Math.random() - 0.5) * 0.05;
-    L$1.marker(pos).addTo(map);
+    const marker = L$1.marker(pos, {
+        draggable: true,
+    }).addTo(map);
+    // add popup to marker
+    marker.bindPopup('I am a popup.');
+    
 
     // move pos randomly around 1km radius
     pos.lat += (Math.random() - 0.5) * 0.05;
@@ -14531,6 +14591,30 @@ let mounted = function () {
         points.push([ppos.lat, ppos.lng]);
     }
 	L$1.polygon(points).addTo(map);
+
+    // insert 1000 random markers
+    // WARNING: 10.000 is too much for UX performance
+    for (let i = 0; i < 1000; i++) {
+        // limit random lat and lng to [-80, 80] and [-170, 170]
+        pos.lat = (Math.random() -0.5) * 160;
+        pos.lng = (Math.random() -0.5) * 340;
+        // console.log('pos', pos)
+
+        const circle = L$1.marker(pos, {
+            draggable: true,
+        }).addTo(map);
+
+        // add popup to circle
+        // popups can stay open
+        circle.xp_index = i;
+        circle.bindPopup(cb_popup, {
+            autoClose: false,
+            closeOnClick: false,
+            direction: 'center',
+            className: 'my-label',
+            offset: [0, 0]
+        });
+    }
 };
 
 let computed = {

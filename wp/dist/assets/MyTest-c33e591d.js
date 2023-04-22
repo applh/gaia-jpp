@@ -1,6 +1,6 @@
-import { _ as __vitePreload, a as defineAsyncComponent } from './index-af79e453.js';
+import { _ as __vitePreload, a as defineAsyncComponent } from './index-34d38590.js';
 
-let data_store = await __vitePreload(() => import('./index-af79e453.js').then(n => n.G),true?["./index-af79e453.js","./index-bf99ff62.css"]:void 0,import.meta.url);
+let data_store = await __vitePreload(() => import('./index-34d38590.js').then(n => n.G),true?["./index-34d38590.js","./index-2e2dcb74.css"]:void 0,import.meta.url);
 // import data_store from '../assets/data-store.js'
 
 // console.log('data_store', data_store)
@@ -26,22 +26,22 @@ let setup = () => {
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpForm-151cafd0.js'),true?["./XpForm-151cafd0.js","./index-af79e453.js","./index-bf99ff62.css","./XpForm-a224c341.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpForm-fe314cbd.js'),true?["./XpForm-fe314cbd.js","./index-34d38590.js","./index-2e2dcb74.css","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpMap-d61b5a78.js'),true?["./XpMap-d61b5a78.js","./_commonjsHelpers-849bcf65.js","./index-af79e453.js","./index-bf99ff62.css","./XpMap-204e3752.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpMap-956ccd0e.js'),true?["./XpMap-956ccd0e.js","./index-34d38590.js","./index-2e2dcb74.css","./_commonjsHelpers-849bcf65.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpMap-505d9d9b.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpBuilder')) {
             app.component('XpBuilder', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpBuilder-7c03abdd.js'),true?["./XpBuilder-7c03abdd.js","./index-af79e453.js","./index-bf99ff62.css","./index-17b52139.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpBuilder-dc1de1ab.js'),true?["./XpBuilder-dc1de1ab.js","./index-34d38590.js","./index-2e2dcb74.css","./index-da9c79b5.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpDraw')) {
             app.component('XpDraw', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpDraw-04ee3ed7.js'),true?["./XpDraw-04ee3ed7.js","./index-af79e453.js","./index-bf99ff62.css","./index-17b52139.js","./XpDraw-9ded8fd7.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpDraw-c204e183.js'),true?["./XpDraw-c204e183.js","./index-34d38590.js","./index-2e2dcb74.css","./index-da9c79b5.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpDraw-2377def5.css"]:void 0,import.meta.url)
             ));
         }
     }
