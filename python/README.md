@@ -58,3 +58,8 @@ pip install --upgrade google-auth-oauthlib google-auth-httplib2
 * There's a .gitignore file in the virtual env directory (with *)
 * So every file is ignored by git 😅
 
+
+## FRENCH DICT
+
+* https://github.com/chrplr/openlexicon
+
