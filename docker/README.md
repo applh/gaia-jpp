@@ -24,3 +24,9 @@ docker-compose start
 docker update --restart unless-stopped
 
 ```
+
+
+## CONTAINER LEMP
+
+* https://github.com/adhocore/docker-phpfpm#extensions
+* 
