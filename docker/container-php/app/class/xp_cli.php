@@ -65,7 +65,25 @@ class xp_cli
 
         $timestamp = time();
         $now = date("Y-m-d H:i:s", $timestamp);
-        $content = static::build_md(1, 3);
+
+        // get content from uploaded $_FILES["content"] if present
+        // check if there's a file uploaded with key "content"
+        $upload_content = $_FILES["content"] ?? "";
+        if ($upload_content) {
+            extract($upload_content);
+            // check if error is 0
+            $error ??= 0;
+            if ($error != 0) {
+                echo "error: $error";
+                return;
+            }
+            // get file content
+            $content = file_get_contents($upload_content["tmp_name"]);
+        }
+        else {
+            // build random content
+            $content = static::build_md(1, 3);
+        }
 
         $data = [
             "title" => "title ($now)",

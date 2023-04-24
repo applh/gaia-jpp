@@ -2,8 +2,12 @@
 
 class cli 
 {
+    static $kv = [];
+
     static function run()
     {
+        static::kv("root", __DIR__ );
+        
         // add autoload
         spl_autoload_register("cli::autoload");
 
@@ -26,6 +30,16 @@ class cli
                 require_once $file;
             }
         });
+    }
+
+    static function kv ($key, $value = null)
+    {
+        if ($value) {
+            static::$kv[$key] = $value;
+        }
+        else {
+            return static::$kv[$key] ?? "";
+        }
     }
 }
 

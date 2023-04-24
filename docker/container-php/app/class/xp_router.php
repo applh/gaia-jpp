@@ -1,11 +1,11 @@
 <?php
 
-class xp_router 
+class xp_router
 {
     static $filename = "";
     static $routes = [];
 
-    static function request ()
+    static function request()
     {
         // check if called from cli or index::web
         if (is_callable("index::web")) {
@@ -14,6 +14,10 @@ class xp_router
             extract(parse_url($uri));
 
             $path ??= "/index.php";
+            if ($path == "/") {
+                $path = "/index.php";
+            }
+
             $path_infos = (pathinfo($path));
             // print_r($path_infos);
             extract($path_infos);
@@ -27,14 +31,13 @@ class xp_router
                 // add task 
                 xp_task::add($filename, $route);
             }
-
-        }
-        else {
+        } else {
             // cli mode
             xp_task::add("cli", "xp_cli::run");
         }
     }
-    static function add ($key, $cmd)
+
+    static function add($key, $cmd)
     {
         $key = trim($key);
         if ($key != "") {
@@ -42,4 +45,20 @@ class xp_router
         }
     }
 
+    static function json()
+    {
+        // return json
+        $json = [];
+        // add timestamp
+        $json["timestamp"] = time();
+
+        // add $_REQUEST, $_FILES and $_COOKIE
+        $json["request"] = $_REQUEST;
+        $json["files"] = $_FILES;
+        $json["cookies"] = $_COOKIE;
+
+        // set header
+        header("Content-Type: application/json");
+        echo json_encode($json, JSON_PRETTY_PRINT);
+    }
 }
