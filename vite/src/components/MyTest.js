@@ -30,6 +30,11 @@ let setup = () => {
                 import('./XpForm.vue')
             ))
         }
+        if (!app.component('XpGrid')) {
+            app.component('XpGrid', defineAsyncComponent(() =>
+                import('./XpGrid.vue')
+            ))
+        }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
                 import('./XpMap.vue')
@@ -49,13 +54,23 @@ let setup = () => {
 
 }
 
+
 let template = `
     <div>
         <h1>{{ store.h1 }}</h1>
         <input v-model="store.msg" />
         <p>{{ $xp('reverse', store.msg) }}</p>
+        <nav>
+            <ul>
+                <li v-for="m in menu1">{{ m }}</li>
+            </ul>
+        </nav>
         <div>
             <hr />
+            <label>
+                <input type="checkbox" v-model="store.options.grid" />
+                <span>Grid</span>
+            </label>
             <label>
                 <input type="checkbox" v-model="store.options.map" />
                 <span>Map</span>
@@ -79,6 +94,7 @@ let template = `
             <hr />
         </div>
         <XpMap v-if="store.options.map" />
+        <XpGrid v-if="store.options.grid" />
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />
         <XpForm v-if="store.options.form_contact" name="contact" />
         <XpBuilder v-if="store.options.builder" name="builder" />
@@ -93,6 +109,7 @@ let template = `
     }
 
     let data = {
+        menu1: [ 'Pages', 'Posts', 'Parts', 'Templates', 'Groups', 'Users', 'Settings' ],
     }
 
     export default {

@@ -12,4 +12,5 @@ const XpBox = defineAsyncComponent(() => import('./components/XpBox.vue'))
   </Suspense>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
