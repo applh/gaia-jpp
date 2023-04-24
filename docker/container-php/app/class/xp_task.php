@@ -3,12 +3,22 @@
 class xp_task 
 {
     static $tasks = [];
+    // make a dynamic task list
+    static $step = 0;
 
     static function work ()
     {
-        foreach(self::$tasks as $task) {
+        // loop on tasks
+        while (static::$step < count(static::$tasks)) 
+        {
+            $curtask = array_values(static::$tasks)[static::$step] ?? null;
             // check if callable then call
-            is_callable($task) && $task();
+            $curtask ?? $curtask = trim($curtask);
+
+            is_callable($curtask) && $curtask();
+
+            // move to the next task 
+            static::$step++;
         }
 
     }
@@ -20,5 +30,6 @@ class xp_task
             static::$tasks[$key] = $cmd;
         }
     }
+
 }
 
