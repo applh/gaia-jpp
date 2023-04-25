@@ -1,6 +1,6 @@
-import { _ as __vitePreload, a as defineAsyncComponent } from './index-34d38590.js';
+import { _ as __vitePreload, a as defineAsyncComponent } from './index-ec341aa0.js';
 
-let data_store = await __vitePreload(() => import('./index-34d38590.js').then(n => n.G),true?["./index-34d38590.js","./index-2e2dcb74.css"]:void 0,import.meta.url);
+let data_store = await __vitePreload(() => import('./index-ec341aa0.js').then(n => n.a8),true?["./index-ec341aa0.js","./index-6ef1c84b.css"]:void 0,import.meta.url);
 // import data_store from '../assets/data-store.js'
 
 // console.log('data_store', data_store)
@@ -26,35 +26,50 @@ let setup = () => {
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpForm-fe314cbd.js'),true?["./XpForm-fe314cbd.js","./index-34d38590.js","./index-2e2dcb74.css","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpForm-71804bbb.js'),true?["./XpForm-71804bbb.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css"]:void 0,import.meta.url)
+            ));
+        }
+        if (!app.component('XpGrid')) {
+            app.component('XpGrid', defineAsyncComponent(() =>
+                __vitePreload(() => import('./XpGrid-f06f002e.js'),true?["./XpGrid-f06f002e.js","./index-ec341aa0.js","./index-6ef1c84b.css","./XpForm-71804bbb.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css","./XpGrid-10583fe4.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpMap-956ccd0e.js'),true?["./XpMap-956ccd0e.js","./index-34d38590.js","./index-2e2dcb74.css","./_commonjsHelpers-849bcf65.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpMap-505d9d9b.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpMap-f9451c79.js'),true?["./XpMap-f9451c79.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_commonjsHelpers-849bcf65.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpMap-505d9d9b.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpBuilder')) {
             app.component('XpBuilder', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpBuilder-dc1de1ab.js'),true?["./XpBuilder-dc1de1ab.js","./index-34d38590.js","./index-2e2dcb74.css","./index-da9c79b5.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpBuilder-6a2fff81.js'),true?["./XpBuilder-6a2fff81.js","./index-ec341aa0.js","./index-6ef1c84b.css","./index-e7fb00b5.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpDraw')) {
             app.component('XpDraw', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpDraw-c204e183.js'),true?["./XpDraw-c204e183.js","./index-34d38590.js","./index-2e2dcb74.css","./index-da9c79b5.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpDraw-2377def5.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpDraw-c1d4c0c1.js'),true?["./XpDraw-c1d4c0c1.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_plugin-vue_export-helper-c4c0bc37.js","./index-e7fb00b5.js","./XpDraw-2377def5.css"]:void 0,import.meta.url)
             ));
         }
     }
 
 };
 
+
 let template = `
     <div>
         <h1>{{ store.h1 }}</h1>
         <input v-model="store.msg" />
         <p>{{ $xp('reverse', store.msg) }}</p>
+        <nav>
+            <ul>
+                <li v-for="m in menu1">{{ m }}</li>
+            </ul>
+        </nav>
         <div>
             <hr />
+            <label>
+                <input type="checkbox" v-model="store.options.grid" />
+                <span>Grid</span>
+            </label>
             <label>
                 <input type="checkbox" v-model="store.options.map" />
                 <span>Map</span>
@@ -78,6 +93,7 @@ let template = `
             <hr />
         </div>
         <XpMap v-if="store.options.map" />
+        <XpGrid v-if="store.options.grid" />
         <XpForm v-if="store.options.form_newsletter" name="newsletter" />
         <XpForm v-if="store.options.form_contact" name="contact" />
         <XpBuilder v-if="store.options.builder" name="builder" />
@@ -92,6 +108,7 @@ let template = `
     };
 
     let data = {
+        menu1: [ 'Pages', 'Posts', 'Parts', 'Templates', 'Groups', 'Users', 'Settings' ],
     };
 
     const MyTest = {

@@ -12,6 +12,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
+    "element-plus": "^2.3.4",
     "vue": "^3.2.47"
   },
   "devDependencies": {
@@ -22,6 +23,8 @@
     "drauu": "^0.3.2",
     "leaflet": "^1.9.3",
     "playwright": "^1.32.3",
+    "unplugin-auto-import": "^0.15.3",
+    "unplugin-vue-components": "^0.24.1",
     "vite": "^4.2.0",
     "vitepress": "^1.0.0-alpha.71",
     "vuedraggable": "^4.1.0"

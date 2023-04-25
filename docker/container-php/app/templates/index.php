@@ -1,3 +1,8 @@
+<?php
+
+$now = date("Y-m-d H:i:s");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,5 +13,6 @@
 </head>
 <body>
     <h1>GAIA</h1>
+    <h2><?php echo $now ?></h2>
 </body>
 </html>

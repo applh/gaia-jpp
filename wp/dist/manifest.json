@@ -5,24 +5,24 @@
   "__plugin-vue_export-helper-c4c0bc37.js": {
     "file": "assets/_plugin-vue_export-helper-c4c0bc37.js"
   },
-  "_index-da9c79b5.js": {
-    "file": "assets/index-da9c79b5.js",
+  "_index-e7fb00b5.js": {
+    "file": "assets/index-e7fb00b5.js",
     "imports": [
       "index.html"
     ]
   },
   "index.css": {
-    "file": "assets/index-2e2dcb74.css",
+    "file": "assets/index-6ef1c84b.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-2e2dcb74.css"
+      "assets/index-6ef1c84b.css"
     ],
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-34d38590.js",
+    "file": "assets/index-ec341aa0.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -31,11 +31,12 @@
     "dynamicImports": [
       "index.html",
       "src/components/XpForm.vue",
+      "src/components/XpGrid.vue",
       "src/components/XpMap.vue",
       "src/components/XpBuilder.vue",
       "src/components/XpDraw.vue"
     ],
-    "file": "assets/MyTest-c33e591d.js",
+    "file": "assets/MyTest-776d04b5.js",
     "imports": [
       "index.html"
     ],
@@ -56,7 +57,7 @@
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-35166abe.js",
+    "file": "assets/XpBox-bcf6ab99.js",
     "imports": [
       "index.html"
     ],
@@ -67,7 +68,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-1078e70e.js",
+    "file": "assets/XpBox1-5e179fa0.js",
     "imports": [
       "index.html"
     ],
@@ -78,7 +79,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-a6ebbfe7.js",
+    "file": "assets/XpBox2-cb4c78df.js",
     "imports": [
       "index.html"
     ],
@@ -89,7 +90,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-434b01bd.js",
+    "file": "assets/XpBox3-ce871daf.js",
     "imports": [
       "index.html"
     ],
@@ -100,7 +101,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-aab29ac4.js",
+    "file": "assets/XpBox4-eb752e7a.js",
     "imports": [
       "index.html"
     ],
@@ -108,10 +109,10 @@
     "src": "src/components/XpBox4.vue"
   },
   "src/components/XpBuilder.vue": {
-    "file": "assets/XpBuilder-dc1de1ab.js",
+    "file": "assets/XpBuilder-6a2fff81.js",
     "imports": [
       "index.html",
-      "_index-da9c79b5.js",
+      "_index-e7fb00b5.js",
       "__commonjsHelpers-849bcf65.js"
     ],
     "isDynamicEntry": true,
@@ -125,11 +126,11 @@
     "css": [
       "assets/XpDraw-2377def5.css"
     ],
-    "file": "assets/XpDraw-c204e183.js",
+    "file": "assets/XpDraw-c1d4c0c1.js",
     "imports": [
       "index.html",
-      "_index-da9c79b5.js",
-      "__plugin-vue_export-helper-c4c0bc37.js"
+      "__plugin-vue_export-helper-c4c0bc37.js",
+      "_index-e7fb00b5.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpDraw.vue"
@@ -145,13 +146,30 @@
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-fe314cbd.js",
+    "file": "assets/XpForm-71804bbb.js",
     "imports": [
       "index.html",
       "__plugin-vue_export-helper-c4c0bc37.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpForm.vue"
+  },
+  "src/components/XpGrid.css": {
+    "file": "assets/XpGrid-10583fe4.css",
+    "src": "src/components/XpGrid.css"
+  },
+  "src/components/XpGrid.vue": {
+    "css": [
+      "assets/XpGrid-10583fe4.css"
+    ],
+    "file": "assets/XpGrid-f06f002e.js",
+    "imports": [
+      "index.html",
+      "src/components/XpForm.vue",
+      "__plugin-vue_export-helper-c4c0bc37.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/XpGrid.vue"
   },
   "src/components/XpMap.css": {
     "file": "assets/XpMap-505d9d9b.css",
@@ -161,7 +179,7 @@
     "css": [
       "assets/XpMap-505d9d9b.css"
     ],
-    "file": "assets/XpMap-956ccd0e.js",
+    "file": "assets/XpMap-f9451c79.js",
     "imports": [
       "index.html",
       "__commonjsHelpers-849bcf65.js",

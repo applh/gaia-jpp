@@ -1,6 +1,167 @@
-import { p as vue_esmBundler, q as ref, o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, s as normalizeStyle, F as Fragment, i as renderList, x as createVNode, g as withCtx, y as isRef } from './index-34d38590.js';
-import { u as useDraggable } from './index-da9c79b5.js';
+import { r as ref, c as computed, w as watch, a6 as vue_esmBundler, o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, P as normalizeStyle, F as Fragment, $ as renderList, Z as createVNode, B as withCtx, n as isRef } from './index-ec341aa0.js';
+import { t as toValue, i as isClient, a as toRefs, n as noop, b as tryOnScopeDispose } from './index-e7fb00b5.js';
 import { g as getAugmentedNamespace, c as commonjsGlobal, a as getDefaultExportFromCjs } from './_commonjsHelpers-849bcf65.js';
+
+function unrefElement(elRef) {
+  var _a;
+  const plain = toValue(elRef);
+  return (_a = plain == null ? void 0 : plain.$el) != null ? _a : plain;
+}
+
+const defaultWindow = isClient ? window : void 0;
+
+function useEventListener(...args) {
+  let target;
+  let events;
+  let listeners;
+  let options;
+  if (typeof args[0] === "string" || Array.isArray(args[0])) {
+    [events, listeners, options] = args;
+    target = defaultWindow;
+  } else {
+    [target, events, listeners, options] = args;
+  }
+  if (!target)
+    return noop;
+  if (!Array.isArray(events))
+    events = [events];
+  if (!Array.isArray(listeners))
+    listeners = [listeners];
+  const cleanups = [];
+  const cleanup = () => {
+    cleanups.forEach((fn) => fn());
+    cleanups.length = 0;
+  };
+  const register = (el, event, listener, options2) => {
+    el.addEventListener(event, listener, options2);
+    return () => el.removeEventListener(event, listener, options2);
+  };
+  const stopWatch = watch(
+    () => [unrefElement(target), toValue(options)],
+    ([el, options2]) => {
+      cleanup();
+      if (!el)
+        return;
+      cleanups.push(
+        ...events.flatMap((event) => {
+          return listeners.map((listener) => register(el, event, listener, options2));
+        })
+      );
+    },
+    { immediate: true, flush: "post" }
+  );
+  const stop = () => {
+    stopWatch();
+    cleanup();
+  };
+  tryOnScopeDispose(stop);
+  return stop;
+}
+
+var __defProp$f = Object.defineProperty;
+var __defProps$5 = Object.defineProperties;
+var __getOwnPropDescs$5 = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols$h = Object.getOwnPropertySymbols;
+var __hasOwnProp$h = Object.prototype.hasOwnProperty;
+var __propIsEnum$h = Object.prototype.propertyIsEnumerable;
+var __defNormalProp$f = (obj, key, value) => key in obj ? __defProp$f(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues$f = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp$h.call(b, prop))
+      __defNormalProp$f(a, prop, b[prop]);
+  if (__getOwnPropSymbols$h)
+    for (var prop of __getOwnPropSymbols$h(b)) {
+      if (__propIsEnum$h.call(b, prop))
+        __defNormalProp$f(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps$5 = (a, b) => __defProps$5(a, __getOwnPropDescs$5(b));
+function useDraggable(target, options = {}) {
+  var _a, _b;
+  const {
+    pointerTypes,
+    preventDefault,
+    stopPropagation,
+    exact,
+    onMove,
+    onEnd,
+    onStart,
+    initialValue,
+    axis = "both",
+    draggingElement = defaultWindow,
+    handle: draggingHandle = target
+  } = options;
+  const position = ref(
+    (_a = toValue(initialValue)) != null ? _a : { x: 0, y: 0 }
+  );
+  const pressedDelta = ref();
+  const filterEvent = (e) => {
+    if (pointerTypes)
+      return pointerTypes.includes(e.pointerType);
+    return true;
+  };
+  const handleEvent = (e) => {
+    if (toValue(preventDefault))
+      e.preventDefault();
+    if (toValue(stopPropagation))
+      e.stopPropagation();
+  };
+  const start = (e) => {
+    if (!filterEvent(e))
+      return;
+    if (toValue(exact) && e.target !== toValue(target))
+      return;
+    const rect = toValue(target).getBoundingClientRect();
+    const pos = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+    if ((onStart == null ? void 0 : onStart(pos, e)) === false)
+      return;
+    pressedDelta.value = pos;
+    handleEvent(e);
+  };
+  const move = (e) => {
+    if (!filterEvent(e))
+      return;
+    if (!pressedDelta.value)
+      return;
+    let { x, y } = position.value;
+    if (axis === "x" || axis === "both")
+      x = e.clientX - pressedDelta.value.x;
+    if (axis === "y" || axis === "both")
+      y = e.clientY - pressedDelta.value.y;
+    position.value = {
+      x,
+      y
+    };
+    onMove == null ? void 0 : onMove(position.value, e);
+    handleEvent(e);
+  };
+  const end = (e) => {
+    if (!filterEvent(e))
+      return;
+    if (!pressedDelta.value)
+      return;
+    pressedDelta.value = void 0;
+    onEnd == null ? void 0 : onEnd(position.value, e);
+    handleEvent(e);
+  };
+  if (isClient) {
+    const config = { capture: (_b = options.capture) != null ? _b : true };
+    useEventListener(draggingHandle, "pointerdown", start, config);
+    useEventListener(draggingElement, "pointermove", move, config);
+    useEventListener(draggingElement, "pointerup", end, config);
+  }
+  return __spreadProps$5(__spreadValues$f({}, toRefs(position)), {
+    position,
+    isDragging: computed(() => !!pressedDelta.value),
+    style: computed(
+      () => `left:${position.value.x}px;top:${position.value.y}px;`
+    )
+  });
+}
 
 var vuedraggable_umdExports = {};
 var vuedraggable_umd = {

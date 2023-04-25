@@ -1,4 +1,4 @@
-import { o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, n as defineCustomElement, m as createCommentVNode, F as Fragment, d as data_store } from './index-34d38590.js';
+import { o as openBlock, b as createElementBlock, f as createBaseVNode, t as toDisplayString, u as unref, a5 as defineCustomElement, E as createCommentVNode, F as Fragment, d as data_store } from './index-ec341aa0.js';
 import { c as commonjsGlobal } from './_commonjsHelpers-849bcf65.js';
 import { _ as _export_sfc } from './_plugin-vue_export-helper-c4c0bc37.js';
 
@@ -14509,8 +14509,9 @@ return (_ctx, _cache) => {
 
 };
 
-const XpMap_vue_vue_type_style_index_0_lang = '';
+/* unplugin-vue-components disabled */const XpMap_vue_vue_type_style_index_0_lang = '';
 
+/* unplugin-vue-components disabled */
 const XpMapPopupElement = defineCustomElement(_sfc_main$1);
 customElements.define('xp-map-popup', XpMapPopupElement);
 

@@ -63,3 +63,16 @@ pip install --upgrade google-auth-oauthlib google-auth-httplib2
 
 * https://github.com/chrplr/openlexicon
 
+
+## RUN JUPYTER NOTEBOOKS FROM COMMAND LINE
+
+https://nbconvert.readthedocs.io/en/latest/execute_api.html
+
+```shell
+jupyter nbconvert --to notebook --execute mynotebook.ipynb
+
+jupyter nbconvert --to notebook --execute cli.ipynb
+
+jupyter nbconvert cli.ipynb --to notebook --output cron.cli --output-dir my-data --execute 
+
+```

@@ -14276,13 +14276,15 @@ const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) {
     })).then(() => baseModule());
 };
 
+const index = '';
+
 // async component
 
 const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-35166abe.js'),true?["./XpBox-35166abe.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-bcf6ab99.js'),true?["./XpBox-bcf6ab99.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {
@@ -14442,4 +14444,4 @@ createApp(_sfc_main)
     .use(xp_plugin)
     .mount('#app');
 
-export { normalizeClass as A, toRefs as B, customRef as C, getCurrentScope as D, onScopeDispose as E, Fragment as F, dataStore as G, __vitePreload as _, defineAsyncComponent as a, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, withCtx as g, createTextVNode as h, renderList as i, withDirectives as j, vModelDynamic as k, withModifiers as l, createCommentVNode as m, defineCustomElement as n, openBlock as o, vue_esmBundler as p, ref as q, resolveDynamicComponent as r, normalizeStyle as s, toDisplayString as t, unref as u, vModelText as v, withAsyncContext as w, createVNode as x, isRef as y, watch as z };
+export { renderList as $, useSlots as A, withCtx as B, normalizeClass as C, resolveDynamicComponent as D, createCommentVNode as E, Fragment as F, provide as G, reactive as H, nextTick as I, isArray as J, toRaw as K, withDirectives as L, vModelCheckbox as M, NOOP as N, createTextVNode as O, normalizeStyle as P, toRefs as Q, toHandlers as R, Transition as S, Text as T, h as U, isFunction as V, resolveComponent as W, vShow as X, withModifiers as Y, createVNode as Z, __vitePreload as _, defineAsyncComponent as a, shallowRef as a0, onUpdated as a1, vModelText as a2, withAsyncContext as a3, vModelDynamic as a4, defineCustomElement as a5, vue_esmBundler as a6, customRef as a7, dataStore as a8, createElementBlock as b, computed as c, data_store as d, createBlock as e, createBaseVNode as f, getCurrentScope as g, onScopeDispose as h, isString as i, isObject as j, hasOwn as k, warn as l, inject as m, isRef as n, openBlock as o, getCurrentInstance as p, defineComponent as q, ref as r, renderSlot as s, toDisplayString as t, unref as u, mergeProps as v, watch as w, onMounted as x, toRef as y, onUnmounted as z };
