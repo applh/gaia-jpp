@@ -1,6 +1,6 @@
-import { _ as __vitePreload, a as defineAsyncComponent } from './index-ec341aa0.js';
+import { _ as __vitePreload, a as defineAsyncComponent } from './index-fbbdd6e6.js';
 
-let data_store = await __vitePreload(() => import('./index-ec341aa0.js').then(n => n.a8),true?["./index-ec341aa0.js","./index-6ef1c84b.css"]:void 0,import.meta.url);
+let data_store = await __vitePreload(() => import('./index-fbbdd6e6.js').then(n => n.a8),true?["./index-fbbdd6e6.js","./index-06122cba.css"]:void 0,import.meta.url);
 // import data_store from '../assets/data-store.js'
 
 // console.log('data_store', data_store)
@@ -26,27 +26,27 @@ let setup = () => {
         // check if the component is already registered
         if (!app.component('XpForm')) {
             app.component('XpForm', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpForm-71804bbb.js'),true?["./XpForm-71804bbb.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpForm-eadde45c.js'),true?["./XpForm-eadde45c.js","./index-fbbdd6e6.js","./index-06122cba.css","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpGrid')) {
             app.component('XpGrid', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpGrid-f06f002e.js'),true?["./XpGrid-f06f002e.js","./index-ec341aa0.js","./index-6ef1c84b.css","./XpForm-71804bbb.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css","./XpGrid-10583fe4.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpGrid-94e576ab.js'),true?["./XpGrid-94e576ab.js","./index-fbbdd6e6.js","./index-06122cba.css","./XpForm-eadde45c.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpForm-a224c341.css","./XpMap-150ebc87.js","./_commonjsHelpers-849bcf65.js","./XpMap-505d9d9b.css","./XpGrid-d568fdf4.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpMap')) {
             app.component('XpMap', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpMap-f9451c79.js'),true?["./XpMap-f9451c79.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_commonjsHelpers-849bcf65.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpMap-505d9d9b.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpMap-150ebc87.js'),true?["./XpMap-150ebc87.js","./index-fbbdd6e6.js","./index-06122cba.css","./_commonjsHelpers-849bcf65.js","./_plugin-vue_export-helper-c4c0bc37.js","./XpMap-505d9d9b.css"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpBuilder')) {
             app.component('XpBuilder', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpBuilder-6a2fff81.js'),true?["./XpBuilder-6a2fff81.js","./index-ec341aa0.js","./index-6ef1c84b.css","./index-e7fb00b5.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpBuilder-b098afc9.js'),true?["./XpBuilder-b098afc9.js","./index-fbbdd6e6.js","./index-06122cba.css","./index-9fd04d19.js","./_commonjsHelpers-849bcf65.js"]:void 0,import.meta.url)
             ));
         }
         if (!app.component('XpDraw')) {
             app.component('XpDraw', defineAsyncComponent(() =>
-                __vitePreload(() => import('./XpDraw-c1d4c0c1.js'),true?["./XpDraw-c1d4c0c1.js","./index-ec341aa0.js","./index-6ef1c84b.css","./_plugin-vue_export-helper-c4c0bc37.js","./index-e7fb00b5.js","./XpDraw-2377def5.css"]:void 0,import.meta.url)
+                __vitePreload(() => import('./XpDraw-64a38088.js'),true?["./XpDraw-64a38088.js","./index-fbbdd6e6.js","./index-06122cba.css","./_plugin-vue_export-helper-c4c0bc37.js","./index-9fd04d19.js","./XpDraw-2377def5.css"]:void 0,import.meta.url)
             ));
         }
     }

@@ -1,6 +1,8 @@
-import { o as openBlock, b as createElementBlock, t as toDisplayString, u as unref, g as getCurrentScope, h as onScopeDispose, w as watch, i as isString$1, f as createBaseVNode, j as isObject$1, k as hasOwn, l as warn, N as NOOP, m as inject, r as ref, c as computed, n as isRef, p as getCurrentInstance, q as defineComponent, s as renderSlot, v as mergeProps, x as onMounted, y as toRef, z as onUnmounted, A as useSlots, T as Text, e as createBlock, B as withCtx, F as Fragment, C as normalizeClass, D as resolveDynamicComponent, E as createCommentVNode, G as provide, H as reactive, I as nextTick, J as isArray$2, K as toRaw, L as withDirectives, M as vModelCheckbox, O as createTextVNode, P as normalizeStyle, Q as toRefs, R as toHandlers, S as Transition, U as h, V as isFunction$1, W as resolveComponent, X as vShow, Y as withModifiers, Z as createVNode, $ as renderList, a0 as shallowRef, a1 as onUpdated, a2 as vModelText } from './index-ec341aa0.js';
-import XpForm from './XpForm-71804bbb.js';
+import { o as openBlock, b as createElementBlock, t as toDisplayString, u as unref, g as getCurrentScope, h as onScopeDispose, w as watch, i as isString$1, f as createBaseVNode, j as isObject$1, k as hasOwn, l as warn, N as NOOP, m as inject, r as ref, c as computed, n as isRef, p as getCurrentInstance, q as defineComponent, s as renderSlot, v as mergeProps, x as onMounted, y as toRef, z as onUnmounted, A as useSlots, T as Text, e as createBlock, B as withCtx, F as Fragment, C as normalizeClass, D as resolveDynamicComponent, E as createCommentVNode, G as provide, H as reactive, I as nextTick, J as isArray$2, K as toRaw, L as withDirectives, M as vModelCheckbox, O as createTextVNode, P as normalizeStyle, Q as toRefs, R as toHandlers, S as Transition, U as h, V as isFunction$1, W as resolveComponent, X as vShow, Y as withModifiers, Z as createVNode, $ as renderList, a0 as shallowRef, a1 as onUpdated, a2 as vModelText } from './index-fbbdd6e6.js';
+import XpForm from './XpForm-eadde45c.js';
+import XpMap from './XpMap-150ebc87.js';
 import './_plugin-vue_export-helper-c4c0bc37.js';
+import './_commonjsHelpers-849bcf65.js';
 
 const _sfc_main$b = {
   __name: 'XpGridCell',
@@ -7315,6 +7317,14 @@ Tree.install = (app) => {
 const _Tree = Tree;
 const ElTree = _Tree;
 
+const base = '';
+
+const elTree = '';
+
+const elCheckbox = '';
+
+const elButton = '';
+
 /* unplugin-vue-components disabled */const XpGrid_vue_vue_type_style_index_0_lang = '';
 
 const _hoisted_1 = { class: "xp-grid" };
@@ -7323,7 +7333,8 @@ const _hoisted_3 = { class: "toolbar" };
 const _hoisted_4 = ["title"];
 const _hoisted_5 = { class: "panel" };
 const _hoisted_6 = /*#__PURE__*/createBaseVNode("h3", null, "Details", -1);
-// FIXME: draggable is working with el-tree but not el-tree-v2
+const _hoisted_7 = { class: "map" };
+
 
 
 const _sfc_main = {
@@ -7558,6 +7569,9 @@ return (_ctx, _cache) => {
     createBaseVNode("div", _hoisted_5, [
       _hoisted_6,
       createVNode(XpForm, { name: unref(form_name) }, null, 8, ["name"])
+    ]),
+    createBaseVNode("div", _hoisted_7, [
+      createVNode(XpMap)
     ])
   ]))
 }

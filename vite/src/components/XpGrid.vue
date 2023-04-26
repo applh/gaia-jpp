@@ -2,8 +2,13 @@
 import { ref, computed } from 'vue';
 import XpGridCell from './XpGridCell.vue';
 import XpForm from './XpForm.vue';
+import XpMap from './XpMap.vue';
 import { ElButton, ElTree, ElTreeV2 } from 'element-plus';
 // FIXME: draggable is working with el-tree but not el-tree-v2
+// import css for eltree
+import 'element-plus/es/components/tree/style/css'
+import 'element-plus/es/components/button/style/css'
+
 
 const props = defineProps({
     name: {
@@ -188,6 +193,9 @@ const tree_data = [
             <h3>Details</h3>
             <XpForm :name="form_name" />
         </div>
+        <div class="map">
+            <XpMap />
+        </div>
     </div>
 </template>
 
@@ -199,9 +207,11 @@ const tree_data = [
     grid-template-rows: auto 1fr;
     grid-template-areas:
         "header header header header"
-        "toolbar toolbar toolbar toolbar"
+        "toolbar toolbar . ."
         "body body panel panel"
-        "plus plus plus plus"
+        "body body panel panel"
+        "body body plus plus"
+        "body body map map"
     ;
     grid-gap: 1rem;
     padding: 1rem;
@@ -229,6 +239,9 @@ const tree_data = [
 
 .xp-grid>.plus {
     grid-area: plus;
+}
+.xp-grid>.map {
+    grid-area: map;
 }
 
 table {

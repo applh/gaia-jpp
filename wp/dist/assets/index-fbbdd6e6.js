@@ -14276,7 +14276,8 @@ const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) {
     })).then(() => baseModule());
 };
 
-const index = '';
+// FIXME: full import ?
+// import 'element-plus/dist/index.css'
 
 // async component
 
@@ -14284,7 +14285,7 @@ const _sfc_main = {
   __name: 'App',
   setup(__props) {
 
-const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-bcf6ab99.js'),true?["./XpBox-bcf6ab99.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
+const XpBox = defineAsyncComponent(() => __vitePreload(() => import('./XpBox-fedf5196.js'),true?["./XpBox-fedf5196.js","./XpBox-a1633fc0.css"]:void 0,import.meta.url));
 
 
 return (_ctx, _cache) => {

@@ -5,24 +5,24 @@
   "__plugin-vue_export-helper-c4c0bc37.js": {
     "file": "assets/_plugin-vue_export-helper-c4c0bc37.js"
   },
-  "_index-e7fb00b5.js": {
-    "file": "assets/index-e7fb00b5.js",
+  "_index-9fd04d19.js": {
+    "file": "assets/index-9fd04d19.js",
     "imports": [
       "index.html"
     ]
   },
   "index.css": {
-    "file": "assets/index-6ef1c84b.css",
+    "file": "assets/index-06122cba.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-6ef1c84b.css"
+      "assets/index-06122cba.css"
     ],
     "dynamicImports": [
       "src/components/XpBox.vue"
     ],
-    "file": "assets/index-ec341aa0.js",
+    "file": "assets/index-fbbdd6e6.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "index.html"
@@ -36,7 +36,7 @@
       "src/components/XpBuilder.vue",
       "src/components/XpDraw.vue"
     ],
-    "file": "assets/MyTest-776d04b5.js",
+    "file": "assets/MyTest-a340dfcb.js",
     "imports": [
       "index.html"
     ],
@@ -57,7 +57,7 @@
       "src/components/XpBox3.vue",
       "src/components/XpBox4.vue"
     ],
-    "file": "assets/XpBox-bcf6ab99.js",
+    "file": "assets/XpBox-fedf5196.js",
     "imports": [
       "index.html"
     ],
@@ -68,7 +68,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox1-5e179fa0.js",
+    "file": "assets/XpBox1-20993d14.js",
     "imports": [
       "index.html"
     ],
@@ -79,7 +79,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox2-cb4c78df.js",
+    "file": "assets/XpBox2-c3984f31.js",
     "imports": [
       "index.html"
     ],
@@ -90,7 +90,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox3-ce871daf.js",
+    "file": "assets/XpBox3-69a46578.js",
     "imports": [
       "index.html"
     ],
@@ -101,7 +101,7 @@
     "dynamicImports": [
       "src/components/MyTest.js"
     ],
-    "file": "assets/XpBox4-eb752e7a.js",
+    "file": "assets/XpBox4-86e9bc4d.js",
     "imports": [
       "index.html"
     ],
@@ -109,10 +109,10 @@
     "src": "src/components/XpBox4.vue"
   },
   "src/components/XpBuilder.vue": {
-    "file": "assets/XpBuilder-6a2fff81.js",
+    "file": "assets/XpBuilder-b098afc9.js",
     "imports": [
       "index.html",
-      "_index-e7fb00b5.js",
+      "_index-9fd04d19.js",
       "__commonjsHelpers-849bcf65.js"
     ],
     "isDynamicEntry": true,
@@ -126,11 +126,11 @@
     "css": [
       "assets/XpDraw-2377def5.css"
     ],
-    "file": "assets/XpDraw-c1d4c0c1.js",
+    "file": "assets/XpDraw-64a38088.js",
     "imports": [
       "index.html",
       "__plugin-vue_export-helper-c4c0bc37.js",
-      "_index-e7fb00b5.js"
+      "_index-9fd04d19.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpDraw.vue"
@@ -146,7 +146,7 @@
     "dynamicImports": [
       "index.html"
     ],
-    "file": "assets/XpForm-71804bbb.js",
+    "file": "assets/XpForm-eadde45c.js",
     "imports": [
       "index.html",
       "__plugin-vue_export-helper-c4c0bc37.js"
@@ -155,18 +155,20 @@
     "src": "src/components/XpForm.vue"
   },
   "src/components/XpGrid.css": {
-    "file": "assets/XpGrid-10583fe4.css",
+    "file": "assets/XpGrid-d568fdf4.css",
     "src": "src/components/XpGrid.css"
   },
   "src/components/XpGrid.vue": {
     "css": [
-      "assets/XpGrid-10583fe4.css"
+      "assets/XpGrid-d568fdf4.css"
     ],
-    "file": "assets/XpGrid-f06f002e.js",
+    "file": "assets/XpGrid-94e576ab.js",
     "imports": [
       "index.html",
       "src/components/XpForm.vue",
-      "__plugin-vue_export-helper-c4c0bc37.js"
+      "src/components/XpMap.vue",
+      "__plugin-vue_export-helper-c4c0bc37.js",
+      "__commonjsHelpers-849bcf65.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/XpGrid.vue"
@@ -179,7 +181,7 @@
     "css": [
       "assets/XpMap-505d9d9b.css"
     ],
-    "file": "assets/XpMap-f9451c79.js",
+    "file": "assets/XpMap-150ebc87.js",
     "imports": [
       "index.html",
       "__commonjsHelpers-849bcf65.js",
