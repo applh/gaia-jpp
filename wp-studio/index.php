@@ -15,9 +15,11 @@ class xp_studio
         // add autoload function
         spl_autoload_register("xp_studio::autoload");
 
-        // add block
-        add_action("init", "xp_action_studio::init");
-
+        // add init callback
+        // WARNING: WP will throw an error if the callback is not callable
+        if (is_callable("xp_action_studio::init")) {
+            add_action("init", "xp_action_studio::init");
+        }
     }
 
     static function autoload($classname)
