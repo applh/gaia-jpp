@@ -35,33 +35,41 @@ class xp_action_studio
             "xperia-studio",
             "xp_action_studio::admin_page"
         );
+        // add css for the admin page
+        add_action("admin_head", "xp_action_studio::admin_head");
+    }
+
+    static function admin_head ()
+    {
+        // add css for the admin page
+        wp_enqueue_style(
+            "xperia-studio",
+            "/wp-json/xp-studio/v1/media?src=xp-studio-admin.css",
+            [],
+            "0.0.1"
+        );
+        // add css
 
     }
 
     static function admin_page ()
     {
+        $xp_admin_key = get_option("xp_rest_api_admin_key");
+        // trim
+        $xp_admin_key = trim($xp_admin_key);
+        if (!$xp_admin_key) {
+            // create a random md5 key
+            $xp_admin_key = md5(uniqid(rand(), true));
+            // save the key in the database
+            update_option("xp_rest_api_admin_key", $xp_admin_key);
+        }
+
         echo <<<html
-        <h1>XP Studio</h1>
-        <form>
-            <input type="text" name="m" value="test">
-            <textarea name="data"></textarea>
-            <button type="submit">Submit</button>
-        </form>
-        <div id="app">{{ message }}</div>
-        <script type="module">
-        // load vue js
-        let vue = await import("/wp-json/xp-studio/v1/media?src=vue.esm-browser.prod.js");
-        // create app
-        const app = vue.createApp({
-            data: function () {
-                return {
-                    message: "Hello Vue!"
-                }
-            }
-        });
-        // mount app
-        app.mount("#app");
+
+        <div id="app" data-xp-admin-key="$xp_admin_key"></div>
+        <script type="module" src="/wp-json/xp-studio/v1/media?src=xp-app.js">
         </script>
+
         html;
     }
 

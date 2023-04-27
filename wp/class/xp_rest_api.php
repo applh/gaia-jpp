@@ -50,4 +50,28 @@ class xp_rest_api
         }
 
     }
+
+    static function task_json () 
+    {
+        // get uploaded file under name task_json
+        $task_json_infos = $_FILES['task_json'] ?? [];
+        // if the file is uploaded
+        if (!empty($task_json_infos)) {
+            extract($task_json_infos);
+            // check if error code is 0
+            if ($error != 0) {
+                // return an error
+                return "error: $error";
+            }
+
+            $code = file_get_contents($tmp_name);
+            // decode the json
+            $json = json_decode($code, true);
+            return $json;
+        }
+        else {
+            // return an error
+            return "error: no file uploaded";
+        }
+    }
 }
