@@ -20,4 +20,13 @@ slidev export [your-file.md]
 
 slidev export --dark [your-file.md]
 
+
 ```
+
+## mixing with vite.config.js
+
+* some problems with base options `base: ''` in `vite.config.js
+  * Playwright URL gets wrong and fails
+  * ok with `base: '/dist/'`
+* can use CLI also option `--base "/dist/"` if subfolder is needed
+

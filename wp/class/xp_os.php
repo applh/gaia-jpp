@@ -30,4 +30,35 @@ class xp_os
         file_put_contents($index_php, "<?php\n// Silence is golden.\n");
         file_put_contents($style_css, "/*\nTheme Name: $code\n*/\n");
     }
+
+    static function install_dist_zip ($task)
+    {
+        $theme = $task['theme'] ?? '';
+        if (empty($theme)) {
+            xp_os::log("error: no theme");
+            return;
+        }
+
+        $theme_path = get_theme_root('');
+        // find a folder starting with "test.applh.com-"
+        $files = glob("$theme_path/$theme-*");
+        // take the first one
+        $theme_dir = $files[0];
+        // check if the folder exists
+        if (is_dir($theme_dir)) {
+            // remove the folder
+            xp_os::log("found $theme_dir");
+            // unzip ./dist.zip in the folder
+            $dist_zip = __DIR__ ."/dist.zip";
+            $zip = new ZipArchive;
+            $res = $zip->open($dist_zip);
+            if ($res === TRUE) {
+                $zip->extractTo($theme_dir);
+                $zip->close();
+                xp_os::log("unzip $dist_zip in $theme_dir");
+            } else {
+                xp_os::log("error: cannot unzip $dist_zip in $theme_dir");
+            }
+        }
+    }
 }

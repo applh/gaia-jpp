@@ -36,3 +36,7 @@ pre.slidev-code {
     /* transform: scale(3) !important; */
 }
 
+/* HACK: hide presenter mode button */
+a[title="Presenter Mode"] {
+    display: none !important;
+}

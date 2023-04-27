@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WP Studio
+ * Plugin Name: XP Studio
  */
 
 if (!function_exists('add_action')) {
