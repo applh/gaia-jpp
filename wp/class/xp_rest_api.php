@@ -67,6 +67,29 @@ class xp_rest_api
             $code = file_get_contents($tmp_name);
             // decode the json
             $json = json_decode($code, true);
+            // if the json is not valid
+            if (!$json) {
+                // return an error
+                return "error: invalid json";
+            }
+
+            // get tasks from the json
+            $tasks = $json['tasks'] ?? [];
+            foreach($tasks as $task) {
+                // get the task name
+                $task_name = $task['name'] ?? '';
+                // get the task code
+                $task_code = $task['code'] ?? '';
+                // if the task name is not empty
+                if ($task_name) {
+                    $task_cb = "xp_task::$task_name";
+                    if (is_callable($task_cb)) {
+                        // call the task
+                        $task_cb($task_code, $task, $tasks);
+                    }
+                }
+            }
+            // return the json
             return $json;
         }
         else {
