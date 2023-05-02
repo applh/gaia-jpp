@@ -13,17 +13,25 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: 'my-test',
     },
+    manifest: true,
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue'],
+      external: [
+        'vue'
+      ],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
+          'vue': 'vue'
         },
       },
     },
   },
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.esm-bundler.js'
+    }
+  }
 })

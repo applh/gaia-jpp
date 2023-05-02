@@ -1,6 +1,8 @@
 // load vue js
 let vue = await import("/wp-json/xp-studio/v1/media?src=vue.esm-browser.prod.js");
 let xp_plugin = await import("/wp-json/xp-studio/v1/media?src=xp-plugin.js");
+let my_test = await import("/wp-json/xp-studio/v1/media?src=my-test.js");
+
 // create app
 
 let template = `
@@ -58,5 +60,6 @@ const app = vue.createApp({
     created,
 });
 app.use(xp_plugin.default);
+app.use(my_test.default);
 // mount app
 app.mount("#app");

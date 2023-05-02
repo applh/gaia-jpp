@@ -9,6 +9,8 @@ class xp_cli
         // get argv
         $argv = $_SERVER["argv"] ?? [];
         print_r($argv);
+
+        return "";
     }
 
     static function shell($cmd)
@@ -56,7 +58,7 @@ class xp_cli
         return $code;
     }
 
-    static function test_db()
+    static function test_db($content=null)
     {
         // hack
         $tags = $_REQUEST["tags"] ?? "";
@@ -81,8 +83,8 @@ class xp_cli
             $content = file_get_contents($upload_content["tmp_name"]);
         }
         else {
-            // build random content
-            $content = static::build_md(1, 3);
+            // build random content if not provided
+            $content ??= static::build_md(1, 3);
         }
 
         $data = [
@@ -97,6 +99,6 @@ class xp_cli
             "t" => $timestamp,
         ];
 
-        xp_sqlite::insert("geocms", $data);
+        xp_sqlite::create("geocms", $data);
     }
 }

@@ -4,6 +4,7 @@ class xp_router
 {
     static $filename = "";
     static $routes = [];
+    static $json = [];
 
     static function request()
     {
@@ -48,7 +49,8 @@ class xp_router
     static function json()
     {
         // return json
-        $json = [];
+        $json = static::$json;
+        
         // add timestamp
         $json["timestamp"] = time();
 

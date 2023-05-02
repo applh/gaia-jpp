@@ -21,6 +21,11 @@ export default defineConfig({
     target: 'esnext',
     minify: false,
     manifest: true,
+    rollupOptions: {
+      external: [
+        // 'vue'
+      ],
+    }
   },
   resolve: {
     alias: {
