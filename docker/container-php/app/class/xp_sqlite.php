@@ -2,6 +2,7 @@
 
 class xp_sqlite
 {
+    static $logs = [];
 
     static function db_create($name)
     {
@@ -47,7 +48,8 @@ class xp_sqlite
         ob_start();
         $stmt->debugDumpParams();
         $txt = ob_get_clean();
-        xp_router::$json["send_sql"] = $txt;
+        static::$logs[] = $txt;
+        // xp_router::$json["send_sql"] = $txt;
 
         // return result
         return $stmt;
@@ -80,9 +82,7 @@ class xp_sqlite
         $sql = "SELECT * FROM `$table` $extra_sql";
         $stmt = xp_sqlite::send_sql($sql);
 
-        xp_router::$json["sql"] = $sql;
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt?->fetchAll(PDO::FETCH_ASSOC) ?? [];
     }
 
     // create

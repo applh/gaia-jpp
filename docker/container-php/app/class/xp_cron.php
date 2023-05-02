@@ -6,10 +6,9 @@ class xp_cron
     static function minute ()
     {
         // sql select the last updated line table task
-        $sql = "SELECT * FROM `task` ";
         $tasks = xp_sqlite::read("task", "ORDER BY `updated` ASC LIMIT 1") ?? [];
         
-        xp_router::$json["tasks"] = $tasks;
+        // xp_router::$json["tasks"] = $tasks;
         // xp_cli::test_db($sql);
 
         // if task is not null
