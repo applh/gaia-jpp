@@ -30,3 +30,8 @@ slidev export --dark [your-file.md]
   * ok with `base: '/dist/'`
 * can use CLI also option `--base "/dist/"` if subfolder is needed
 
+
+## Customize configuration
+
+* https://sli.dev/custom/global-layers.html#example
+
