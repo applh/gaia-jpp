@@ -3,7 +3,7 @@ title: Demo LinkedIn + Slidev
 
 aspectRatio: 1 / 1
 canvasWidth: 1200
-background: https://source.unsplash.com/800x600?nature=0
+background: https://source.unsplash.com/1200x800?nature=0
 
 htmlAttrs:
   dir: ltr
@@ -24,7 +24,7 @@ htmlAttrs:
   * your personal brand
   * get new business opportunities
 
-![image](https://source.unsplash.com/800x600?nature=1)
+![image](https://source.unsplash.com/1200x800?nature=1)
 
 ---
 
@@ -38,7 +38,7 @@ Notes:
 * Links are only clickable after PDF download
 * (In LinkedIn feed, PDF links are blocked 😱)
 
-![image](https://source.unsplash.com/800x600?nature=a)
+![image](https://source.unsplash.com/1200x800?nature=a)
 
 ---
 
@@ -50,7 +50,7 @@ Notes:
   * (Humans are animals)
     * eyes are attracted by movement 🐬
 
-![image](https://source.unsplash.com/800x600?nature=b)
+![image](https://source.unsplash.com/1200x800?nature=b)
 
 ---
 
@@ -64,7 +64,7 @@ Notes:
   * It's fast
   * It's fun
 
-![image](https://source.unsplash.com/800x600?nature=c)
+![image](https://source.unsplash.com/1200x800?nature=c)
 
 ---
 
@@ -81,7 +81,7 @@ Notes:
     * It's easy to read
     * It's easy to write
   
-![image](https://source.unsplash.com/800x600?nature=d)
+![image](https://source.unsplash.com/1200x800?nature=d)
 
 ---
 
@@ -95,7 +95,7 @@ Notes:
   * It's easy to read
   * It's easy to write
 
-![image](https://source.unsplash.com/800x600?nature=e)
+![image](https://source.unsplash.com/1200x800?nature=e)
 
 ---
 
@@ -108,7 +108,7 @@ Notes:
   * It's easy to print
   * It's easy to write
 
-![image](https://source.unsplash.com/800x600?nature=f)
+![image](https://source.unsplash.com/1200x800?nature=f)
 
 ---
 
@@ -120,7 +120,7 @@ Notes:
   * CSS
   * Vue Components
 
-![image](https://source.unsplash.com/800x600?nature=g)
+![image](https://source.unsplash.com/1200x800?nature=g)
 
 ---
 
@@ -143,4 +143,4 @@ See you next time!
 
 (credits: random photos from Unsplash.com)
 
-![image](https://source.unsplash.com/800x600?nature=end)
+![image](https://source.unsplash.com/1200x800?nature=end)

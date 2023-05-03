@@ -3,20 +3,21 @@
 }
 
 h1 {
-    color:ffffff !important;
+    color: ffffff !important;
     text-shadow: 1px 1px 4px #ff0000;
     font-size: 5rem !important;
 }
 
 h2 {
-    color:red !important;
+    color: red !important;
     text-align: left;
     padding-bottom: 5vw;
     padding-top: 5vw;
     font-size: 4rem !important;
 }
+
 h3 {
-    color:red !important;
+    color: red !important;
     text-align: left;
     padding-bottom: 5vw;
     padding-top: 5vw;
@@ -37,16 +38,18 @@ footer {
 }
 
 img[alt=image] {
-    width:100%;
+    width: 100%;
     display: block;
     margin: 0 auto;
+    /* box shadow */
+    box-shadow: 0.75vw 1vw 0.25vw 0 rgba(0, 10, 10, 0.5);
 }
+
 #slide-content {
     /* transform: translate(-50%, -50%) scale(1) !important; */
 }
 
-#slideshow {
-}
+#slideshow {}
 
 /* select all .slide-layout except first one */
 .slidev-layout:not(:first-child) {
