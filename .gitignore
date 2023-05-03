@@ -5,3 +5,5 @@ my-*
 
 # ignore node_modules in all subdirectories
 node_modules
+
+.DS_Store

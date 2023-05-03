@@ -2,7 +2,7 @@
 title: Demo LinkedIn + Slidev
 
 aspectRatio: 1 / 1
-canvasWidth: 600
+canvasWidth: 1200
 background: https://source.unsplash.com/800x600?nature=0
 
 htmlAttrs:
