@@ -1,19 +1,19 @@
 <?php
 
-class xp_action_studio
+class xps_action
 {
     static $json = [];
 
     static function init()
     {
-        add_action('wp_head', 'xp_action_studio::wp_head_meta_description');
+        add_action('wp_head', 'xps_action::wp_head_meta_description');
 
         // add new rest route for json data: xperia/v1/json
-        add_action("rest_api_init", "xp_action_studio::rest_api_init");
+        add_action("rest_api_init", "xps_action::rest_api_init");
 
-        add_action("admin_init", "xp_action_studio::admin_init");
+        add_action("admin_init", "xps_action::admin_init");
         // WARNING: admin_menu can't be inside admin_init
-        add_action("admin_menu", "xp_action_studio::admin_menu");
+        add_action("admin_menu", "xps_action::admin_menu");
 
     }
 
@@ -31,10 +31,10 @@ class xp_action_studio
             "XP Studio",
             "read",
             "xperia-studio",
-            "xp_action_studio::admin_page"
+            "xps_action::admin_page"
         );
         // add css for the admin page
-        add_action("admin_head", "xp_action_studio::admin_head");
+        add_action("admin_head", "xps_action::admin_head");
     }
 
     static function admin_head ()
@@ -94,7 +94,7 @@ class xp_action_studio
                     return true;
                 },
                 // WARNING: check the callback name
-                "callback" => "xp_action_studio::wp_json"
+                "callback" => "xps_action::wp_json"
             )
         );
 
@@ -109,7 +109,7 @@ class xp_action_studio
                     return true;
                 },
                 // WARNING: check the callback name
-                "callback" => "xp_action_studio::wp_json"
+                "callback" => "xps_action::wp_json"
             )
         );
 
@@ -124,7 +124,7 @@ class xp_action_studio
                     return true;
                 },
                 // WARNING: check the callback name
-                "callback" => "xp_action_studio::wp_json_media"
+                "callback" => "xps_action::wp_json_media"
             )
         );
     }

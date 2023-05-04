@@ -15,6 +15,14 @@ class xpa_route_blog
             $content = file_get_contents($article);
             echo $content;
         }
+
+        $notebook = "$path_data/blog/$filename.ipynb";
+        if (file_exists($notebook)) {
+            $content = file_get_contents($notebook);
+            $json = json_decode($content, true);
+            $cells = $json["cells"] ?? [];
+            print_r($cells);
+        }
         else {
             echo "article not found ($article)";
         }

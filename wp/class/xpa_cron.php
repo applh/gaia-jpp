@@ -13,6 +13,11 @@ class xpa_cron
 
         // if task is not null
         foreach($tasks as $task) {
+            extract($task);
+            $code = trim($code ?? "");
+            if ($code) {
+                is_callable($code) && $code();
+            }
             // update the updated_at column with current datetime
             $tokens = [
                 "updated" => date("Y-m-d H:i:s"),

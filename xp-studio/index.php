@@ -17,8 +17,8 @@ class xp_studio
 
         // add init callback
         // WARNING: WP will throw an error if the callback is not callable
-        if (is_callable("xp_action_studio::init")) {
-            add_action("init", "xp_action_studio::init");
+        if (is_callable("xps_action::init")) {
+            add_action("init", "xps_action::init");
         }
     }
 
