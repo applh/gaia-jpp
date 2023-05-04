@@ -50,4 +50,17 @@ RUN pip3 install jupyter
 # install Pillow requests numpy opencv-python matplotlib ipython
 RUN pip3 install Pillow requests numpy opencv-python matplotlib ipython
 
+# sqlite3
+RUN pip3 install db-sqlite3 
+
+# playwright
+RUN pip3 install playwright
+RUN playwright install
+RUN playwright install-deps
+RUN playwright install chromium
+# move /root/.cache to /var/www/.cache
+RUN mv /root/.cache /var/www/.cache
+# change owner
+RUN chown -R www-data:www-data /var/www/.cache
+
 RUN apt-get clean && apt-get autoclean

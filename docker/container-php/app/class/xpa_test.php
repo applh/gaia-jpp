@@ -13,6 +13,11 @@ class xpa_test
         static::task_python("opencv");
     }
 
+    static function playwright ()
+    {
+        static::task_python("playwright");
+    }
+
     static function task_python ($name)
     {
         $timestamp = time();
