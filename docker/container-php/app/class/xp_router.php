@@ -23,14 +23,35 @@ class xp_router
             // print_r($path_infos);
             extract($path_infos);
             $filename ??= "index";
+            $extension = strtolower($extension ?? "");
 
             static::$filename = $filename;
             // echo "filename: $filename\n$path\n";
+            // check if there's a sub route 
+            // (example: /news/may-2023 => sub_route is 'news')
+            $sub_route = trim($dirname ?? "", "/");
+            // sub_route is only the first part of the path (before the first /)
+            $sub_route = explode("/", $sub_route)[0];
+            if ($sub_route != "") {
+                // change - by _ in sub_route
+                $sub_route = str_replace("-", "_", $sub_route);
+                // remove all non alpha numeric chars, _ is ok
+                $sub_route = preg_replace("/[^a-zA-Z0-9_]/", "", $sub_route);
+                $callback = "xp_route_$sub_route::response";
+                if (is_callable($callback)) {
+                    // call sub route
+                    $callback($dirname, $filename, $extension ?? "");
+                    return;
+                }
 
-            $route = static::$routes[$filename] ?? "";
-            if ($route) {
-                // add task 
-                xp_task::add($filename, $route);
+                // echo "route not found ($filename)($path)($dirname)\n";
+            }
+            else {
+                $route = static::$routes[$filename] ?? "";
+                if ($route) {
+                    // add task 
+                    xp_task::add($filename, $route);
+                }    
             }
         } else {
             // cli mode

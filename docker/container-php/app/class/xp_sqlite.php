@@ -3,41 +3,60 @@
 class xp_sqlite
 {
     static $logs = [];
+    // keep pdo connections in a static array
+    static $pdos = [];
+    static $db_name = "gaia";
 
     static function db_create($name)
     {
-        $db_path = dirname(__DIR__) . "/my-data/$name.sqlite";
-        if (file_exists($db_path)) {
-            // echo "database $name ($db_path) already exists\n";
-            // return the database
-            $pdo = new PDO("sqlite:$db_path");
-        } else {
-            // create a new sqlite database with $name
-            $pdo = new PDO("sqlite:$db_path");
+        // if pdo exists in static array, return it
+        if (isset(static::$pdos[$name])) {
+            return static::$pdos[$name];
+        }
 
+        $pdo = null;
+        try {
+            // else create it
+            $path_data = cli::kv("path_data");
+            $db_path = "$path_data/$name.sqlite";
+            $has_db_file = file_exists($db_path);
+            $pdo = new PDO("sqlite:$db_path");
             // set error mode to exception
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            // get all files in ../media/table-*.sql
-            $sql_files = glob(dirname(__DIR__) . "/media/table-*.sql");
-            // loop on files
-            foreach ($sql_files as $sql_file) {
-                // get sql from file
-                $sql = file_get_contents($sql_file);
-                // execute sql
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
+            if (!$has_db_file) {
+                static::db_init($pdo);
             }
+            // add pdo to static array
+            static::$pdos[$name] = $pdo;
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
         }
 
         // return the database
         return $pdo;
     }
 
-    static function send_sql($sql, $tokens = [])
+    static function db_init ($pdo)
+    {
+        // get all files in ../media/table-*.sql
+        $path_media = cli::kv("root") . "/media";
+        $sql_files = glob("$path_media/table-*.sql");
+        // loop on files
+        foreach ($sql_files as $sql_file) {
+            // get sql from file
+            $sql = file_get_contents($sql_file);
+            // execute sql
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+        }
+
+    }
+
+    static function send_sql($sql, $tokens = [], $db_name = null)
     {
         // connect to database
-        $pdo = xp_sqlite::db_create("gaia");
+        $pdo = xp_sqlite::db_create($db_name ?? static::$db_name);
         // prepare sql
         $stmt = $pdo->prepare($sql);
         // execute sql
