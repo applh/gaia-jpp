@@ -1,6 +1,6 @@
 <?php
 
-class xp_task 
+class xpa_task 
 {
     static $tasks = [];
     // make a dynamic task list

@@ -1,6 +1,6 @@
 <?php
 
-class xp_router
+class xpa_router
 {
     static $filename = "";
     static $routes = [];
@@ -37,7 +37,7 @@ class xp_router
                 $sub_route = str_replace("-", "_", $sub_route);
                 // remove all non alpha numeric chars, _ is ok
                 $sub_route = preg_replace("/[^a-zA-Z0-9_]/", "", $sub_route);
-                $callback = "xp_route_$sub_route::response";
+                $callback = "xpa_route_$sub_route::response";
                 if (is_callable($callback)) {
                     // call sub route
                     $callback($dirname, $filename, $extension ?? "");
@@ -50,12 +50,12 @@ class xp_router
                 $route = static::$routes[$filename] ?? "";
                 if ($route) {
                     // add task 
-                    xp_task::add($filename, $route);
+                    xpa_task::add($filename, $route);
                 }    
             }
         } else {
             // cli mode
-            xp_task::add("cli", "xp_cli::run");
+            xpa_task::add("cli", "xpa_cli::run");
         }
     }
 

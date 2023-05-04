@@ -1,6 +1,6 @@
 <?php
 
-class xp_route_media 
+class xpa_route_media 
 {
     static $mimes = [
         "css" => "text/css",

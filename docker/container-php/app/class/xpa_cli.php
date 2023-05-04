@@ -1,11 +1,11 @@
 <?php
 
-class xp_cli
+class xpa_cli
 {
     static function run ()
     {
         // debug
-        print_r(xp_task::$tasks);
+        print_r(xpa_task::$tasks);
         // get argv
         $argv = $_SERVER["argv"] ?? [];
         print_r($argv);
@@ -99,6 +99,6 @@ class xp_cli
             "t" => $timestamp,
         ];
 
-        xp_sqlite::create("geocms", $data);
+        xpa_sqlite::create("geocms", $data);
     }
 }

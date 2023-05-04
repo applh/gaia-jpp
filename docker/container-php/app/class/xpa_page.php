@@ -1,6 +1,6 @@
 <?php
 
-class xp_page 
+class xpa_page 
 {
     static function index ()
     {

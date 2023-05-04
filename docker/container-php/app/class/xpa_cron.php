@@ -1,15 +1,15 @@
 <?php
 
-class xp_cron 
+class xpa_cron 
 {
 
     static function minute ()
     {
         // sql select the last updated line table task
-        $tasks = xp_sqlite::read("task", "ORDER BY `updated` ASC LIMIT 1") ?? [];
+        $tasks = xpa_sqlite::read("task", "ORDER BY `updated` ASC LIMIT 1") ?? [];
         
-        // xp_router::$json["tasks"] = $tasks;
-        // xp_cli::test_db($sql);
+        // xpa_router::$json["tasks"] = $tasks;
+        // xpa_cli::test_db($sql);
 
         // if task is not null
         foreach($tasks as $task) {
@@ -18,10 +18,10 @@ class xp_cron
                 "updated" => date("Y-m-d H:i:s"),
                 "id" => $task["id"]
             ];
-            xp_sqlite::update("task", $task['id'], $tokens);
+            xpa_sqlite::update("task", $task['id'], $tokens);
 
             // log the task
-            xp_cli::test_db(json_encode($task, JSON_PRETTY_PRINT));
+            xpa_cli::test_db(json_encode($task, JSON_PRETTY_PRINT));
         }
     }
 }

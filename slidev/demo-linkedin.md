@@ -143,4 +143,4 @@ See you next time!
 
 (credits: random photos from Unsplash.com)
 
-![image](https://source.unsplash.com/1200x600?nature+woman+summer+beach=end)
+![image](https://source.unsplash.com/1200x600?nature+end)

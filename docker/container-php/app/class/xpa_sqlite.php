@@ -1,6 +1,6 @@
 <?php
 
-class xp_sqlite
+class xpa_sqlite
 {
     static $logs = [];
     // keep pdo connections in a static array
@@ -56,7 +56,7 @@ class xp_sqlite
     static function send_sql($sql, $tokens = [], $db_name = null)
     {
         // connect to database
-        $pdo = xp_sqlite::db_create($db_name ?? static::$db_name);
+        $pdo = xpa_sqlite::db_create($db_name ?? static::$db_name);
         // prepare sql
         $stmt = $pdo->prepare($sql);
         // execute sql
@@ -68,7 +68,7 @@ class xp_sqlite
         $stmt->debugDumpParams();
         $txt = ob_get_clean();
         static::$logs[] = $txt;
-        // xp_router::$json["send_sql"] = $txt;
+        // xpa::$json["send_sql"] = $txt;
 
         // return result
         return $stmt;
@@ -82,7 +82,7 @@ class xp_sqlite
         // delete row with id $id from table $table
         $sql = "DELETE FROM `$table` WHERE id = :id";
         $tokens = ["id" => $id];
-        $stmt = xp_sqlite::send_sql($sql, $tokens);
+        $stmt = static::send_sql($sql, $tokens);
         return $stmt;
     }
 
@@ -92,14 +92,14 @@ class xp_sqlite
         // read row with id $id from table $table
         $sql = "SELECT * FROM `$table` WHERE id = :id";
         $tokens = ["id" => $id];
-        $stmt = xp_sqlite::send_sql($sql, $tokens);
+        $stmt = static::send_sql($sql, $tokens);
         return $stmt?->fetchAll(PDO::FETCH_ASSOC) ?? [];
     }
 
     static function read ($table, $extra_sql)
     {
         $sql = "SELECT * FROM `$table` $extra_sql";
-        $stmt = xp_sqlite::send_sql($sql);
+        $stmt = static::send_sql($sql);
 
         return $stmt?->fetchAll(PDO::FETCH_ASSOC) ?? [];
     }
@@ -128,7 +128,7 @@ class xp_sqlite
         ( $vals )
         SQL;
 
-        $stmt = xp_sqlite::send_sql($sql, $tokens);
+        $stmt = static::send_sql($sql, $tokens);
         return $stmt;
     }
 
@@ -146,7 +146,7 @@ class xp_sqlite
         $sql = substr($sql, 0, -2);
         $sql .= " WHERE id = :id";
         $tokens["id"] = $id;
-        $stmt = xp_sqlite::send_sql($sql, $tokens);
+        $stmt = static::send_sql($sql, $tokens);
         return $stmt;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class xp_route_blog 
+class xpa_route_blog 
 {
     static function response ($dirname, $filename, $extension)
     {
