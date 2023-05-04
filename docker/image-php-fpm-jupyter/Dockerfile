@@ -47,7 +47,7 @@ RUN docker-php-ext-enable memcached
 # install jupyter notebook
 RUN apt-get install -y python3-pip
 RUN pip3 install jupyter
-# install Pillow
-RUN pip3 install Pillow requests
+# install Pillow requests numpy opencv-python matplotlib ipython
+RUN pip3 install Pillow requests numpy opencv-python matplotlib ipython
 
 RUN apt-get clean && apt-get autoclean
