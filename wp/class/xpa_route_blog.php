@@ -23,8 +23,12 @@ class xpa_route_blog
             $cells = $json["cells"] ?? [];
             print_r($cells);
         }
-        else {
-            echo "article not found ($article)";
+        
+        if ($filename == "python") {
+            echo "test python\n";
+            $request = $_REQUEST;
+            print_r($request);
+            xpa_test::task_python("news");
         }
 
     }

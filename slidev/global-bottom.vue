@@ -1,5 +1,10 @@
 <template>
-    <footer v-if="$slidev.nav.currentLayout !== 'cover'" class="absolute bottom-0 right-2 p-2">
-        {{ $slidev.nav.currentPage }} / {{ $slidev.nav.total }}
+    <footer  class="text-right absolute bottom-0 right-2 p-2">
+        <div v-if="$slidev.nav.currentLayout !== 'cover'">
+            {{ $slidev.nav.currentPage }} / {{ $slidev.nav.total }}
+        </div>
+        <XpLevel />
+
     </footer>
+
 </template>

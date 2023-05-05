@@ -16,7 +16,7 @@ h2 {
     font-size: 4rem !important;
 }
 
-h3 {
+h3, h4 {
     color: red !important;
     text-align: left;
     padding-bottom: 5vw;
@@ -65,4 +65,8 @@ img[alt=image] {
 /* HACK: hide presenter mode button */
 a[title="Presenter Mode"] {
     display: none !important;
+}
+
+footer {
+    z-index: 999;
 }
