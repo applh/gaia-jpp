@@ -18,6 +18,11 @@ class xpa_test
         static::task_python("playwright");
     }
 
+    static function news ()
+    {
+        static::task_python("news");
+    }
+
     static function task_python ($name)
     {
         $timestamp = time();
@@ -42,6 +47,7 @@ class xpa_test
         txt;
         file_put_contents($file, $line, FILE_APPEND);
         
+        return $output;
     }
 
 

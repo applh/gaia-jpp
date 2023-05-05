@@ -1,0 +1,27 @@
+{
+    "keywords": "nature",
+    "sites": [
+        {
+            "name": "web-80",
+            "url": "http://web:80",
+            "note": "WARNING: docker local port is 80"
+        },
+        {
+            "name": "localhost-8666",
+            "url": "http://host.docker.internal:8666",
+            "note": "WARNING: can have access to computer localhost by host.docker.internal"
+        }
+    ],
+    "sites-0": [
+       {
+            "name": "web-80",
+            "url": "http://web:80",
+            "note": "WARNING: docker local port is 80"
+        },
+        {
+            "name": "localhost-8666",
+            "url": "http://host.docker.internal:8666",
+            "note": "WARNING: docker local port is 80"
+        }
+    ] 
+}
