@@ -14,9 +14,6 @@
 </head>
 
 <body>
-    <div id="app">
-    </div>
-
     <?php include "vue/app.html" ?>
 </body>
 

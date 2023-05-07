@@ -1,16 +1,173 @@
+<div id="app">
+</div>
+
 <template id="appTemplate">
     <xp-app></xp-app>
 </template>
+
 <script type="importmap">
-    {
-        "imports": {
-            "vue": "/template/vue/vue.esm-browser.js",
-            "XpGaia": "/template/vue/xp-gaia.js",
-            "XpApp": "/template/vue/xp-app.js",
-            "XpTest": "/template/vue/xp-test.js",
-            "XpTestAsync": "/template/vue/xp-test-async.js"
-        }
+{
+    "imports": {
+        "vue": "/template/vue/vue.esm-browser.js",
+        "XpGaia": "/template/vue/xp-gaia.js",
+        "XpApp": "/template/vue/xp-app.js",
+        "XpAppUser": "/template/vue/xp-app-user.js",
+        "XpAppAdmin": "/template/vue/xp-app-admin.js",
+        "XpAppDev": "/template/vue/xp-app-dev.js",
+        "XpTest": "/template/vue/xp-test.js",
+        "XpTestAsync": "/template/vue/xp-test-async.js"
     }
+}
 </script>
 <script type="module" src="/template/vue/app.js">
 </script>
+
+<template id="xp-app">
+    <div>
+        <h1>XP App</h1>
+        <div v-if="xpv.user.id == 0">
+            <form>
+                <h2>login</h2>
+                <label>
+                    <span>email</span>
+                    <input type="email" autocomplete="email" />
+                </label>
+                <label>
+                    <span>password</span>
+                    <input type="password" autocomplete="current-password" />
+                </label>
+                <button type="submit">login</button>
+            </form>
+            <form>
+                <h2>register</h2>
+                <label>
+                    <span>email</span>
+                    <input type="email" autocomplete="email" />
+                </label>
+                <label>
+                    <span>username</span>
+                    <input type="text" autocomplete="username" />
+                </label>
+                <label>
+                    <span>password</span>
+                    <input type="password" autocomplete="current-password" />
+                </label>
+                <button type="submit">register</button>
+            </form>
+        </div>
+        <div v-else>
+            <xp-app-user v-if="xpv.user_api_key"></xp-app-user>
+            <xp-app-admin v-else-if="xpv.admin_api_key"></xp-app-admin>
+            <div v-else>
+                <h2>missing api key</h2>
+            </div>
+        </div>
+        <xp-app-dev />
+    </div>
+</template>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    #app {
+        text-align: center;
+    }
+
+    h1 {
+        color: red;
+        text-align: center;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form label {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.25rem;
+    }
+    form label span {
+        width: 10rem;
+        text-align: right;
+        padding-right: 0.5rem;
+    }
+
+    form input, form button {
+        padding: 0.25rem;
+    }
+
+    form button {
+        width: 100%;
+    }
+
+    .posts {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .posts article {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        width: 100%;
+    }
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .options ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .options ul li {
+        display: inline-block;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #eee;
+    }
+    /* media queries */
+    @media (min-width: 800px) {
+        .posts article {
+            width: calc(100% / 2 - 1rem);
+        }
+    }
+    @media (min-width: 1200px) {
+        .posts article {
+            width: calc(100% / 3 - 1rem);
+        }
+    }
+    @media (min-width: 1600px) {
+        .posts article {
+            width: calc(100% / 4 - 1rem);
+        }
+    }
+    @media (min-width: 2000px) {
+        .posts article {
+            width: calc(100% / 5 - 1rem);
+        }
+    }
+    @media (min-width: 2400px) {
+        .posts article {
+            width: calc(100% / 6 - 1rem);
+        }
+    }
+</style>
