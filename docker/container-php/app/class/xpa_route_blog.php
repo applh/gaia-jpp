@@ -24,12 +24,9 @@ class xpa_route_blog
             print_r($cells);
         }
         
-        if ($filename == "python") {
-            echo "test python\n";
-            $request = $_REQUEST;
-            print_r($request);
-            xpa_test::task_python("news");
+        $php_template = "$path_data/blog/$filename.php";
+        if (file_exists($php_template)) {
+            include $php_template;
         }
-
     }
 }

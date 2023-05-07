@@ -6,6 +6,7 @@ class cli
     static $autoloads = [
         "cli::autoload_file",
         "cli::autoload_zip",
+        "cli::autoload_db",
     ];
 
     static function run()
@@ -55,6 +56,8 @@ class cli
     {
         $path_data = cli::kv("path_data");
         $target_file = "$path_data/class/$classname.php";
+
+        // FIXME: should be used in autoload_cache
         // check if $target_file exists then include it
         if (file_exists($target_file)) {
             require_once $target_file;
@@ -68,11 +71,49 @@ class cli
             // don't want PHP warning is file doesn't exist 
             // (@ => don't show error)
             $code = @file_get_contents($path_class);
-            file_put_contents($target_file, $code);
+            $code = trim($code);
+            if ($code) {
+                file_put_contents($target_file, $code);
+                require_once $target_file;
+                return true;    
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * WARNING: need xpa_sqlite loaded before
+     * Can't be the first autoload to be called
+     */
+    static function autoload_db ($classname)
+    {
+        $path_data = cli::kv("path_data");
+        $target_file = "$path_data/class/$classname.php";
+
+        // FIXME: should be used in autoload_cache
+        // check if $target_file exists then include it
+        if (file_exists($target_file)) {
             require_once $target_file;
             return true;
         }
 
+        // need xpa_sqlite loaded before
+        $rows = xpa_sqlite::read(
+            "class/geocms", 
+            "where `path` = 'class' and `filename` = '$classname' ORDER BY created DESC LIMIT 1", 
+            // [ "filename" => $classname ]
+        );
+        // print_r($rows);
+        foreach($rows as $row) {
+            extract($row);
+            $code = trim($code ?? "");
+            if ($code) {
+                file_put_contents($target_file, $code);
+                require_once $target_file;
+                return true;
+            }
+        }
         return false;
     }
 

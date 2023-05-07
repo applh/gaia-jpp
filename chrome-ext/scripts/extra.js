@@ -1,5 +1,5 @@
-console.log('xp-gaia: extra.js');
+// console.log('xp-gaia: extra.js');
 
 document.querySelectorAll('img').forEach(image => {
-    console.log(image.src);
+    // console.log(image.src);
 });
