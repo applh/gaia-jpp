@@ -11,6 +11,7 @@
         "vue": "/template/vue/vue.esm-browser.js",
         "XpGaia": "/template/vue/xp-gaia.js",
         "XpApp": "/template/vue/xp-app.js",
+        "XpForm": "/template/vue/xp-form.js",
         "XpAppUser": "/template/vue/xp-app-user.js",
         "XpAppAdmin": "/template/vue/xp-app-admin.js",
         "XpAppDev": "/template/vue/xp-app-dev.js",
@@ -26,6 +27,7 @@
     <div>
         <h1>XP App</h1>
         <div v-if="xpv.user.id == 0">
+            <xp-form />
             <form>
                 <h2>login</h2>
                 <label>
@@ -63,6 +65,20 @@
             </div>
         </div>
         <xp-app-dev />
+    </div>
+</template>
+
+<template id="xp-form">
+    <div>
+        <em>XpForm</em>
+        <form @submit.prevent="$event => act_submit($event)">
+            <label v-for="f in form.fields">
+                <span>{{ f.name }}</span>
+                <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required" :placeholder="f.placeholder" v-model="f.value"></textarea>
+                <input v-else :type="f.type" :name="f.name" :required="f.required" :placeholder="f.placeholder" v-model="f.value" />
+            </label>
+            <button type="submit">send</button>
+        </form>
     </div>
 </template>
 

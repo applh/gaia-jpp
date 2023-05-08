@@ -2,10 +2,29 @@
 
 class xp_os 
 {
+    static $mimes = [
+        "css" => "text/css",
+        "js" => "text/javascript",
+        "json" => "application/json",
+        "ttf" => "font/ttf",
+        "jpg" => "image/jpeg",
+        "jpeg" => "image/jpeg",
+        "png" => "image/png",
+        "gif" => "image/gif",
+        "svg" => "image/svg+xml",
+        "webp" => "image/webp",
+        "ico" => "image/x-icon",
+        "mp4" => "video/mp4",
+        "webm" => "video/webm",
+        "ogg" => "video/ogg",
+
+    ];
+
     static function log ($line) 
     {
         $now = date("Ymd");
-        $file = __DIR__ ."/log-$now.txt";
+        $path_data = cli::kv("path_data");
+        $file = "$path_data/cron/log-$now.txt";
         file_put_contents($file, "$line\n", FILE_APPEND);
     }
 

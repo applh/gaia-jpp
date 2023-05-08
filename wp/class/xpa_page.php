@@ -28,22 +28,39 @@ class xpa_page
 
     static function admin ()
     {
-        echo "admin page";
+        $path_root = cli::kv("root");
+        $path_templates = $path_root . "/templates";
+        $path_vue = $path_templates . "/vue.php";
+        
+        // if template file exists then use it
+        if (file_exists($path_vue)) {
+            require_once $path_vue;
+        }
+        else {
+            echo "template not found ($path_vue)";
+        }
     }
 
     static function member ()
     {
-        echo "member page";
-        $callback = "xpdb::test";
-        if (is_callable($callback)) {
-            echo "HELLO";
-            $callback();
+        $path_root = cli::kv("root");
+        $path_templates = $path_root . "/templates";
+        $path_vue = $path_templates . "/vue.php";
+        
+        // if template file exists then use it
+        if (file_exists($path_vue)) {
+            require_once $path_vue;
         }
         else {
-            echo "NOT CALLABLE";
+            echo "template not found ($path_vue)";
         }
+    }
 
-        // print_r(xpa_router::$json);
+    /**
+     * robots.txt
+     */
+    static function robots ()
+    {
 
     }
 

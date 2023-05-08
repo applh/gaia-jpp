@@ -40,7 +40,11 @@ class xpa_test
         // change directory to ipython folder
         chdir($path_ipython);
         // launch command
-        $command = "jupyter nbconvert --to notebook --execute --output task-$name-$now0.ipynb --output-dir $path_data/cron task-$name.ipynb";
+        // KO: permission denied .jupyter ?!
+        // $command = "IPYTHONDIR=$path_ipython jupyter nbconvert --to notebook --execute --output task-$name-$now0.ipynb --output-dir $path_ipython task-$name.ipynb";
+        // FIXME: 
+        // UserWarning: IPython parent '/var/www' is not a writable location, using a temp directory.
+        $command = "jupyter nbconvert --to notebook -y --log-level 50 --execute --output task-$name-$now0.ipynb --output-dir $path_ipython task-$name.ipynb";
 
         // $command = "which jupyter";
         // $command = "ls -la";

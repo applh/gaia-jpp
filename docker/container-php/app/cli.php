@@ -116,7 +116,7 @@ class cli
         }
         return false;
     }
-
+    
     static function kv($key, $value = null)
     {
         if ($value) {

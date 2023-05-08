@@ -3,6 +3,7 @@
 import { defineAsyncComponent, reactive } from 'vue'
 
 import XpApp from 'XpApp'
+import XpForm from 'XpForm'
 import XpTest from 'XpTest'
 
 // vue reactive
@@ -13,6 +14,7 @@ let vstore = reactive({
     wh: window.innerHeight,
     user_api_key: '',
     admin_api_key: '',
+    api_url: 'http://localhost:8666/api/json',
     user: {
         id: 0,
         posts: [
@@ -67,6 +69,7 @@ export default {
 
         // define components
         app.component('XpApp', XpApp)
+        app.component('XpForm', XpForm)
 
         // define async components
         let compos = [ 'XpAppUser', 'XpAppAdmin', 'XpAppDev', 'XpAppTest' ];
@@ -79,7 +82,7 @@ export default {
 
         app.config.globalProperties.$xpv = () => vstore;
 
-        app.config.globalProperties.$xp = (cmd, param = null, opts = null) => {
+        app.config.globalProperties.$xp = async (cmd, param = null, opts = null) => {
             // console.log('xp-gaia.js: $xp() called with cmd: ' + cmd)
             // warning: function is called at each render
             if (cmd == 'reverse') {
@@ -91,6 +94,25 @@ export default {
                 vstore.admin_api_key = ''
                 return
             }
+            if (cmd == 'api/json') {
+                let fd = new FormData()
+                let request = param ?? {}
+
+                request.user_api_key = vstore.user_api_key
+                request.admin_api_key = vstore.admin_api_key
+                
+                let request_blob = new Blob([JSON.stringify(request)], { type: 'application/json' })
+                fd.append('request', request_blob, 'request.json')
+
+                let opts = {
+                    method: 'POST',
+                    body: fd,
+                }
+                let response = await fetch(vstore.api_url, opts)
+                let json = await response.json()
+                return json
+            }
+
             return cmd;
         }
     }
