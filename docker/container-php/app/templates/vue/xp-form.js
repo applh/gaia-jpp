@@ -45,7 +45,10 @@ let methods = {
         this.form.fields.forEach(field => {
             inputs[field.name] = field.value
         })
-        let json = await this.$xp('api/json', { inputs })
+        let json = await this.$xp('api/json', {
+            form_name: this.form.name, 
+            inputs 
+        })
         console.log('json', json)
     },
 }

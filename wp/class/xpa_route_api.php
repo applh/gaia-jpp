@@ -18,8 +18,9 @@ class xpa_route_api
             // timestamp
             $now = time();
             $json["timestamp"] = $now;
+            $now2date = date("Y-m-d H:i:s", $now);
             // date
-            $json["date"] = date("Y-m-d H:i:s", $now);
+            $json["date"] = $now2date;
             // request
             $json["request"] = $_REQUEST;
             // files
@@ -34,6 +35,25 @@ class xpa_route_api
                 $content = file_get_contents($tmp_name);
                 // decode json
                 $json_request = json_decode($content, true);
+
+                $form_name = $json_request["form_name"] ?? "";
+                if ($form_name == "contact") {
+                    $inputs = $json_request["inputs"] ?? [];
+                    // add date
+                    $inputs["date"] = $now2date;
+                    // add ip
+                    $inputs["ip"] = $_SERVER["REMOTE_ADDR"];
+
+                    $inputs_json = json_encode($inputs, JSON_PRETTY_PRINT);
+                    // save to db contact/geocms
+                    $row = [
+                        "path" =>  "form/contact",
+                        "cat" => $form_name,
+                        "code" => $inputs_json,
+                        "created" => $now2date,
+                    ];
+                    xpa_sqlite::create("contact/geocms", $row);
+                }
                 // debug
                 $json["request_json"] = $json_request;
 
