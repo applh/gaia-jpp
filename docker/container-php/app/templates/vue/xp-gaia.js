@@ -6,6 +6,130 @@ import XpApp from 'XpApp'
 import XpForm from 'XpForm'
 import XpTest from 'XpTest'
 
+
+// forms
+let form_contact = {
+    name: 'contact',
+    fields: [
+        {
+            name: 'name',
+            type: 'text',
+            label: 'Name',
+            value: '',
+            placeholder: 'Your name',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'email',
+            type: 'email',
+            label: 'Email',
+            value: '',
+            placeholder: 'Your email',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'message',
+            type: 'textarea',
+            label: 'Message',
+            value: '',
+            placeholder: 'Your message',
+            required: true,
+            minlength: 3,
+            maxlength: 1024,
+        },
+    ],
+}
+
+let form_newsletter = {
+    name: 'newsletter',
+    fields: [
+        {
+            name: 'email',
+            type: 'email',
+            label: 'Email',
+            value: '',
+            placeholder: 'Your email',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'name',
+            type: 'text',
+            label: 'Name',
+            value: '',
+            placeholder: 'Your name',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+    ],
+}
+
+let form_register = {
+    name: 'register',
+    fields: [
+        {
+            name: 'email',
+            type: 'email',
+            label: 'Email',
+            value: '',
+            placeholder: 'Your email',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'name',
+            type: 'text',
+            label: 'Name',
+            value: '',
+            placeholder: 'Your name',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'password',
+            type: 'password',
+            label: 'Password',
+            value: '',
+            placeholder: 'Your password',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        }
+    ],
+}
+let form_login = {
+    name: 'login',
+    fields: [
+        {
+            name: 'email',
+            type: 'email',
+            label: 'Email',
+            value: '',
+            placeholder: 'Your email',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'password',
+            type: 'password',
+            label: 'Password',
+            value: '',
+            placeholder: 'Your password',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        }
+    ],
+}
 // vue reactive
 let vstore = reactive({
     counter: 0,
@@ -49,6 +173,12 @@ let vstore = reactive({
                 content: 'Post 6 content',
             }
         ],
+    },
+    forms: {
+        contact: form_contact,
+        newsletter: form_newsletter,
+        register: form_register,
+        login: form_login,
     },
 })
 

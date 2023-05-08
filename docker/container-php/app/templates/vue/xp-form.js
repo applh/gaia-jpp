@@ -1,41 +1,6 @@
 let data = {
-    form: {
-        name: 'contact',
-        fields: [
-            {
-                name: 'name',
-                type: 'text',
-                label: 'Name',
-                value: '',
-                placeholder: 'Your name',
-                required: true,
-                minlength: 3,
-                maxlength: 32,
-            },
-            {
-                name: 'email',
-                type: 'email',
-                label: 'Email',
-                value: '',
-                placeholder: 'Your email',
-                required: true,
-                minlength: 3,
-                maxlength: 255,
-            },
-            {
-                name: 'message',
-                type: 'textarea',
-                label: 'Message',
-                value: '',
-                placeholder: 'Your message',
-                required: true,
-                minlength: 3,
-                maxlength: 1024,
-            },
-        ],
-    },
+    form: null,
 }
-
 
 let methods = {
     act_submit: async function(event) {
@@ -53,9 +18,23 @@ let methods = {
     },
 }
 
+let props = {
+    name: {
+        default: '',
+    },
+}
+
+let created = async function() {
+    console.log('created', this.name)
+    this.form = this.$xpv().forms[this.name]
+    console.log('form', this.form)
+}
+
 export default {
     template: '#xp-form',
-    data: () => data,
+    // WARNING: copy data for each instance 
+    data: () => Object.assign({}, data),
+    props,
+    created,
     methods,
-
 }

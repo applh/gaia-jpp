@@ -43,6 +43,8 @@ class xpa_route_api
                     $inputs["date"] = $now2date;
                     // add ip
                     $inputs["ip"] = $_SERVER["REMOTE_ADDR"];
+                    // user agent
+                    $inputs["user_agent"] = $_SERVER["HTTP_USER_AGENT"];
 
                     $inputs_json = json_encode($inputs, JSON_PRETTY_PRINT);
                     // save to db contact/geocms
@@ -53,6 +55,63 @@ class xpa_route_api
                         "created" => $now2date,
                     ];
                     xpa_sqlite::create("contact/geocms", $row);
+                }
+                if ($form_name == "newsletter") {
+                    $inputs = $json_request["inputs"] ?? [];
+                    // add date
+                    $inputs["date"] = $now2date;
+                    // add ip
+                    $inputs["ip"] = $_SERVER["REMOTE_ADDR"];
+                    // user agent
+                    $inputs["user_agent"] = $_SERVER["HTTP_USER_AGENT"];
+                    
+                    $inputs_json = json_encode($inputs, JSON_PRETTY_PRINT);
+                    // save to db contact/geocms
+                    $row = [
+                        "path" =>  "form/newsletter",
+                        "cat" => $form_name,
+                        "code" => $inputs_json,
+                        "created" => $now2date,
+                    ];
+                    xpa_sqlite::create("newsletter/geocms", $row);
+                }
+                if ($form_name == "register") {
+                    $inputs = $json_request["inputs"] ?? [];
+                    // add date
+                    $inputs["date"] = $now2date;
+                    // add ip
+                    $inputs["ip"] = $_SERVER["REMOTE_ADDR"];
+                    // user agent
+                    $inputs["user_agent"] = $_SERVER["HTTP_USER_AGENT"];
+                    
+                    $inputs_json = json_encode($inputs, JSON_PRETTY_PRINT);
+                    // save to db contact/geocms
+                    $row = [
+                        "path" =>  "user",
+                        "cat" => $form_name,
+                        "code" => $inputs_json,
+                        "created" => $now2date,
+                    ];
+                    xpa_sqlite::create("user/geocms", $row);
+                }
+                if ($form_name == "login") {
+                    $inputs = $json_request["inputs"] ?? [];
+                    // add date
+                    $inputs["date"] = $now2date;
+                    // add ip
+                    $inputs["ip"] = $_SERVER["REMOTE_ADDR"];
+                    // user agent
+                    $inputs["user_agent"] = $_SERVER["HTTP_USER_AGENT"];
+                    
+                    $inputs_json = json_encode($inputs, JSON_PRETTY_PRINT);
+                    // save to db contact/geocms
+                    $row = [
+                        "path" =>  "login",
+                        "cat" => $form_name,
+                        "code" => $inputs_json,
+                        "created" => $now2date,
+                    ];
+                    xpa_sqlite::create("login/geocms", $row);
                 }
                 // debug
                 $json["request_json"] = $json_request;

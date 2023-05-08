@@ -53,14 +53,19 @@ RUN pip3 install Pillow requests numpy opencv-python matplotlib ipython
 # sqlite3
 RUN pip3 install db-sqlite3 
 
-# playwright
+# playwright and ipython setup
 RUN pip3 install playwright
 RUN playwright install
 RUN playwright install-deps
 RUN playwright install chromium
-# move /root/.cache to /var/www/.cache
-RUN mv /root/.cache /var/www/.cache
+
+# ipython will need $HOME env variable
+# and playwright must be installed in $HOME/.cache
+# move /root/.cache to /var/www/home/.cache
+RUN mkdir /var/www/home
+RUN mv /root/.cache /var/www/home/.cache
 # change owner
-RUN chown -R www-data:www-data /var/www/.cache
+RUN chown -R www-data:www-data /var/www/home
+RUN chown -R www-data:www-data /var/www/home/.cache
 
 RUN apt-get clean && apt-get autoclean

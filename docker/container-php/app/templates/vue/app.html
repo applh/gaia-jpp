@@ -27,35 +27,10 @@
     <div>
         <h1>XP App</h1>
         <div v-if="xpv.user.id == 0">
-            <xp-form />
-            <form>
-                <h2>login</h2>
-                <label>
-                    <span>email</span>
-                    <input type="email" autocomplete="email" />
-                </label>
-                <label>
-                    <span>password</span>
-                    <input type="password" autocomplete="current-password" />
-                </label>
-                <button type="submit">login</button>
-            </form>
-            <form>
-                <h2>register</h2>
-                <label>
-                    <span>email</span>
-                    <input type="email" autocomplete="email" />
-                </label>
-                <label>
-                    <span>username</span>
-                    <input type="text" autocomplete="username" />
-                </label>
-                <label>
-                    <span>password</span>
-                    <input type="password" autocomplete="current-password" />
-                </label>
-                <button type="submit">register</button>
-            </form>
+            <xp-form name="register"></xp-form>
+            <xp-form name="login"></xp-form>
+            <xp-form name="newsletter"></xp-form>
+            <xp-form name="contact"></xp-form>
         </div>
         <div v-else>
             <xp-app-user v-if="xpv.user_api_key"></xp-app-user>
@@ -70,8 +45,8 @@
 
 <template id="xp-form">
     <div>
-        <em>XpForm</em>
-        <form @submit.prevent="$event => act_submit($event)">
+        <em>{{ name }}</em>
+        <form v-if="form" @submit.prevent="$event => act_submit($event)">
             <label v-for="f in form.fields">
                 <span>{{ f.name }}</span>
                 <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required" :placeholder="f.placeholder" v-model="f.value"></textarea>
@@ -107,28 +82,34 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
     }
 
     form label {
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 0.25rem;
     }
     form label span {
-        width: 10rem;
-        text-align: right;
-        padding-right: 0.5rem;
+        display: block;
+        padding: 0.5rem;
     }
 
-    form input, form button {
-        padding: 0.25rem;
+    form input, form textarea {
+        padding: 0.5rem;
+        width: 100%;
     }
 
     form button {
-        width: 100%;
+        padding: 0.5rem;
+        background-color: #ddd;
+        width: 50%;
+        margin-top: 1rem;
     }
 
     .posts {
