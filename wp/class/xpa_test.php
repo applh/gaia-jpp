@@ -5,7 +5,6 @@ class xpa_test
     static function minute ()
     {
         static::task_python("minute");
-        
     }
 
     static function opencv ()
@@ -21,6 +20,11 @@ class xpa_test
     static function news ()
     {
         static::task_python("news");
+    }
+
+    static function scraper ()
+    {
+        static::task_python("scraper");
     }
 
     static function task_python ($name)
