@@ -27,9 +27,11 @@
 
 <template id="xp-app">
     <div>
-        <h1>XP App</h1>
+        <h1>Xp App</h1>
         <div class="container-map">
             <div ref="map" id="map" class="box-map"></div>
+            {{ zoom }}<input type="range" v-model="zoom" min="0" max="18">
+            <button @click.prevent="act_teleport">teleport</button>
         </div>
         <xp-crud></xp-crud>
         <div v-if="xpv.user.id == 0">
