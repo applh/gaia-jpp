@@ -1,0 +1,25 @@
+{
+    "name": "login",
+    "fields": [
+        {
+            "name": "email",
+            "type": "email",
+            "label": "Email",
+            "value": "",
+            "placeholder": "Your email",
+            "required": true,
+            "minlength": 3,
+            "maxlength": 255
+        },
+        {
+            "name": "password",
+            "type": "password",
+            "label": "Name",
+            "value": "",
+            "placeholder": "Your name",
+            "required": true,
+            "minlength": 3,
+            "maxlength": 255
+        }
+    ]
+}

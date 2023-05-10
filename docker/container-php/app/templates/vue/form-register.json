@@ -1,0 +1,35 @@
+{
+    "name": "register",
+    "fields": [
+        {
+            "name": "name",
+            "type": "text",
+            "label": "Name",
+            "value": "",
+            "placeholder": "Your name",
+            "required": true,
+            "minlength": 3,
+            "maxlength": 255
+        },
+        {
+            "name": "email",
+            "type": "email",
+            "label": "Email",
+            "value": "",
+            "placeholder": "Your email",
+            "required": true,
+            "minlength": 3,
+            "maxlength": 255
+        },
+        {
+            "name": "password",
+            "type": "password",
+            "label": "Name",
+            "value": "",
+            "placeholder": "Your name",
+            "required": true,
+            "minlength": 3,
+            "maxlength": 255
+        }
+    ]
+}
