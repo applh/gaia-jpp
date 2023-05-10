@@ -14,8 +14,13 @@ class xpa_route_template
 
         // FIXME: only subdir are allowed ?! 
         $dir1 = $dirs[1] ?? "";
-        
+        $dir2 = $dirs[2] ?? "";
         $article = "$path_root/templates/$dir1/$filename.$extension";
+        if ($dir2) {
+            $article = "$path_root/templates/$dir1/$dir2/$filename.$extension";
+            // dir3 needed ?!
+        }
+
         if (file_exists($article)) {
             $content = file_get_contents($article);
             // get mime_type

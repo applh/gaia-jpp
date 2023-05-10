@@ -26,7 +26,10 @@ let props = {
 
 let created = async function() {
     console.log('created', this.name)
-    this.form = this.$xpv().forms[this.name]
+    // copy form to local data
+    this.form = JSON.parse(JSON.stringify(this.$xpv().forms[this.name]))
+
+    // this.form = Object.assign({}, this.$xpv().forms[this.name])
     console.log('form', this.form)
 }
 

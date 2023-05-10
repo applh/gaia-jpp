@@ -4,6 +4,7 @@ import { defineAsyncComponent, reactive } from 'vue'
 
 import XpApp from 'XpApp'
 import XpForm from 'XpForm'
+import XpCrud from 'XpCrud'
 import XpTest from 'XpTest'
 
 
@@ -130,6 +131,32 @@ let form_login = {
         }
     ],
 }
+
+let form_post = {
+    name: 'post',
+    fields: [
+        {
+            name: 'title',
+            type: 'text',
+            label: 'title',
+            value: '',
+            placeholder: 'Your title',
+            required: true,
+            minlength: 3,
+            maxlength: 255,
+        },
+        {
+            name: 'content',
+            type: 'textarea',
+            label: 'content',
+            value: '',
+            placeholder: 'Your content',
+            required: true,
+            minlength: 3,
+            maxlength: 1024,
+        },
+    ],
+}
 // vue reactive
 let vstore = reactive({
     counter: 0,
@@ -179,6 +206,7 @@ let vstore = reactive({
         newsletter: form_newsletter,
         register: form_register,
         login: form_login,
+        post: form_post,
     },
 })
 
@@ -200,6 +228,7 @@ export default {
         // define components
         app.component('XpApp', XpApp)
         app.component('XpForm', XpForm)
+        app.component('XpCrud', XpCrud)
 
         // define async components
         let compos = [ 'XpAppUser', 'XpAppAdmin', 'XpAppDev', 'XpAppTest' ];

@@ -105,6 +105,18 @@ class xpa_route_api
                 ];
                 xpa_sqlite::create("login/geocms", $row);
             }
+            if ($form_name == "post") {
+                // save to db contact/geocms
+                $row = [
+                    "path" =>  "post",
+                    "title" => $inputs["title"] ?? "",
+                    "content" => $inputs["content"] ?? "",
+                    "cat" => $form_name,
+                    "code" => $inputs_json,
+                    "created" => $now2date,
+                ];
+                xpa_sqlite::create("post/geocms", $row);
+            }
             // debug
             $json["request_json"] = $json_request;
         }

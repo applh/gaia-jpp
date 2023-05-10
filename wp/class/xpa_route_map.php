@@ -69,6 +69,8 @@ class xpa_route_map
             
             // show tile
             header("Content-Type: image/png");
+            // set cache control
+            header("Cache-Control: max-age=86400");
             echo $tile;
         }
     }
