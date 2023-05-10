@@ -1,4 +1,4 @@
-FROM php:8.2.5-fpm
+FROM php:fpm
 
 RUN apt-get update --fix-missing
 
@@ -46,26 +46,19 @@ RUN docker-php-ext-enable memcached
 
 # install jupyter notebook
 RUN apt-get install -y python3-pip
-RUN pip3 install jupyter
-# install Pillow requests numpy opencv-python matplotlib ipython
-RUN pip3 install Pillow requests numpy opencv-python matplotlib ipython
-
-# sqlite3
-RUN pip3 install db-sqlite3 
+RUN pip3 install jupyter Pillow requests numpy opencv-python matplotlib ipython db-sqlite3 playwright
 
 # playwright and ipython setup
-RUN pip3 install playwright
 RUN playwright install
 RUN playwright install-deps
-RUN playwright install chromium
+# RUN playwright install chromium
 
 # ipython will need $HOME env variable
 # and playwright must be installed in $HOME/.cache
 # move /root/.cache to /var/www/home/.cache
-RUN mkdir /var/www/home
-RUN mv /root/.cache /var/www/home/.cache
-# change owner
-RUN chown -R www-data:www-data /var/www/home
-RUN chown -R www-data:www-data /var/www/home/.cache
+# change owner (recursive)
+RUN mkdir /var/www/home \
+        && mv /root/.cache /var/www/home/.cache \
+        && chown -R www-data:www-data /var/www/home
 
 RUN apt-get clean && apt-get autoclean

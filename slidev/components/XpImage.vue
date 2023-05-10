@@ -1,6 +1,6 @@
 <script setup>
 // define Props
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 const props = defineProps({
     keywords: {
         default: 'nature'
@@ -10,8 +10,15 @@ const props = defineProps({
 // will be mounted to the img tag
 let img = ref(null)
 
+// split keywords into array
+let choices = props.keywords.split(',')
+// pick a random keyword
+let keyword = choices[Math.floor(Math.random() * choices.length)]
+// trim the keyword
+keyword = keyword.trim()
+// generate a random number
 let rando = Math.floor(Math.random() * 10000)
-let src = `https://source.unsplash.com/random/600x800?${props.keywords}=${rando}`
+let src = `https://source.unsplash.com/random/600x800?${keyword}=${rando}`
 
 </script>
 

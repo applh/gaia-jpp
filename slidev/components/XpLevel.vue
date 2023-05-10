@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 let level = ref(0)
-level = Math.round(Math.sqrt($slidev.nav.total))
+level = Math.ceil(Math.sqrt($slidev.nav.total))
 </script>
 
 <template>

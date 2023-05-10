@@ -9,7 +9,7 @@ let props = defineProps({
     }
 })
 
-let size = ref(Math.round(Math.sqrt(props.total)))
+let size = ref(Math.ceil(Math.sqrt(props.total)))
 
 // watch props
 watch(() => props.total, (newVal) => {
