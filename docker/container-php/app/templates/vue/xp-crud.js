@@ -2,6 +2,7 @@ let data = {
     form: null,
     size: 6,
     score2: 1,
+    mode_edit: false,
 }
 
 let methods = {

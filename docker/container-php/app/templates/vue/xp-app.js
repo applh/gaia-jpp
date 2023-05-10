@@ -76,6 +76,8 @@ let methods = {
 
             // change to a random location
             let focus = [-70 + Math.random() * 140, -150 + Math.random() * 300]
+            // change zoom
+            this.zoom = Math.round(5 + Math.random() * 10)
 
             // update mymarker
             mymarker.setLatLng(focus)

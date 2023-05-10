@@ -74,7 +74,8 @@
             <article v-for="a in (size*size)">
                 <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
                 <div v-else>{{ a }}</div>
-                <xp-form name="post"></xp-form>
+                <xp-form v-if="mode_edit" name="post"></xp-form>
+                <input type="checkbox" v-model="mode_edit" />
             </article>
         </div>
     </div>
