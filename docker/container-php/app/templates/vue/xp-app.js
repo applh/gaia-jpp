@@ -14,15 +14,20 @@ let mymarker2 = null;
 let mymarker3 = null;
 let divIcon1 = null;
 
-let markers = [];
+// let markers = [];
 
-function build_markers(max=10) {
-    // create 10 markers
+function build_markers(markers, max=100) {
+    // create 100 markers
     for (let i = 0; i < max; i++) {
+        let rows = 2 + Math.floor(Math.random() * 4)
+        let cols = 2 + Math.floor(Math.random() * 4)
+        let iw = 160 * cols
+        let ih = 40 * rows
         let di = divIcon({
-            html: `<xpc-marker name="${i}" index="${i}"></xpc-marker>`,
-            iconSize: [160, 160],
+            html: `<xpc-marker name="${i}" index="${i}" rows="${rows}" cols="${cols}"></xpc-marker>`,
+            iconSize: [iw, ih],
             className: 'xpc-icon',
+            riseOnHover: true,
         })
         let mpos = [-70 + Math.random() * 140, -150 + Math.random() * 300]
         let mm = marker(mpos, {
@@ -30,6 +35,7 @@ function build_markers(max=10) {
             icon: di,
         })
             .addTo(mymap);
+
         markers.push(mm)
     }
 }
@@ -86,7 +92,15 @@ let mounted = function () {
     mymap.on('click', onMapClick);
 
     // 
-    build_markers(200)
+    let markers = []
+    build_markers(markers, 100)
+    // store markers
+    this.$xpv0().markers = markers
+
+    // create focusPane
+    // https://leafletjs.com/reference.html#map-pane
+    mymap.createPane('focusPane');
+    mymap.getPane('focusPane').style.zIndex = 650;
 
     // center on marker
     mymap.setView(focus, 10)
@@ -96,7 +110,7 @@ let mounted = function () {
 }
 
 let methods = {
-    act_teleport: function (event) {
+    act_teleport (event) {
         // console.log('teleport', event)
         if (mymap) {
             // change mymarker2 to mymarker
@@ -105,7 +119,8 @@ let methods = {
             // change to a random location
             let focus = [-70 + Math.random() * 140, -150 + Math.random() * 300]
             // change zoom
-            this.zoom = Math.round(5 + Math.random() * 10)
+            // WARNING: limit zoom as small tiles are consuming lot of disk space
+            this.zoom = Math.round(4 + Math.random() * 4)
 
             // update mymarker
             mymarker.setLatLng(focus)
@@ -115,10 +130,16 @@ let methods = {
     },
     act_marker_focus () {
         if (mymap) {
+            let markers = this.$xpv0().markers
+
             // get the position of the next marker
             let current = 1 * this.$xpv().map_marker_index;
             let next = (current + 0) % markers.length;
             let m = markers[next];
+            // move marker to focusPane
+            let fp = m.getPane('focusPane')
+            fp.appendChild(m._icon)
+
             let next_pos = m.getLatLng();
             // fly to new location
             mymap.flyTo(next_pos, this.zoom)
@@ -127,11 +148,22 @@ let methods = {
     },
     act_marker_next () {
         if (mymap) {
+            let markers = this.$xpv0().markers
+
             // get the position of the next marker
             let current = 1 * this.$xpv().map_marker_index;
+            // reset zindex
+            let mcur = markers[current];
+            mcur.setZIndexOffset(current)
+
             let next = (current + 1) % markers.length;
             let m = markers[next];
             let next_pos = m.getLatLng();
+
+            // move marker to focusPane
+            let fp = m.getPane('focusPane')
+            fp.appendChild(m._icon)
+
             // fly to new location
             mymap.flyTo(next_pos, this.zoom)
 
@@ -141,11 +173,22 @@ let methods = {
     },
     act_marker_prev () {
         if (mymap) {
+            let markers = this.$xpv0().markers
+
             // get the position of the next marker
             let current = 1 * this.$xpv().map_marker_index;
+            // reset zindex
+            let mcur = markers[current];
+            mcur.setZIndexOffset(current)
+
             let next = (current - 1 + markers.length) % markers.length;
             let m = markers[next];
             let next_pos = m.getLatLng();
+
+            // move marker to focusPane
+            let fp = m.getPane('focusPane')
+            fp.appendChild(m._icon)
+
             // fly to new location
             mymap.flyTo(next_pos, this.zoom)
 
@@ -154,6 +197,8 @@ let methods = {
         }
     },
     markers_length() {
+        let markers = this.$xpv0()?.markers ?? 0
+
         return markers.length
     }
 }

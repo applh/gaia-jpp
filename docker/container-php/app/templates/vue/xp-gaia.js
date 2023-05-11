@@ -224,6 +224,7 @@ window.addEventListener('resize', () => {
 })
 
 export default {
+    store0,
     vstore,
     install: (app, options) => {
         // Plugin code goes here
@@ -256,6 +257,7 @@ export default {
 
         // define directives
         app.config.globalProperties.$xpv = () => vstore;
+        app.config.globalProperties.$xpv0 = () => store0;
 
         app.config.globalProperties.$xp = async (cmd, param = null, opts = null) => {
             // console.log('xp-gaia.js: $xp() called with cmd: ' + cmd)

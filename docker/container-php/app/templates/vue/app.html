@@ -31,7 +31,7 @@
         <h1>{{ xpv.app_title }}</h1>
         <div class="container-map">
             <div ref="map" id="map" class="box-map"></div>
-            {{ xpv.map_marker_index }} / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0" :max="markers_length()">
+            <input type="number" v-model="xpv.map_marker_index" @keyup.enter="act_marker_focus" style="text-align:right;" /> / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0" :max="markers_length()">
             <button @click.prevent="act_marker_prev">👈</button>
             <button @click.prevent="act_marker_focus">👁️</button>
             <button @click.prevent="act_marker_next">👉</button>
@@ -91,13 +91,14 @@
         <h3>⭐️ {{ name }}</h3>
         <table style="width:100%;">
             <tbody>
-                <tr v-for="r in 3">
-                   <td v-for="c in 3">
-                        {{ r + 'x' + c}}
+                <tr v-for="r in 1*rows">
+                   <td v-for="c in 1*cols" style="vertical-align: top;">
+                        <div v-html="get_content(r, c)"></div>
                     </td>     
                 </tr>
             </tbody>
         </table>
+        <button @click.stop="act_marker">O</button>
     <div>
 </template>
 
@@ -245,5 +246,12 @@
         width: 100%;
         height: 100%;
         resize: none;
+    }
+
+    xpc-marker {
+        border: 1px solid #ccc;
+    }
+    .xpc-icon {
+        /* background-color: rgba(0,0,0,0.5); */
     }
 </style>
