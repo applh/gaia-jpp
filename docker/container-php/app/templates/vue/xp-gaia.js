@@ -1,10 +1,11 @@
 // xp-gaia.js
 
-import { defineAsyncComponent, reactive } from 'vue'
+import { defineAsyncComponent, reactive, defineCustomElement } from 'vue'
 
 import XpApp from 'XpApp'
 import XpForm from 'XpForm'
 import XpCrud from 'XpCrud'
+import XpcMarker from 'XpcMarker'
 import XpTest from 'XpTest'
 
 
@@ -159,6 +160,8 @@ let form_post = {
 }
 // vue reactive
 let vstore = reactive({
+    map_marker_index: 0,
+    app_title: 'Welcome to GAIA',
     counter: 0,
     message: 'Hello Vue!',
     ww: window.innerWidth,
@@ -221,14 +224,15 @@ window.addEventListener('resize', () => {
 })
 
 export default {
+    vstore,
     install: (app, options) => {
         // Plugin code goes here
         console.log('installing plugin: xp-gaia.js')
 
         // define components
         app.component('XpApp', XpApp)
-        app.component('XpForm', XpForm)
         app.component('XpCrud', XpCrud)
+        app.component('XpForm', XpForm)
 
         // define async components
         let compos = [ 'XpAppUser', 'XpAppAdmin', 'XpAppDev', 'XpAppTest' ];
@@ -239,6 +243,18 @@ export default {
             ))
         });
 
+        // define custom elements
+        let customs = {
+            'xpc-marker': XpcMarker,
+        }
+        for (const [tag, compo] of Object.entries(customs)) {
+            console.log('defining custom element', tag, compo)
+            let custom = defineCustomElement(compo)
+            customElements.define(tag, custom)
+        }   
+       
+
+        // define directives
         app.config.globalProperties.$xpv = () => vstore;
 
         app.config.globalProperties.$xp = async (cmd, param = null, opts = null) => {

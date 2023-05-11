@@ -1,16 +1,38 @@
 
-import { map, tileLayer, marker, popup, circleMarker } from 'leaflet'
+import { map, tileLayer, marker, popup, circleMarker, divIcon } from 'leaflet'
 // WARNING: case sensitive as circleMarker is not the same as CircleMarker
 
 let computed = {
     xpv() {
         return this.$xpv()
-    }
+    },
 }
 
 let mymap = null;
 let mymarker = null;
 let mymarker2 = null;
+let mymarker3 = null;
+let divIcon1 = null;
+
+let markers = [];
+
+function build_markers(max=10) {
+    // create 10 markers
+    for (let i = 0; i < max; i++) {
+        let di = divIcon({
+            html: `<xpc-marker name="${i}" index="${i}"></xpc-marker>`,
+            iconSize: [160, 160],
+            className: 'xpc-icon',
+        })
+        let mpos = [-70 + Math.random() * 140, -150 + Math.random() * 300]
+        let mm = marker(mpos, {
+            draggable: true,
+            icon: di,
+        })
+            .addTo(mymap);
+        markers.push(mm)
+    }
+}
 
 let mounted = function () {
     let map_tag = this.$refs.map
@@ -63,13 +85,19 @@ let mounted = function () {
 
     mymap.on('click', onMapClick);
 
+    // 
+    build_markers(200)
+
     // center on marker
     mymap.setView(focus, 10)
+
+    // teleport
+    this.act_teleport()
 }
 
 let methods = {
     act_teleport: function (event) {
-        console.log('teleport', event)
+        // console.log('teleport', event)
         if (mymap) {
             // change mymarker2 to mymarker
             mymarker2.setLatLng(mymarker.getLatLng())
@@ -84,6 +112,49 @@ let methods = {
             // fly to new location
             mymap.flyTo(focus, this.zoom)
         }
+    },
+    act_marker_focus () {
+        if (mymap) {
+            // get the position of the next marker
+            let current = 1 * this.$xpv().map_marker_index;
+            let next = (current + 0) % markers.length;
+            let m = markers[next];
+            let next_pos = m.getLatLng();
+            // fly to new location
+            mymap.flyTo(next_pos, this.zoom)
+
+        }
+    },
+    act_marker_next () {
+        if (mymap) {
+            // get the position of the next marker
+            let current = 1 * this.$xpv().map_marker_index;
+            let next = (current + 1) % markers.length;
+            let m = markers[next];
+            let next_pos = m.getLatLng();
+            // fly to new location
+            mymap.flyTo(next_pos, this.zoom)
+
+            // update the marker index
+            this.$xpv().map_marker_index = next;
+        }
+    },
+    act_marker_prev () {
+        if (mymap) {
+            // get the position of the next marker
+            let current = 1 * this.$xpv().map_marker_index;
+            let next = (current - 1 + markers.length) % markers.length;
+            let m = markers[next];
+            let next_pos = m.getLatLng();
+            // fly to new location
+            mymap.flyTo(next_pos, this.zoom)
+
+            // update the marker index
+            this.$xpv().map_marker_index = next;
+        }
+    },
+    markers_length() {
+        return markers.length
     }
 }
 let data = {

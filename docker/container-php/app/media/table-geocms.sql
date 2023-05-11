@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `geocms`
     tags TEXT,
     created TEXT,
     updated TEXT,
+    hash TEXT,
     x REAL,
     y REAL,
     z REAL,
