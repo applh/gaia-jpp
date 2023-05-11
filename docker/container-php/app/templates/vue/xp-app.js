@@ -6,6 +6,11 @@ let computed = {
     xpv() {
         return this.$xpv()
     },
+    async posts() {
+        let posts = await this.$xp('posts')
+        console.log('posts', posts)
+        return posts
+    }
 }
 
 let mymap = null;
@@ -40,7 +45,7 @@ function build_markers(markers, max=100) {
     }
 }
 
-let mounted = function () {
+let mounted = async function () {
     let map_tag = this.$refs.map
     let focus = [48.8566, 2.3522]
     // change focus to random location
@@ -91,9 +96,12 @@ let mounted = function () {
 
     mymap.on('click', onMapClick);
 
-    // 
+    // load posts
+    let scraps = await this.$xp('posts')
+    console.log('scraps', scraps)
+
     let markers = []
-    build_markers(markers, 100)
+    build_markers(markers, scraps.length)
     // store markers
     this.$xpv0().markers = markers
 
@@ -106,7 +114,11 @@ let mounted = function () {
     mymap.setView(focus, 10)
 
     // teleport
-    this.act_teleport()
+    // this.act_teleport()
+
+    // seledct a random marker
+    this.$xpv().map_marker_index = Math.floor(Math.random() * markers.length)
+    this.act_marker_focus()
 }
 
 let methods = {

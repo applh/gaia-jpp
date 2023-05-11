@@ -289,6 +289,21 @@ export default {
                 let json = await response.json()
                 return json
             }
+            if (cmd == 'posts') {
+                // check if posts are already loaded
+                if (vstore.posts) {
+                    return vstore.posts
+                }
+
+                // FIXME: change the endpoint
+                let response = await fetch('/api/scraps', {
+                    method: 'GET',
+                })
+                let json = await response.json()
+                // store posts in vstore
+                vstore.posts = json
+                return json
+            }
 
             return cmd;
         }

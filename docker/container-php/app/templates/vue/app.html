@@ -59,6 +59,10 @@
 <template id="xp-form">
     <div>
         <em>{{ name }}</em>
+        <hr />
+        <h3 :title="url">{{ title }}</h3>
+        <div><a target="_blank" :href="url">{{ url }}</a></div>
+        <hr />
         <form v-if="form" @submit.prevent="$event => act_submit($event)">
             <label v-for="f in form.fields">
                 <span>{{ f.name }}</span>
@@ -79,7 +83,7 @@
             <article v-for="a in (size*size)">
                 <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
                 <div v-else>{{ a }}</div>
-                <xp-form v-if="mode_edit" name="post"></xp-form>
+                <xp-form v-if="mode_edit" name="post" :index="a-1"></xp-form>
                 <input type="checkbox" v-model="mode_edit" />
             </article>
         </div>
@@ -88,7 +92,8 @@
 
 <template id="xpc-marker">
     <div class="xpc-marker" :style="get_style()">
-        <h3>⭐️ {{ name }}</h3>
+        <h3>⭐️ {{ title }}</h3>
+        <a target="_blank" :href="url" style="color:#ffffff;line-break:anywhere">{{ url }}</a>
         <table style="width:100%;">
             <tbody>
                 <tr v-for="r in 1*rows">
@@ -253,5 +258,8 @@
     }
     .xpc-icon {
         /* background-color: rgba(0,0,0,0.5); */
+    }
+    a {
+        line-break: anywhere;
     }
 </style>

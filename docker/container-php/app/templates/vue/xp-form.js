@@ -1,5 +1,7 @@
 let data = {
     form: null,
+    title: '',
+    url: '',
 }
 
 let methods = {
@@ -22,6 +24,10 @@ let props = {
     name: {
         default: '',
     },
+    index: {
+        default: 0,
+        type: Number,
+    },
 }
 
 let created = async function() {
@@ -31,6 +37,14 @@ let created = async function() {
 
     // this.form = Object.assign({}, this.$xpv().forms[this.name])
     // console.log('form', this.form)
+
+    // get title and url from posts
+    let posts = this.$xpv().posts ?? []
+    let post = posts[this.index] ?? null
+    if (post) {
+        this.title = post.title
+        this.url = post.url
+    }
 }
 
 export default {

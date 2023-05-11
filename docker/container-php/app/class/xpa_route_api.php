@@ -23,6 +23,20 @@ class xpa_route_api
         if ($filename == "image") {
             static::response_image();
         }
+
+        if ($filename == "scraps") {
+            static::response_scraps();
+        }
+
+    }
+
+    static function response_scraps ()
+    {
+        // get all rows in db/table scraps/news
+        $rows = xpa_sqlite::read("scraps/news", "WHERE z > 0 ORDER BY z DESC, id DESC LIMIT 100");
+        // header
+        header("Content-Type: application/json");
+        echo json_encode($rows, JSON_PRETTY_PRINT);
     }
 
     static function response_cron()

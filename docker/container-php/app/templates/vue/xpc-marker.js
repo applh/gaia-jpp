@@ -39,6 +39,8 @@ let data = {
         borderRadius: '1rem',
     },
     contents: [],
+    title: '',
+    url: '',
 }
 
 let methods = {
@@ -61,6 +63,8 @@ let methods = {
         console.log('act_marker', this.index)
     },
     get_content(r, c) {
+        let step = r*this.cols + c;
+
         let content = this.contents[r*this.cols + c]
         if (content) {
             return content
@@ -90,10 +94,20 @@ let methods = {
     },
 }
 
+let created = function () {
+    // get title from post
+    let post = XpGaia.vstore.posts[this.index]
+    if (post) {
+        this.title = post.title
+        this.url = post.url
+    }
+}
+
 export default {
     template,
     props,
     methods,
     // copy data for each instance
     data: () => JSON.parse(JSON.stringify(data)),
+    created,
 }
