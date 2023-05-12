@@ -11,6 +11,7 @@
         "vue": "/template/vue/vue.esm-browser.js",
         "XpGaia": "/template/vue/xp-gaia.js",
         "XpApp": "/template/vue/xp-app.js",
+        "XpMap": "/template/vue/xp-map.js",
         "XpForm": "/template/vue/xp-form.js",
         "XpCrud": "/template/vue/xp-crud.js",
         "XpAppUser": "/template/vue/xp-app-user.js",
@@ -19,25 +20,19 @@
         "XpTest": "/template/vue/xp-test.js",
         "XpTestAsync": "/template/vue/xp-test-async.js",
         "XpcMarker": "/template/vue/xpc-marker.js",
+        "XpcHud": "/template/vue/xpc-hud.js",
         "leaflet": "/template/leaflet/leaflet-src.esm.js"
     }
 }
 </script>
+
 <script type="module" src="/template/vue/app.js">
 </script>
 
 <template id="xp-app">
     <div>
         <h1>{{ xpv.app_title }}</h1>
-        <div class="container-map">
-            <div ref="map" id="map" class="box-map"></div>
-            <input type="number" v-model="xpv.map_marker_index" @keyup.enter="act_marker_focus" style="text-align:right;" /> / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0" :max="markers_length()">
-            <button @click.prevent="act_marker_prev">👈</button>
-            <button @click.prevent="act_marker_focus">👁️</button>
-            <button @click.prevent="act_marker_next">👉</button>
-            {{ zoom }}<input type="range" v-model="zoom" min="0" max="18">
-            <button @click.prevent="act_teleport">teleport</button>
-        </div>
+        <xp-map></xp-map>
         <xp-crud></xp-crud>
         <div v-if="xpv.user.id == 0">
             <xp-form name="register"></xp-form>
@@ -56,18 +51,33 @@
     </div>
 </template>
 
+
+<template id="xp-map">
+    <div class="container-map">
+        <div ref="map" id="map" class="box-map"></div>
+        <input type="number" v-model="xpv.map_marker_index" @keyup.enter="act_marker_focus" style="text-align:right;" />
+        / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0"
+            :max="markers_length()">
+        <button @click.prevent="act_marker_prev">👈</button>
+        <button @click.prevent="act_marker_focus">👁️</button>
+        <button @click.prevent="act_marker_next">👉</button>
+        <span>{{ zoom }} </span><input type="range" v-model="zoom" min="0" max="18">
+        <button @click.prevent="act_teleport">teleport</button>
+        <input type="color" v-model="xpv.tree_color" />
+        <span>{{ xpv.tree_line_w }} </span><input type="range" v-model="xpv.tree_line_w" min="0" max="100" />
+    </div>
+</template>
+
 <template id="xp-form">
     <div>
         <em>{{ name }}</em>
-        <hr />
-        <h3 :title="url">{{ title }}</h3>
-        <div><a target="_blank" :href="url">{{ url }}</a></div>
-        <hr />
         <form v-if="form" @submit.prevent="$event => act_submit($event)">
             <label v-for="f in form.fields">
                 <span>{{ f.name }}</span>
-                <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required" :placeholder="f.placeholder" v-model="f.value"></textarea>
-                <input v-else :type="f.type" :name="f.name" :required="f.required" :placeholder="f.placeholder" v-model="f.value" />
+                <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required"
+                    :placeholder="f.placeholder" v-model="f.value"></textarea>
+                <input v-else :type="f.type" :name="f.name" :required="f.required" :placeholder="f.placeholder"
+                    v-model="f.value" />
             </label>
             <button type="submit">send</button>
         </form>
@@ -76,9 +86,34 @@
 
 <template id="xp-crud">
     <div class="box-crud">
+        <h2>POSTS ({{ posts.length }})</h2>
+        <table>
+            <tbody>
+                <tr v-for="(p, index) in posts">
+                    <td>{{ index }}</td>
+                    <td>
+                        <h3 :title="p.url">{{ p.title }}</h3>
+                    </td>
+                    <td><a target="_blank" :href="p.url">{{ p.url }}</a></td>
+                    <td>{{ p.z }}</td>
+                    <td><button @click.prevent="act_edit(p)">edit</button></td>
+                    <td><button @click.prevent="act_delete(p)">delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid">
+            <article v-for="p in posts">
+                <h3 :title="p.url">{{ p.title }}</h3>
+                <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
+                <hr />
+                <button @click.prevent="act_edit(p)">edit</button>
+                <button @click.prevent="act_delete(p)">delete</button>
+            </article>
+        </div>
         <em>CRUD</em>
         <div><label>level: {{ size }} <input type="range" v-model="size" min="0" max="100"></label></div>
-        <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0" :max="size*size"></label></div>
+        <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0"
+                    :max="size*size"></label></div>
         <div class="grid">
             <article v-for="a in (size*size)">
                 <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
@@ -94,30 +129,63 @@
     <div class="xpc-marker" :style="get_style()">
         <h3>⭐️ {{ title }}</h3>
         <a target="_blank" :href="url" style="color:#ffffff;line-break:anywhere">{{ url }}</a>
-        <table style="width:100%;">
+        <table v-if="ui_maxi" style="width:100%;">
             <tbody>
                 <tr v-for="r in 1*rows">
-                   <td v-for="c in 1*cols" style="vertical-align: top;">
+                    <td v-for="c in 1*cols" style="vertical-align: top;">
                         <div v-html="get_content(r, c)"></div>
-                    </td>     
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <button @click.stop="act_marker">O</button>
+        <div>
+            <hr />
+            <button @click.stop="act_marker">{{ index }}</button>
+            <input type="checkbox" v-model="ui_maxi" @click.stop="act_ui_maxi" />
+        </div>
+    </div>
+</template>
+
+<template id="xpc-hud">
     <div>
+        <div class="box-table" v-if="ui_grid">
+            <table>
+                <tbody>
+                    <tr v-for="r in 10">
+                        <td v-for="c in 10" :style="style_td(r,c)" @click.stop="act_td(r,c)">
+                            {{ (r-1)*10 + c }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="toolbar" style="display:flex;">
+            <button @click.stop="act_mini_all">mini</button>
+            <button @click.stop="act_maxi_all">maxi</button>
+            <button @click.stop="act_save">save</button>
+            <label>
+                <span> | sketch {{ p5_size }}</span>
+                <input type="range" min="100" :max="p5_wmax" step="100" v-model="p5_size" @change.stop="act_sketch_size"/>
+            </label>
+            <span> | grid</span><input type="checkbox" v-model="ui_grid" @click.stop="act_ui_grid"/>    
+        </div>
+    </div>
 </template>
 
 <style>
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
         width: 100%;
         height: 100%;
         font-size: 16px;
     }
+
     * {
         box-sizing: border-box;
     }
+
     #app {
         text-align: center;
     }
@@ -145,12 +213,14 @@
         align-items: center;
         padding: 0.25rem;
     }
+
     form label span {
         display: block;
         padding: 0.5rem;
     }
 
-    form input, form textarea {
+    form input,
+    form textarea {
         padding: 0.5rem;
         width: 100%;
     }
@@ -175,6 +245,7 @@
         margin: 0.5rem;
         width: 100%;
     }
+
     a {
         text-decoration: none;
         color: #000;
@@ -185,33 +256,39 @@
         padding: 0;
         margin: 0;
     }
+
     .options ul li {
         display: inline-block;
         padding: 0.5rem;
         border: 1px solid #ccc;
         background-color: #eee;
     }
+
     /* media queries */
     @media (min-width: 800px) {
         .posts article {
             width: calc(100% / 2 - 1rem);
         }
     }
+
     @media (min-width: 1200px) {
         .posts article {
             width: calc(100% / 3 - 1rem);
         }
     }
+
     @media (min-width: 1600px) {
         .posts article {
             width: calc(100% / 4 - 1rem);
         }
     }
+
     @media (min-width: 2000px) {
         .posts article {
             width: calc(100% / 5 - 1rem);
         }
     }
+
     @media (min-width: 2400px) {
         .posts article {
             width: calc(100% / 6 - 1rem);
@@ -221,19 +298,36 @@
     .container-map {
         padding: 1rem;
     }
+
     .box-map {
         width: 100%;
         height: 50vmax;
     }
 
     .box-crud {
-        padding:1rem;
+        padding: 1rem;
     }
+
+    .box-crud table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .box-crud table td {
+        padding: 1vmin;
+        border: 1px solid #ccc;
+    }
+
+    td h3 {
+        margin: 0;
+    }
+
     .box-crud .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         grid-gap: 1rem;
     }
+
     .grid article {
         border: 1px solid #ccc;
         padding: 0.5rem;
@@ -241,12 +335,15 @@
         width: 100%;
         aspect-ratio: 1/1;
     }
+
     .grid article:hover {
         background-color: #ddd;
-    } 
+    }
+
     article form {
         padding: 0;
     }
+
     article textarea {
         width: 100%;
         height: 100%;
@@ -256,10 +353,20 @@
     xpc-marker {
         border: 1px solid #ccc;
     }
+
     .xpc-icon {
         /* background-color: rgba(0,0,0,0.5); */
     }
+
     a {
         line-break: anywhere;
+    }
+
+    #box-p5 {
+        border: 1px solid red;
+        width: fit-content;
+    }
+    .toolbar {
+        text-align: left;
     }
 </style>

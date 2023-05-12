@@ -27,6 +27,9 @@ let data = {
         color: 'black',
         fillColor: '#f03',
         fillOpacity: 0.5,
+        padding: '1rem',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        minWidth: '10vmax',
     },
     activeStyle: {
         textAlign:'left',
@@ -37,10 +40,12 @@ let data = {
         padding: '1rem',
         zIndex: 700,
         borderRadius: '1rem',
+        minWidth: '10vmax',
     },
     contents: [],
     title: '',
     url: '',
+    ui_maxi: false,
 }
 
 let methods = {
@@ -61,6 +66,16 @@ let methods = {
             // marker.setZIndexOffset(1000)
         }
         console.log('act_marker', this.index)
+    },
+    act_ui_maxi ($event) {
+        // stop propagation
+        // $event.stopPropagation()
+        // this.ui_maxi = !this.ui_maxi
+        // focus on the marker if this.ui_maxi == true
+        if (this.ui_maxi) {
+            this.act_marker()
+        }
+        console.log('act_ui_maxi', this.ui_maxi)
     },
     get_content(r, c) {
         let step = r*this.cols + c;
@@ -101,6 +116,9 @@ let created = function () {
         this.title = post.title
         this.url = post.url
     }
+
+    // add this marker to the list of markers
+    XpGaia.store0.markers_xpc.push(this)
 }
 
 export default {

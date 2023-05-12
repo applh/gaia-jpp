@@ -3,9 +3,12 @@
 import { defineAsyncComponent, reactive, defineCustomElement } from 'vue'
 
 import XpApp from 'XpApp'
+import XpMap from 'XpMap'
 import XpForm from 'XpForm'
 import XpCrud from 'XpCrud'
 import XpcMarker from 'XpcMarker'
+import XpcHud from 'XpcHud'
+
 import XpTest from 'XpTest'
 
 
@@ -160,6 +163,8 @@ let form_post = {
 }
 // vue reactive
 let vstore = reactive({
+    tree_color: '#00ff00',
+    tree_line_w: 2,
     map_marker_index: 0,
     app_title: 'Welcome to GAIA',
     counter: 0,
@@ -215,6 +220,9 @@ let vstore = reactive({
 
 // not reactive
 let store0 = {
+    markers: [],
+    markers_xpc: [],
+    map_xpc: null,
 }
 
 // add window resize event listener
@@ -232,6 +240,7 @@ export default {
 
         // define components
         app.component('XpApp', XpApp)
+        app.component('XpMap', XpMap)
         app.component('XpCrud', XpCrud)
         app.component('XpForm', XpForm)
 
@@ -247,6 +256,7 @@ export default {
         // define custom elements
         let customs = {
             'xpc-marker': XpcMarker,
+            'xpc-hud': XpcHud,
         }
         for (const [tag, compo] of Object.entries(customs)) {
             console.log('defining custom element', tag, compo)
@@ -302,10 +312,12 @@ export default {
                 let json = await response.json()
                 // store posts in vstore
                 vstore.posts = json
-                return json
+                return vstore.posts
             }
 
             return cmd;
         }
+
+
     }
 }

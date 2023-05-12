@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `geocms`
     path TEXT,
     filename TEXT,
     code TEXT,
+    url TEXT,
     title TEXT,
     content TEXT,
     media TEXT,
