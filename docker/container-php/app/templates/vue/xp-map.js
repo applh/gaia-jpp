@@ -93,6 +93,7 @@ let mounted = async function () {
 
                 tile = document.createElement('div');
                 tile.innerHTML = [coords.z, coords.x, coords.y].join('-');
+                // tile.innerHTML = '<img src="/template/img/gaia-256.webp" />'
                 // add classes
                 tile.classList.add(
                     'xp-tile',

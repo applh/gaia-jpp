@@ -46,8 +46,8 @@ let methods = {
     },
     act_sketch_size() {
         if (sketch_p5) {
-            sketch_p5.resizeCanvas(sketch_p5.width, this.p5_size)
-            console.log('act_sketch_size', sketch_p5.width, this.p5_size)
+            sketch_p5.resizeCanvas(sketch_p5.windowWidth -32, this.p5_size)
+            console.log('act_sketch_size', sketch_p5.windowWidth -32, this.p5_size)
             // sketch_p5.resizeCanvas(2 * this.p5_size, this.p5_size)
         }
     },
@@ -79,7 +79,7 @@ let methods = {
                     p.drawingContext.willReadFrequently = true;
 
                     console.log('p5.setup')
-                    p.createCanvas(p.windowWidth -32, h)
+                    p.createCanvas(p.windowWidth -32, 0.25 * p.windowWidth)
                     shape = p.createGraphics(320, 320);
 
                     img = p.loadImage('/template/img/photo.jpg')
@@ -151,14 +151,14 @@ let methods = {
 
                     p.resetMatrix()
                     // Start the tree from the bottom of the screen
-                    p.translate(p.width / 2, p.height)
+                    p.translate(p.width * 0.5, p.height * 0.5)
                     // Draw a line 120 pixels
-                    p.line(0, 0, 0, -p.height * 0.4)
+                    // p.line(0, 0, 0, -p.height * 0.4)
                     // Move to the end of that line
-                    p.translate(0, -p.height * 0.4)
+                    // p.translate(0, -p.height * 0.4)
                     // Start the recursive branching!
                     // set max height to 500
-                    let height = p.height * 0.4
+                    let height = p.height * 0.5
                     height = (height > 500) ? 500 : height
 
                     p.branch(height);
@@ -167,7 +167,8 @@ let methods = {
                 p.branch = function (len) {
                     p.counter++
                     // stop if too many branches
-                    if (p.counter > 10000) {
+                    // int limit 32767 (2^15 - 1) ?!
+                    if (p.counter > 30000) {
                         return
                     }
 
@@ -200,6 +201,14 @@ let methods = {
                         p.branch(len);       // Ok, now call myself to draw two new branches!!
                         p.pop();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
 
+                        // Repeat the same thing, only branch off to the "left" this time!
+                        p.push();
+                        p.rotate(p.PI);
+                        p.line(0, 0, 0, -len);
+                        p.translate(0, -len);
+                        p.branch(len);
+                        p.pop();
+                        
                     }
                 }
 
@@ -235,6 +244,10 @@ let mounted = function () {
         // update p5_wmax on window resize
         window.addEventListener('resize', () => {
             this.p5_wmax = XpGaia.vstore.ww
+            if (sketch_p5) {
+                sketch_p5.resizeCanvas(window.innerWidth -32, this.p5_size)
+                console.log('resize', sketch_p5.width, sketch_p5.height)
+            }
         })
         this.p5_wmax = XpGaia.vstore.ww
 

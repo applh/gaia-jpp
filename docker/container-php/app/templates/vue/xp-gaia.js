@@ -163,7 +163,7 @@ let form_post = {
 }
 // vue reactive
 let vstore = reactive({
-    tree_h: 200,
+    tree_h: 0,
     tree_color: '#000000',
     tree_line_w: 1,
     map_marker_index: 0,
