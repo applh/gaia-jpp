@@ -13,6 +13,9 @@ let mymarker2 = null;
 let mymarker3 = null;
 let divIcon1 = null;
 
+// grid layers tiles
+let gl_tiles = [];
+
 let mounted = async function () {
     let map_tag = this.$refs.map
     let focus = [48.8566, 2.3522]
@@ -72,13 +75,58 @@ let mounted = async function () {
 
     mymap.on('click', onMapClick);
 
+    // add grid layer
+    // https://leafletjs.com/examples/extending/gridcoords.html
+    L.GridLayer.DebugCoords = L.GridLayer.extend({
+        createTile(coords, done) {
+            let tile = null
+            // build id
+            let id = `t_${coords.z}_${coords.x}_${coords.y}`
+            // check if tile already exists
+            if (gl_tiles[id] ?? false) {
+                // tile already exists
+                console.log('use', id)
+                tile = gl_tiles[id]
+            }
+            else {
+                console.log('create', coords)
+
+                tile = document.createElement('div');
+                tile.innerHTML = [coords.z, coords.x, coords.y].join('-');
+                // add classes
+                tile.classList.add(
+                    'xp-tile',
+                    'tz-' + coords.z,
+                    'tx-' + coords.x,
+                    'ty-' + coords.y
+                )
+            }
+            // console.log('tile does not exist', id)
+
+            // simulate delay
+            setTimeout(() => {
+                // store tile
+                gl_tiles[id] ?? (gl_tiles[id] = tile)
+                done(null, tile); // Syntax is 'done(error, tile)'
+            }, 100 + Math.random() * 100);
+
+            return tile;
+        }
+    });
+
+    L.gridLayer.debugCoords = function (opts) {
+        return new L.GridLayer.DebugCoords(opts);
+    };
+
+    const debugCoordsGrid = L.gridLayer.debugCoords();
+    mymap.addLayer(debugCoordsGrid);
+
     // add controls
     L.Control.XpHud = L.Control.extend({
         onAdd: function (map) {
             let div = L.DomUtil.create('div', 'leaflet-control-xphud');
             div.innerHTML = `
-                <div class="box-xpc-hud">
-                    <div id="box-p5"></div>
+                <div class="box-xpc-hud" style="display:flex;flex-direction:column;align-items:end;">
                     <xpc-hud></xpc-hud>
                 </div>
             `;
@@ -93,7 +141,7 @@ let mounted = async function () {
         return new L.Control.XpHud(opts);
     }
     // add control
-    L.control.xphud({ position: 'bottomleft' }).addTo(mymap);
+    L.control.xphud({ position: 'bottomright' }).addTo(mymap);
 
     L.control.scale({ position: 'bottomright' }).addTo(mymap);
     L.control.zoom({ position: 'bottomright' }).addTo(mymap);
@@ -113,7 +161,8 @@ let mounted = async function () {
     mymap.getPane('focusPane').style.zIndex = 650;
 
     // center on marker
-    mymap.setView(focus, 10)
+    // don't zoom toom much as tiles can be huge to load for local proxy
+    mymap.setView(focus, 5)
 
     // teleport
     // this.act_teleport()
@@ -144,7 +193,7 @@ function build_markers(markers, max = 100) {
             draggable: true,
             icon: di,
         })
-        .addTo(mymap);
+            .addTo(mymap);
 
         markers.push(mm)
     }
@@ -191,7 +240,7 @@ let methods = {
             this.$xpv().map_marker_index = next;
         }
     },
-    marker_focus (index) {
+    marker_focus(index) {
         if (mymap) {
             let markers = this.$xpv0().markers
 

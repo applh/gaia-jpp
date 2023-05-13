@@ -53,7 +53,8 @@
 
 
 <template id="xp-map">
-    <div class="container-map">
+    <div class="container-map">                    
+        <div id="box-p5"></div>
         <div ref="map" id="map" class="box-map"></div>
         <input type="number" v-model="xpv.map_marker_index" @keyup.enter="act_marker_focus" style="text-align:right;" />
         / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0"
@@ -64,7 +65,8 @@
         <span>{{ zoom }} </span><input type="range" v-model="zoom" min="0" max="18">
         <button @click.prevent="act_teleport">teleport</button>
         <input type="color" v-model="xpv.tree_color" />
-        <span>{{ xpv.tree_line_w }} </span><input type="range" v-model="xpv.tree_line_w" min="0" max="100" />
+        <span>{{ xpv.tree_line_w }} </span><input type="range" v-model="xpv.tree_line_w" min="0" max="10" />
+        <input type="number" v-model="xpv.tree_h" /><input type="range" v-model="xpv.tree_h" min="0" max="4000" />
     </div>
 </template>
 
@@ -147,7 +149,18 @@
 </template>
 
 <template id="xpc-hud">
-    <div>
+    <div style="display:flex;flex-direction:column;align-items:end;">
+        <div class="toolbar" style="display:flex;">
+            <button @click.stop="act_mini_all">mini</button>
+            <button @click.stop="act_maxi_all">maxi</button>
+            <button @click.stop="act_save">save</button>
+            <label>
+                <span> | sketch </span>
+                <input type="number" min="100" :max="p5_wmax" v-model="p5_size" @change.stop="act_sketch_size"/>
+                <input type="range" min="100" :max="p5_wmax" step="100" v-model="p5_size" @change.stop="act_sketch_size"/>
+            </label>
+            <span> | grid</span><input type="checkbox" v-model="ui_grid" @click.stop="act_ui_grid"/>    
+        </div>
         <div class="box-table" v-if="ui_grid">
             <table>
                 <tbody>
@@ -158,16 +171,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="toolbar" style="display:flex;">
-            <button @click.stop="act_mini_all">mini</button>
-            <button @click.stop="act_maxi_all">maxi</button>
-            <button @click.stop="act_save">save</button>
-            <label>
-                <span> | sketch {{ p5_size }}</span>
-                <input type="range" min="100" :max="p5_wmax" step="100" v-model="p5_size" @change.stop="act_sketch_size"/>
-            </label>
-            <span> | grid</span><input type="checkbox" v-model="ui_grid" @click.stop="act_ui_grid"/>    
         </div>
     </div>
 </template>
@@ -364,9 +367,20 @@
 
     #box-p5 {
         border: 1px solid red;
-        width: fit-content;
+        width: calc(100% - 2rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        position: absolute;
+        z-index:999;
     }
     .toolbar {
         text-align: left;
+    }
+
+    .xp-tile {
+        border: 1px solid #aaaaaa;
     }
 </style>

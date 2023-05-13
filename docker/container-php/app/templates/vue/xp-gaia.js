@@ -163,8 +163,9 @@ let form_post = {
 }
 // vue reactive
 let vstore = reactive({
-    tree_color: '#00ff00',
-    tree_line_w: 2,
+    tree_h: 200,
+    tree_color: '#000000',
+    tree_line_w: 1,
     map_marker_index: 0,
     app_title: 'Welcome to GAIA',
     counter: 0,

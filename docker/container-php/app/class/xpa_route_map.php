@@ -36,7 +36,7 @@ class xpa_route_map
             $x = $coords[1] ?? 0;
             $y = $coords[2] ?? 0;
     
-            $zip_map = "$path_data/map.zip";
+            $zip_map = "$path_data/maps/map-$z.zip";
             // get tile in zip
             $zip = new ZipArchive();
             $zip->open($zip_map, ZipArchive::CREATE);
