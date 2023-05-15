@@ -47,11 +47,24 @@ class xpa_router
                 // echo "route not found ($filename)($path)($dirname)\n";
             }
             else {
+                // special routes defined in config
                 $route = static::$routes[$filename] ?? "";
                 if ($route) {
                     // add task 
                     xpa_task::add($filename, $route);
-                }    
+                }
+                else {
+                    // use xpa_route_page as default
+                    $sub_route = "page";
+                    $callback = "xpa_route_$sub_route::response";
+                    if (is_callable($callback)) {
+                        // call sub route
+                        $callback($dirname, $filename, $extension ?? "");
+                        return;
+                    }
+    
+                }  
+                // case: 404 not found ?!  
             }
         } else {
             // cli mode

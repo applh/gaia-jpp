@@ -1,4 +1,5 @@
 <?php
+
 /**
  * xpa_cron_task
  * 
@@ -14,7 +15,7 @@ class xpa_cron_task
 {
     //#class_start
 
-    static function map_tile_zip ()
+    static function map_tile_zip()
     {
         $path_data = cli::kv("path_data");
         $path_cache = "$path_data/cache";
@@ -23,7 +24,7 @@ class xpa_cron_task
         $max = 100;
         $done_files = [];
         $zip_targets = [];
-        foreach($files as $index => $file) {
+        foreach ($files as $index => $file) {
             $filename = basename($file);
             // extract first number Z from filename
             // filename format map-Z_X_Y.png
@@ -54,18 +55,18 @@ class xpa_cron_task
                 // add to done_files
                 $done_files[] = $file;
             }
-            
+
             // stop if max reached
             if ($index >= $max) {
                 break;
             }
         }
         // close all zip targets
-        foreach($zip_targets as $zip) {
+        foreach ($zip_targets as $zip) {
             $zip->close();
         }
         // remove $files
-        foreach($done_files as $file) {
+        foreach ($done_files as $file) {
             unlink($file);
         }
     }
@@ -74,7 +75,7 @@ class xpa_cron_task
      * script to transfer map tiles from map.zip to map-Z.zip
      * (DONE: only keep for code example)
      */
-    static function map_zip_transfer ()
+    static function map_zip_transfer()
     {
         $path_data = cli::kv("path_data");
         $zip_src = "$path_data/map.zip";
@@ -86,7 +87,7 @@ class xpa_cron_task
 
             $zip_targets = [];
 
-            for($i = 0; $i < $zip->numFiles; $i++) {
+            for ($i = 0; $i < $zip->numFiles; $i++) {
                 $file = $zip->getNameIndex($i);
                 echo "$file\n";
                 // $file name is in format map/Z/X/Y.png
@@ -120,13 +121,13 @@ class xpa_cron_task
             // close source zip
             $zip->close();
             // close all zip targets
-            foreach($zip_targets as $zip_to) {
+            foreach ($zip_targets as $zip_to) {
                 $zip_to->close();
             }
         }
     }
 
-    static function scrap_score ()
+    static function scrap_score()
     {
         $path_data = cli::kv("path_data");
         $config_scrap = json_decode(file_get_contents("$path_data/config-scrap.json"), true);
@@ -138,40 +139,69 @@ class xpa_cron_task
         $config_scrap_filters = $config_scrap["filters"] ?? [];
 
         if (!empty($config_scrap_filters)) {
-        // get rows in geocms table, in scraps db where z is null
-        $rows = xpa_sqlite::read("scraps/news", "WHERE z IS NULL");
-        // for each row
-        foreach($rows as $row) {
-            extract($row);
-            $title ??= "";
+            // get rows in geocms table, in scraps db where z is null
+            $rows = xpa_sqlite::read("scraps/news", "WHERE z IS NULL");
+            // for each row
+            foreach ($rows as $row) {
+                extract($row);
+                $title ??= "";
 
-            $score = null;
-            if ($title) {
+                $score = null;
+                if ($title) {
 
-                // check if title contains a filter
-                foreach($config_scrap_filters as $filter => $value) {
-                    $filter = trim($filter);
-                    if ($filter) {
-                        if (strpos($title, $filter) !== false) {
-                            $score = $value;
-                            // debug
-                            // file_put_contents($debug_log, "$id:$score: $title\n", FILE_APPEND);
-                            break;
+                    // check if title contains a filter
+                    foreach ($config_scrap_filters as $filter => $value) {
+                        $filter = trim($filter);
+                        if ($filter) {
+                            if (strpos($title, $filter) !== false) {
+                                $score = $value;
+                                // debug
+                                // file_put_contents($debug_log, "$id:$score: $title\n", FILE_APPEND);
+                                break;
+                            }
                         }
                     }
                 }
-            }
-            if ($score != null) {
-                // update row with score
-                $tokens = [
-                    "z" => $score
-                ];
-                xpa_sqlite::update("scraps/news", $id, $tokens);
-
+                if ($score != null) {
+                    // update row with score
+                    $tokens = [
+                        "z" => $score
+                    ];
+                    xpa_sqlite::update("scraps/news", $id, $tokens);
+                }
             }
         }
+    }
 
+    static function select_zoom5 ()
+    {
+        $rows = xpa_sqlite::read("scraps/news", "WHERE z > 0 ORDER BY z DESC, id DESC LIMIT 100");
+
+        // loop on rows
+        foreach ($rows as $row) {
+            extract($row);
+            echo "$id $z $title $date\n";
+            $copy = [];
+            $copy["path"] = "zoom5";
+            $copy["filename"] = $md5;
+            $copy["title"] = $title;        
+            $copy["created"] = $date;
+            $copy["z"] = $z;
+            $copy["url"] = $url;
+            $copy["hash"] = $md5;
+        
+            // check in table select5/geocms if there's a row with same md5
+            $row2 = xpa_sqlite::read("zoom5/geocms", "WHERE hash = '$md5'");
+            if (empty($row2)) {
+                //print_r($row);
+                // insert in table select5/geocms
+                xpa_sqlite::create("zoom5/geocms", $copy);
+            }
+            else {
+                // echo "already in table\n";
+            }
         }
+        
     }
 
     //#class_end
