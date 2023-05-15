@@ -1,0 +1,23 @@
+#app h1 {
+    color: red;
+
+}
+
+#app form {
+    background-color: #eee;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    max-width: 800px;
+}
+
+#app form > * {
+    margin-bottom: 0.5rem;
+}
+
+#app form > textarea {
+    height: 20rem;
+}
