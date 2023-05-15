@@ -48,6 +48,15 @@ class cli
             require_once $file;
             return true;
         }
+        else {
+            // search also in subfolders
+            $search_glob = "$path_class/*/$classname.php";
+            $files = glob($search_glob);
+            if (count($files) > 0) {
+                require_once $files[0];
+                return true;
+            }
+        }
 
         return false;
     }

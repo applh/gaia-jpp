@@ -3,6 +3,7 @@
 class xps_action
 {
     static $json = [];
+    static $template = "";
 
     static function init()
     {
@@ -14,6 +15,25 @@ class xps_action
         add_action("admin_init", "xps_action::admin_init");
         // WARNING: admin_menu can't be inside admin_init
         add_action("admin_menu", "xps_action::admin_menu");
+
+        add_filter("template_include", "xps_action::template_include");
+    }
+
+    static function template_include ($template)
+    {
+        // Old trick in WP to catch 404
+        // then we can use our own template
+        $uri = $_SERVER["REQUEST_URI"];
+        // if uri starts with /xps/ 
+        if (is_404()) {
+            // keep the original template
+            xps_action::$template = $template;
+            
+            $template = xp_studio::$plugin_dir . "/media/wp/template-catch-404.php";
+        }
+
+        return $template;
+
     }
 
     static function admin_init()
@@ -132,74 +152,54 @@ class xps_action
         // get request param media
         $media = $_REQUEST['src'] ?? '';
         if ($media) {
-            $zip_file = __DIR__ . "/../class.zip";
+            $zip_file = xp_studio::$plugin_dir . "/class.zip";
             // check if the zip file exists
+            $mimes = [
+                "js" => "application/javascript",
+                "css" => "text/css",
+                "html" => "text/html",
+                "jpg" => "image/jpeg",
+                "png" => "image/png",
+                "gif" => "image/gif",
+                "svg" => "image/svg+xml",
+                "json" => "application/json",
+                "txt" => "text/plain",
+                "pdf" => "application/pdf",
+                "zip" => "application/zip",
+                "webp" => "image/webp",
+                "avif" => "image/avif",
+            ];
+            $content = null;
             if (!file_exists($zip_file)) {
                 // check in folder media/wp 
-                $file = __DIR__ . "/../media/wp/$media";
+                // FIXME: should be more secure
+                $file = xp_studio::$plugin_dir . "/media/wp/$media";
                 if (file_exists($file)) {
                     // get the content
                     $content = file_get_contents($file);
-                    // get extension from media
-                    $ext = pathinfo($media, PATHINFO_EXTENSION);
-
-                    $mimes = [
-                        "js" => "application/javascript",
-                        "css" => "text/css",
-                        "html" => "text/html",
-                        "jpg" => "image/jpeg",
-                        "png" => "image/png",
-                        "gif" => "image/gif",
-                        "svg" => "image/svg+xml",
-                        "json" => "application/json",
-                        "txt" => "text/plain",
-                        "pdf" => "application/pdf",
-                        "zip" => "application/zip",
-                        "webp" => "image/webp",
-                        "avif" => "image/avif",
-                    ];
-                    // set the header
-                    $mime_type = $mimes[$ext] ?? "application/octet-stream";
-                    header("Content-Type: $mime_type");
-                    // return the content
-                    echo $content;
-                    die();
                 }
-
             } else {
                 // search in zip archive class.zip for the file media/$media
                 $zip = new ZipArchive;
-                $res = $zip->open(__DIR__ . "/class.zip");
+                $res = $zip->open($zip_file);
                 if ($res === TRUE) {
                     // get the content
                     $content = $zip->getFromName("media/$media");
                     $zip->close();
-                    // get extension from media
-                    $ext = pathinfo($media, PATHINFO_EXTENSION);
-
-                    $mimes = [
-                        "js" => "application/javascript",
-                        "css" => "text/css",
-                        "html" => "text/html",
-                        "jpg" => "image/jpeg",
-                        "png" => "image/png",
-                        "gif" => "image/gif",
-                        "svg" => "image/svg+xml",
-                        "json" => "application/json",
-                        "txt" => "text/plain",
-                        "pdf" => "application/pdf",
-                        "zip" => "application/zip",
-                        "webp" => "image/webp",
-                        "avif" => "image/avif",
-                    ];
-                    // set the header
-                    $mime_type = $mimes[$ext] ?? "application/octet-stream";
-                    header("Content-Type: $mime_type");
-                    // return the content
-                    echo $content;
-                    // FIXME: hack to avoid WP_Rest_Response wrapper
-                    die();
                 }
+            }
+            if ($content) {
+                // get extension from media
+                $ext = pathinfo($media, PATHINFO_EXTENSION);
+
+                // set the header
+                $mime_type = $mimes[$ext] ?? "application/octet-stream";
+                header("Content-Type: $mime_type");
+                // return the content
+                echo $content;
+                // FIXME: hack to avoid WP_Rest_Response wrapper
+                die();
+
             }
         } else {
             // return json

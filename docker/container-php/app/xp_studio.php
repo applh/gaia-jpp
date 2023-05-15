@@ -10,6 +10,8 @@ if (!function_exists('add_action')) {
 
 class xp_studio
 {
+    static $plugin_dir = __DIR__;
+    
     static function setup()
     {
         // add autoload function
@@ -36,6 +38,15 @@ class xp_studio
         $filename = __DIR__ . "/class/$classname.php";
         if (file_exists($filename)) {
             include_once $filename;
+        }
+        else {
+            // look into all subfolders
+            $search_glob = __DIR__ . "/class/*/$classname.php";
+            $files = glob($search_glob);
+            if (count($files) > 0) {
+                include_once $files[0];
+            }
+
         }
     }
 
