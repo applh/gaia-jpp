@@ -12,12 +12,16 @@ class xpa_route_blog
         $path_data = cli::kv("path_data");
         $article = "$path_data/blog/$filename.md";
         if (file_exists($article)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             $content = file_get_contents($article);
             echo $content;
         }
 
         $notebook = "$path_data/blog/$filename.ipynb";
         if (file_exists($notebook)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             $content = file_get_contents($notebook);
             $json = json_decode($content, true);
             $cells = $json["cells"] ?? [];
@@ -26,6 +30,8 @@ class xpa_route_blog
         
         $php_template = "$path_data/blog/$filename.php";
         if (file_exists($php_template)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             include $php_template;
         }
     }

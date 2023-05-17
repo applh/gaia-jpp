@@ -4,9 +4,25 @@ class xps_action
 {
     static $json = [];
     static $template = "";
+    static $cms_mix = "";
 
     static function init()
     {
+        xps_action::$cms_mix = get_option("xps_cms_mix", "wp");
+        // WARNING: possible values "wp" or "gaia"
+        
+        // "gaia" 
+        // will give priority to gaia cms on home page and other pages
+        // then "wp" will handle 404 response status code from GAIA
+        // "wp"
+        // will give priority to WP cms on home page and other pages
+        // then "gaia" will handle 404 response status code from WP
+        // TODO: more complex mix integrations between CMS
+        
+        // WARNING: 🔥 maybe the plugin can override WP core (and kill WP code)
+        xps_action::cms_priority();
+
+        // if WP is still active, then we can add our own actions
         add_action('wp_head', 'xps_action::wp_head_meta_description');
 
         // add new rest route for json data: xperia/v1/json
@@ -19,19 +35,46 @@ class xps_action
         add_filter("template_include", "xps_action::template_include");
     }
 
+    static function cms_priority ()
+    {
+        if (xps_action::$cms_mix == "gaia") {
+            $uri = $_SERVER["REQUEST_URI"];
+            $host = $_SERVER["HTTP_HOST"];
+
+            // GAIA cms has priority over WP
+            $path_root = xp_studio::$plugin_dir;
+            $path_index = "$path_root/public/index.php";
+
+            ob_start();
+            include_once $path_index;
+            $content = ob_get_clean();
+            if (xpa_router::$response_status == "200") {
+                echo $content;
+                // GAIA has provided the content
+                // don't run WP
+                die();
+            }
+        }
+    }
+
     static function template_include ($template)
     {
         // Old trick in WP to catch 404
         // then we can use our own template
         $uri = $_SERVER["REQUEST_URI"];
-        // if wp doesn't want this uri, then we can use our own template
-        if (is_404()) {
-            // keep the original template
-            xps_action::$template = $template;
-            
-            $template = xp_studio::$plugin_dir . "/media/wp/template-catch-404.php";
-        }
+        // WP has priority then GAIA
+        if (xps_action::$cms_mix == "wp") {
+            // NOTE: many WP plugins could use 404 hook to add their own pages
+            // better leave 404 pages to WP and WP plugins ?!
 
+            // if wp doesn't want this uri, then we can use our own template
+            if (is_404()) {
+                // keep the original template
+                xps_action::$template = $template;
+                
+                $template = xp_studio::$plugin_dir . "/media/wp/template-catch-404.php";
+            }
+        }
         return $template;
 
     }

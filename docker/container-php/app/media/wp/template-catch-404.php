@@ -20,6 +20,6 @@
 // get the index.php file from gaia 
 http_response_code(200);
 $gaia_index = xp_studio::$plugin_dir . "/public/index.php";
-include $gaia_index;
+include_once $gaia_index;
 
 

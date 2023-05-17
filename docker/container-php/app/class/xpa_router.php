@@ -2,6 +2,8 @@
 
 class xpa_router
 {
+    static $response_status = "404";
+    
     static $filename = "";
     static $routes = [];
     static $json = [];

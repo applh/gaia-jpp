@@ -76,6 +76,8 @@ class xpa_route_map
         }
 
         if ($tile) {            
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             // show tile
             header("Content-Type: image/png");
             // set cache control

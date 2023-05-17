@@ -7,6 +7,8 @@ class xpa_page
         // find template file
         $template = cli::kv("root") . "/templates/index.php";
         if (file_exists($template)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             require_once $template;
         }
         else {
@@ -19,6 +21,8 @@ class xpa_page
         // find template file
         $template = cli::kv("root") . "/templates/api.php";
         if (file_exists($template)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             require_once $template;
         }
         else {
@@ -34,6 +38,8 @@ class xpa_page
         
         // if template file exists then use it
         if (file_exists($path_vue)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             require_once $path_vue;
         }
         else {
@@ -49,6 +55,8 @@ class xpa_page
         
         // if template file exists then use it
         if (file_exists($path_vue)) {
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             require_once $path_vue;
         }
         else {
@@ -61,6 +69,8 @@ class xpa_page
      */
     static function robots ()
     {
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
 
     }
 

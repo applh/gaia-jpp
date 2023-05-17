@@ -35,6 +35,8 @@ class xpa_route_dev
         ];
         xpa_sqlite::create("chrome/geocms", $db_row);
 
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
         // CORS *
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");

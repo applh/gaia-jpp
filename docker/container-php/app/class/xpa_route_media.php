@@ -42,6 +42,8 @@ class xpa_route_media
             $content = file_get_contents($article);
             // get mime_type
             $mime_type = static::$mimes[$extension] ?? mime_content_type($article);
+            // allow gaia cms mix with others cms
+            xpa_router::$response_status = "200";
             header("Content-Type: $mime_type");
             echo $content;
         }

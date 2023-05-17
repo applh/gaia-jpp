@@ -34,6 +34,8 @@ class xpa_route_api
     {
         // get all rows in db/table scraps/news
         $rows = xpa_sqlite::read("zoom5/geocms", "WHERE z > 0 ORDER BY z DESC, id DESC");
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
         // header
         header("Content-Type: application/json");
         echo json_encode($rows, JSON_PRETTY_PRINT);
@@ -41,6 +43,8 @@ class xpa_route_api
 
     static function response_cron()
     {
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
         // add tasks
         xpa_task::add("cron", "xpa_cron::minute");
         xpa_task::add("json", "xpa_router::json");
@@ -154,6 +158,8 @@ class xpa_route_api
             $json["request_json"] = $json_request;
         }
 
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
         // header
         header("Content-Type: application/json");
         echo json_encode($json, JSON_PRETTY_PRINT);
@@ -167,6 +173,9 @@ class xpa_route_api
         $img = imagecreatetruecolor(600, 600);
         $color = imagecolorallocate($img, 200, 200, 200);
         imagefill($img, 0, 0, $color);
+
+        // allow gaia cms mix with others cms
+        xpa_router::$response_status = "200";
         // header
         header("Content-Type: image/png");
         imagepng($img);
