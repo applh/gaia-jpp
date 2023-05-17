@@ -148,11 +148,15 @@ class xpa_cron_task
 
                 $score = null;
                 if ($title) {
+                    // lowercase
+                    $title = strtolower($title);
 
                     // check if title contains a filter
                     foreach ($config_scrap_filters as $filter => $value) {
                         $filter = trim($filter);
                         if ($filter) {
+                            // lowercase
+                            $filter = strtolower($filter);
                             if (strpos($title, $filter) !== false) {
                                 $score = $value;
                                 // debug
@@ -175,7 +179,7 @@ class xpa_cron_task
 
     static function select_zoom5 ()
     {
-        $rows = xpa_sqlite::read("scraps/news", "WHERE z > 0 ORDER BY z DESC, id DESC LIMIT 100");
+        $rows = xpa_sqlite::read("scraps/news", "WHERE z > 0 ORDER BY z DESC, id DESC");
 
         // loop on rows
         foreach ($rows as $row) {

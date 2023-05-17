@@ -90,7 +90,7 @@ let methods = {
 
                 p.draw = function () {
                     // WARNING: this is called every frame
-                    p.frameRate(20);
+                    p.frameRate(30);
                     // transparent background
                     p.clear()
                     p.background('rgba(0, 255, 0, 0.2)')

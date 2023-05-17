@@ -27,6 +27,15 @@ class xpa_route_media
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
         // print_r($dirs);
+        $dir1 = $dirs[1] ?? "";
+        $dir2 = $dirs[2] ?? "";
+        if ($dir1) {
+            $filename = "$dir1/$filename";
+            if ($dir2) {
+                $filename = "$dir1/$dir2/$filename";
+            }
+        }
+
         $path_data = cli::kv("path_data");
         $article = "$path_data/media/$filename.$extension";
         if (file_exists($article)) {
@@ -35,8 +44,6 @@ class xpa_route_media
             $mime_type = static::$mimes[$extension] ?? mime_content_type($article);
             header("Content-Type: $mime_type");
             echo $content;
-
-            xp_os::log("media ($dirname)($filename)($extension)");
         }
         else {
             echo "article not found ($article)";

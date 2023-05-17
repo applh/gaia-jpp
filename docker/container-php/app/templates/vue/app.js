@@ -3,6 +3,7 @@ import {
 } from 'vue'
 
 import xpGaia from 'XpGaia'
+import { mytest } from 'vitelib'
 
 createApp({
     template: '#appTemplate',
@@ -14,5 +15,6 @@ createApp({
     }
 })
 .use(xpGaia)
+.use(mytest)
 .mount('#app')
 

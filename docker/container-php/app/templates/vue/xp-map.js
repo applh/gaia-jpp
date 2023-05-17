@@ -89,7 +89,7 @@ let mounted = async function () {
                 tile = gl_tiles[id]
             }
             else {
-                console.log('create', coords)
+                // console.log('create', coords)
 
                 tile = document.createElement('div');
                 tile.innerHTML = [coords.z, coords.x, coords.y].join('-');

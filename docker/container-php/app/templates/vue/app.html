@@ -21,7 +21,8 @@
         "XpTestAsync": "/template/vue/xp-test-async.js",
         "XpcMarker": "/template/vue/xpc-marker.js",
         "XpcHud": "/template/vue/xpc-hud.js",
-        "leaflet": "/template/leaflet/leaflet-src.esm.js"
+        "leaflet": "/template/leaflet/leaflet-src.esm.js",
+        "vitelib": "/template/vue/dist/my-test.js"
     }
 }
 </script>
@@ -47,7 +48,9 @@
                 <h2>missing api key</h2>
             </div>
         </div>
-        <xp-app-dev />
+        <xp-app-dev></xp-app-dev>
+        <my-test-a></my-test-a>
+
     </div>
     <footer>
         <img class="logo" src="/template/img/gaia-b6.png" alt="gaia" />
@@ -92,21 +95,52 @@
 <template id="xp-crud">
     <div class="box-crud">
         <h2>POSTS ({{ posts.length }})</h2>
-        <table>
-            <tbody>
-                <tr v-for="(p, index) in posts">
-                    <td>{{ index }}</td>
-                    <td>
-                        <h3 :title="p.url">{{ p.title }}</h3>
-                    </td>
-                    <td><a target="_blank" :href="p.url">{{ p.url }}</a></td>
-                    <td>{{ p.z }}</td>
-                    <td><button @click.prevent="act_edit(p)">edit</button></td>
-                    <td><button @click.prevent="act_delete(p)">delete</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="grid">
+        <div>
+            <label>
+                <span>table</span>
+                <input type="checkbox" v-model="ui_table" />
+            </label>
+            <label>
+                <span>grid</span>
+                <input type="checkbox" v-model="ui_grid" />
+            </label>
+            <label>
+                <span>dev</span>
+                <input type="checkbox" v-model="ui_dev" />
+            </label>
+        </div>
+        <div>
+            {{ form_feedback?.feedback ?? '...' }}
+        </div>
+        <div v-if="ui_table">
+            <table>
+                <tbody>
+                    <tr v-for="(p, index) in posts">
+                        <td>{{ index }}</td>
+                        <td>
+                            <h3 :title="p.url">{{ p.title }}</h3>
+                            <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
+                            <input type="checkbox" v-model="p.expand" />
+                            <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)"/></div>
+                        </td>
+                        <td>
+                            
+                            <label><span>code</span><textarea rows="10" v-model="p.code"></textarea></label>
+                            <label><span>x</span><input type="text" v-model="p.x" /></label>
+                            <label><span>y</span><input type="text" v-model="p.y" /></label>
+                            <label><span>z</span><input type="text" v-model="p.z" /></label>
+                            <label><span>created {{ txt(p.created) }}</span><input type="text" v-model="p.created"></label>
+                        </td>
+                        <td>
+                            <button class="green" @click.prevent="act_save(p)">save ({{ p.id }})</button>
+                            <button @click.prevent="act_edit(p)">edit ({{ p.id }})</button>
+                            <button class="red" @click.prevent="act_delete(p)">delete ({{ p.id }})</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        <div v-if="ui_grid" class="grid">
             <article v-for="p in posts">
                 <h3 :title="p.url">{{ p.title }}</h3>
                 <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
@@ -115,17 +149,19 @@
                 <button @click.prevent="act_delete(p)">delete</button>
             </article>
         </div>
-        <em>CRUD</em>
-        <div><label>level: {{ size }} <input type="range" v-model="size" min="0" max="100"></label></div>
-        <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0"
-                    :max="size*size"></label></div>
-        <div class="grid">
-            <article v-for="a in (size*size)">
-                <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
-                <div v-else>{{ a }}</div>
-                <xp-form v-if="mode_edit" name="post" :index="a-1"></xp-form>
-                <input type="checkbox" v-model="mode_edit" />
-            </article>
+        <div v-if="ui_dev">
+            <em>CRUD</em>
+            <div><label>level: {{ size }} <input type="range" v-model="size" min="0" max="100"></label></div>
+            <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0"
+                        :max="size*size"></label></div>
+            <div class="grid">
+                <article v-for="a in (size*size)">
+                    <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
+                    <div v-else>{{ a }}</div>
+                    <xp-form v-if="mode_edit" name="post" :index="a-1"></xp-form>
+                    <input type="checkbox" v-model="mode_edit" />
+                </article>
+            </div>
         </div>
     </div>
 </template>
@@ -391,5 +427,46 @@
         border-radius: 50%;
         width:100%;
         max-width: fit-content;
+    }
+    .box-img {
+        height: 10vmin;
+        width:50vmin;
+        overflow-y: hidden;
+        margin: 0 auto;
+    }
+    .box-img.expand {
+        height:80vmin;
+        width:80vmin;
+        overflow-y: scroll;
+    }
+    .box-img img {
+        width:100%;
+    }
+    td {
+        vertical-align: top;
+    }
+    td textarea {
+        min-width: 100%;
+        min-height:10vmin;
+        width: 100%;
+        height: 100%;
+    }
+    td label {
+        display: block;
+    }
+    td label span {
+        display: inline-block;
+        padding: 0.25rem;
+    }
+    td button {
+        padding: 0.5rem;
+        background-color: #ddd;
+        margin: 0.5rem;
+    }
+    td button.green {
+        background-color: rgb(155, 255, 155);
+    }
+    td button.red {
+        background-color: rgb(255, 77, 77);
     }
 </style>

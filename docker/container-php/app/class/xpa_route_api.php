@@ -33,7 +33,7 @@ class xpa_route_api
     static function response_scraps ()
     {
         // get all rows in db/table scraps/news
-        $rows = xpa_sqlite::read("zoom5/geocms", "WHERE z > 0 ORDER BY z DESC, id DESC LIMIT 100");
+        $rows = xpa_sqlite::read("zoom5/geocms", "WHERE z > 0 ORDER BY z DESC, id DESC");
         // header
         header("Content-Type: application/json");
         echo json_encode($rows, JSON_PRETTY_PRINT);
@@ -131,6 +131,25 @@ class xpa_route_api
                 ];
                 xpa_sqlite::create("post/geocms", $row);
             }
+            if ($form_name == "crud_save_post") {
+                // update row in table zoom5/geocms
+                $id = $inputs["id"] ?? "";
+                $title = $inputs["title"] ?? "";
+                $row = [
+                    "code" => $inputs["code"] ?? "",
+                    "x" => $inputs["x"] ?? null,
+                    "y" => $inputs["y"] ?? null,
+                    "z" => $inputs["z"] ?? null,
+                    "updated" => $now2date,
+                ];
+                xpa_sqlite::update("zoom5/geocms", $id, $row);
+                $json["crud_save_post"] = [
+                    "id" => $id,
+                    "row" => $row,
+                    "feedback" => "OK $id updated ($now2date): $title",
+                ];
+            }
+
             // debug
             $json["request_json"] = $json_request;
         }

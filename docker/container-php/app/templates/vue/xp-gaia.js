@@ -10,6 +10,7 @@ import XpcMarker from 'XpcMarker'
 import XpcHud from 'XpcHud'
 
 import XpTest from 'XpTest'
+import { MyTestA } from 'vitelib'
 
 
 // forms
@@ -244,6 +245,8 @@ export default {
         app.component('XpMap', XpMap)
         app.component('XpCrud', XpCrud)
         app.component('XpForm', XpForm)
+        app.component('XpForm', XpForm)
+        app.component('MyTestA', MyTestA)
 
         // define async components
         let compos = [ 'XpAppUser', 'XpAppAdmin', 'XpAppDev', 'XpAppTest' ];

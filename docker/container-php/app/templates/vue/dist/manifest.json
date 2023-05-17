@@ -1,0 +1,11 @@
+{
+  "lib/mytest.js": {
+    "file": "my-test.umd.cjs",
+    "isEntry": true,
+    "src": "lib/mytest.js"
+  },
+  "style.css": {
+    "file": "style.css",
+    "src": "style.css"
+  }
+}
