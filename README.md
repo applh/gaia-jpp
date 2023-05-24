@@ -3,6 +3,11 @@
 * GAIA: GeoCMS Artificial Intelligence Applications
 * JPP: JavaScript, Python, PHP
 
+GAIA is a CMS available in several situations:
+* In a Docker container, with PHP+Python+SQLite
+* As a standalone CMS, on PHP+SQLite web hosting
+* As a WP plugin, on WP+SQLite web hosting
+
 * GAIA-JPP is some crazy VSCode dev environment
 * Build AI appications with JS, Python and PHP support.
   * And even WordPress + Gutenberg + React 
@@ -10,6 +15,15 @@
 * Automatic testing is provided by Playwright
 * 3D is powered by Blender
 
+
+## Docker container
+
+* The Docker container provides an environment with PHP, Python and SQLite. 
+* PHP provides web server services
+* Python includes Jupyter Notebook, Playwright, OpenCV and SQLite
+* SQLite provides a very simple database, shared by PHP and Python
+* ffmpeg and imagemagick provides image and video processing
+   
 ## Installation
 
 ### wp

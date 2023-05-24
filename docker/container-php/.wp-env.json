@@ -1,0 +1,6 @@
+{
+    "mappings": {
+        "wp-content/plugins/xps-studio": "./app",
+        "wp-content/plugins/xps-data": "./my-data"
+    }
+}

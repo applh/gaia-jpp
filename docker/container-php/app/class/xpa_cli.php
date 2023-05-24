@@ -27,7 +27,8 @@ class xpa_cli
 
         // there's a cron job calling htpp://gaia.test:8666/api every minute
         // log test into a file ./test.log
-        $log = dirname(__DIR__) . "/my-data/cron.log";
+        $path_data = cli::kv("path_data");
+        $log = "$path_data/cron.log";
         $uri = $_SERVER["REQUEST_URI"] ?? "";
         $msg = date("Y-m-d H:i:s") . " api is working ($uri)\n";
 

@@ -45,6 +45,12 @@
 * Then the plugin can hook on `template_include`filter and use `public/index.php` as template
   * So GAIA can be used as a WP plugin that manage also templates ?!
 
+### GAIA CMS as WP plugin
+
+* WP plugin code should be isolated from data dir
+* Tip: we use a separate plugin dir `xps_data` to store data
+* FIXME: GAIA CMS must be setup to use `xps_data` as data dir
+
 ### SCENARIO 1: WP as main site and Gaia as complement
 
 * WP will handle the main site

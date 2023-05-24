@@ -13,15 +13,31 @@ class cli
     {
         static::kv("root", __DIR__);
         static::kv("path_class", __DIR__ . "/class");
-        static::kv("path_data", __DIR__ . "/my-data");
+        // WARNING: when used inside WP plugin, the data dir is called xps-data (not my-data)
+        if (is_callable("xpa_os::kv")) {
+            $path_data = xpa_os::kv("path_data") ?? dirname(__DIR__) . "/my-data";
+        }
+        else {
+            $path_data = dirname(__DIR__) . "/my-data";
+        }
+        static::kv("path_data", $path_data);
+
+        // FIXME: CORS 
+        header("Access-Control-Allow-Origin: *");
 
         // add autoload
         spl_autoload_register("cli::autoload");
 
-        // check if file my-config.php exists
+        // search for config files
         // then load it
-        if (file_exists(__DIR__ . "/my-config.php")) {
-            require_once __DIR__ . "/my-config.php";
+        $search_configs = [
+            __DIR__ . "/my-config.php",
+            $path_data . "/config.php",
+        ];
+        foreach ($search_configs as $search_config) {
+            if (file_exists($search_config)) {
+                require_once $search_config;
+            }
         }
 
         // run tasks

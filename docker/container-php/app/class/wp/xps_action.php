@@ -5,12 +5,16 @@ class xps_action
     static $json = [];
     static $template = "";
     static $cms_mix = "";
+    static $local_dir = "";
 
     static function init()
     {
+        // setup data dir for domain name
+        static::init_data_dir();
+
         xps_action::$cms_mix = get_option("xps_cms_mix", "wp");
         // WARNING: possible values "wp" or "gaia"
-        
+
         // "gaia" 
         // will give priority to gaia cms on home page and other pages
         // then "wp" will handle 404 response status code from GAIA
@@ -18,7 +22,7 @@ class xps_action
         // will give priority to WP cms on home page and other pages
         // then "gaia" will handle 404 response status code from WP
         // TODO: more complex mix integrations between CMS
-        
+
         // WARNING: 🔥 maybe the plugin can override WP core (and kill WP code)
         xps_action::cms_priority();
 
@@ -35,7 +39,53 @@ class xps_action
         add_filter("template_include", "xps_action::template_include");
     }
 
-    static function cms_priority ()
+    static function init_data_dir()
+    {
+        $xp_data_dir = WP_PLUGIN_DIR . "/xps-data";
+        // create the directory if it doesn't exist
+        if (!is_dir($xp_data_dir)) {
+            mkdir($xp_data_dir);
+            // create index.php
+            $plugin_header =
+            <<<php
+            <?php
+            /**
+             * Plugin Name: XP Studio Data 🔥
+             */
+            php;
+
+            file_put_contents($xp_data_dir . "/index.php", $plugin_header);
+        }
+
+
+        // WARNING: WP admin is redirecting to default domain (installed...)
+        $host = $_SERVER["HTTP_HOST"];
+        // replace non alphanumeric characters with -
+        $host = preg_replace("/[^a-zA-Z0-9]/", "-", $host);
+        // lowercase
+        $host = strtolower($host);
+        $host = trim($host, "-");
+        $search_local = "$xp_data_dir/$host-*";
+        $dirs = glob($search_local);
+        if (count($dirs) == 0) {
+            // WARNING: 🔥 only one local dir is supported
+            $md5 = xpa_os::randomd5();
+            $local_dir = $xp_data_dir . "/$host-$md5";
+            // if not exists create the directory
+            if (!is_dir($local_dir)) {
+                mkdir($local_dir);
+            }
+            // store the local dir for later use
+            static::$local_dir = $local_dir;
+        }
+        else {
+            // WARNING: 🔥 only one local dir is supported
+            static::$local_dir = $dirs[0];
+        }
+    }
+
+
+    static function cms_priority()
     {
         if (xps_action::$cms_mix == "gaia") {
             $uri = $_SERVER["REQUEST_URI"];
@@ -43,21 +93,36 @@ class xps_action
 
             // GAIA cms has priority over WP
             $path_root = xp_studio::$plugin_dir;
+
+            // WARNING: when using GAIA as WP plugin, data dir is not the same
+            xpa_os::kv("path_data", dirname(static::$local_dir));
+
             $path_index = "$path_root/public/index.php";
 
             ob_start();
             include_once $path_index;
             $content = ob_get_clean();
             if (xpa_router::$response_status == "200") {
+                // TODO: add mix mode where WP would customize GAIA content
                 echo $content;
                 // GAIA has provided the content
                 // don't run WP
                 die();
             }
+            // else {
+            //     echo $path_index;
+            //     echo "<br>";
+            //     echo xpa_router::$response_status;
+            //     die();
+            // }
         }
+        // TODO: add cache system form GAIA and WP pages
+        // TODO: add mix mode where GAIA would cache then customize WP content
+        // TODO: add mix mode where GAIA would load a different WP page
+        //     (for example: multi-domains homepages are simply WP pages)
     }
 
-    static function template_include ($template)
+    static function template_include($template)
     {
         // Old trick in WP to catch 404
         // then we can use our own template
@@ -71,12 +136,11 @@ class xps_action
             if (is_404()) {
                 // keep the original template
                 xps_action::$template = $template;
-                
+
                 $template = xp_studio::$plugin_dir . "/media/wp/template-catch-404.php";
             }
         }
         return $template;
-
     }
 
     static function admin_init()
@@ -123,39 +187,18 @@ class xps_action
             update_option("xp_rest_api_admin_key", $xp_admin_key);
         }
 
-        $xp_data_dir = WP_PLUGIN_DIR . "/xps-data";
-        // create the directory if it doesn't exist
-        if (!is_dir($xp_data_dir)) {
-            mkdir($xp_data_dir);
-            // create index.php
-            $plugin_header = 
-            <<<php
-            <?php
-            /**
-             * Plugin Name: XP Studio Data 🔥
-             */
-            php;
-
-            file_put_contents($xp_data_dir . "/index.php", $plugin_header);
-            $md5 = xpa_os::randomd5();
-
-            // WARNING: WP admin is redirecting to default domain (installed...)
-            $host = $_SERVER["HTTP_HOST"];
-            // replace non alphanumeric characters with -
-            $host = preg_replace("/[^a-zA-Z0-9]/", "-", $host);
-            // lowercase
-            $host = strtolower($host);
-            $host = trim($host, "-");
-            $local_dir = $xp_data_dir . "/$host-$md5";
-            // if not exists create the directory
-            if (!is_dir($local_dir)) {
-                mkdir($local_dir);
-            }
+        $cms_mix = get_option("xps_cms_mix", null);
+        if ($cms_mix == null) {
+            // default is WP
+            xps_action::$cms_mix = "wp";
+            update_option("xps_cms_mix", xps_action::$cms_mix);
+            $cms_mix = xps_action::$cms_mix;
         }
 
         echo <<<html
 
         <div id="app" data-xp-admin-key="$xp_admin_key"></div>
+        <div>xps_cms_mix: $cms_mix</div>
         <script type="module" src="/wp-json/xp-studio/v1/media?src=xp-app.js">
         </script>
 
@@ -272,7 +315,6 @@ class xps_action
                 echo $content;
                 // FIXME: hack to avoid WP_Rest_Response wrapper
                 die();
-
             }
         } else {
             // return json
