@@ -2,8 +2,11 @@
 
 class xpa_route_dev 
 {
-    static function response ($dirname, $filename, $extension)
+    static function response ($dirname="", $filename="", $extension="")
     {
+        // get the params from storage
+        extract(xpa_os::kv("xpa_route_dev::response") ?? []);
+
         // echo "xp_route_blog::response($dirname)($filename)\n";
         // cut $dirname by /
         $dirname = trim($dirname, "/");

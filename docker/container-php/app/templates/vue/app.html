@@ -14,6 +14,7 @@
         "XpMap": "/template/vue/xp-map.js",
         "XpForm": "/template/vue/xp-form.js",
         "XpCrud": "/template/vue/xp-crud.js",
+        "XpCalendar": "/template/vue/xp-calendar.js",
         "XpAppUser": "/template/vue/xp-app-user.js",
         "XpAppAdmin": "/template/vue/xp-app-admin.js",
         "XpAppDev": "/template/vue/xp-app-dev.js",
@@ -34,6 +35,7 @@
     <div>
         <h1>{{ xpv.app_title }}</h1>
         <xp-map></xp-map>
+        <xp-calendar></xp-calendar>
         <xp-crud></xp-crud>
         <div v-if="xpv.user.id == 0">
             <xp-form name="register"></xp-form>
@@ -113,29 +115,46 @@
             {{ form_feedback?.feedback ?? '...' }}
         </div>
         <div v-if="ui_table">
+            <div>
+                <span>filter on created</span>
+                <input type="text" v-model="filter" />
+                (selection: {{ filter_ok_count(filter) }}/{{ posts.length }})
+            </div>
             <table>
                 <tbody>
                     <tr v-for="(p, index) in posts">
-                        <td>{{ index }}</td>
-                        <td>
-                            <h3 :title="p.url">{{ p.title }}</h3>
-                            <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
-                            <input type="checkbox" v-model="p.expand" />
-                            <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)"/></div>
-                        </td>
-                        <td>
-                            
-                            <label><span>code</span><textarea rows="10" v-model="p.code"></textarea></label>
-                            <label><span>x</span><input type="text" v-model="p.x" /></label>
-                            <label><span>y</span><input type="text" v-model="p.y" /></label>
-                            <label><span>z</span><input type="text" v-model="p.z" /></label>
-                            <label><span>created {{ txt(p.created) }}</span><input type="text" v-model="p.created"></label>
-                        </td>
-                        <td>
-                            <button class="green" @click.prevent="act_save(p)">save ({{ p.id }})</button>
-                            <button @click.prevent="act_edit(p)">edit ({{ p.id }})</button>
-                            <button class="red" @click.prevent="act_delete(p)">delete ({{ p.id }})</button>
-                        </td>
+                        <template v-if="filter_ok(p)">
+                            <td>{{ index }}</td>
+                            <td>
+                                <h3 class="filter-ok" :title="p.url">{{ p.title }}</h3>
+                                <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
+                                <input type="checkbox" v-model="p.expand" />
+                                <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)"/></div>
+                            </td>
+                            <td> 
+                                <label><span>code</span><textarea rows="10" v-model="p.code"></textarea></label>
+                                <label><span>x</span><input type="text" v-model="p.x" /></label>
+                                <label><span>y</span><input type="text" v-model="p.y" /></label>
+                                <label><span>z</span><input type="text" v-model="p.z" /></label>
+                                <label><span>created {{ txt(p.created) }}</span><input type="text" v-model="p.created"></label>
+                            </td>
+                            <td>
+                                <button class="green" @click.prevent="act_save(p)">save ({{ p.id }})</button>
+                                <button @click.prevent="act_edit(p)">edit ({{ p.id }})</button>
+                                <button class="red" @click.prevent="act_delete(p)">delete ({{ p.id }})</button>
+                            </td>
+                        </template>
+                        <template v-else>
+                            <td>{{ index }}</td>
+                            <td>
+                                <h3 :title="p.url">{{ p.title }}</h3>
+                            </td>
+                            <td>
+                                <label><span>created {{ txt(p.created) }}</span></label>
+                                <label><span>z</span><input type="text" v-model="p.z" /></label>
+                            </td>
+                            <td></td>
+                        </template>
                     </tr>
                 </tbody>
             </table>
@@ -169,6 +188,7 @@
 <template id="xpc-marker">
     <div class="xpc-marker" :style="get_style()">
         <h3>⭐️ {{ title }}</h3>
+        <div>{{ created }}</div>
         <a target="_blank" :href="url" style="color:#ffffff;line-break:anywhere">{{ url }}</a>
         <table v-if="ui_maxi" style="width:100%;">
             <tbody>
@@ -213,6 +233,26 @@
         </div>
     </div>
 </template>
+
+
+<template id="xp-calendar">
+    <div>
+        <h2>Calendar</h2>
+        <div class="grid" v-for="m in 12">
+            <h2 class="">{{ month(m) }}</h2>
+            <article>
+                <h3>01 - 09</h3>
+            </article>
+            <article>
+                <h3>10 - 19</h3>
+            </article>
+            <article>
+                <h3>20 - 31</h3>
+            </article>
+        </div>
+    </div>
+</template>
+
 
 <style>
     html,
@@ -261,12 +301,14 @@
         padding: 0.5rem;
     }
 
-    form input,
-    form textarea {
+    input,
+    textarea {
         padding: 0.5rem;
-        width: 100%;
     }
 
+    form input, form textarea {
+        width: 100%;
+    }
     form button {
         padding: 0.5rem;
         background-color: #ddd;
@@ -370,6 +412,15 @@
         grid-gap: 1rem;
     }
 
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 0.5rem;
+    }
+    .grid .w100 {
+        grid-column: 1 / -1;
+    } 
+
     .grid article {
         border: 1px solid #ccc;
         padding: 0.5rem;
@@ -390,6 +441,7 @@
         width: 100%;
         height: 100%;
         resize: none;
+        padding: 0.5rem;
     }
 
     xpc-marker {
@@ -450,6 +502,7 @@
         min-height:10vmin;
         width: 100%;
         height: 100%;
+        padding: 0.5rem;
     }
     td label {
         display: block;

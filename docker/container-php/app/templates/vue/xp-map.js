@@ -1,5 +1,5 @@
-
 import * as L from 'leaflet'
+import XpGaia from 'XpGaia'
 
 let template = '#xp-map'
 
@@ -189,7 +189,27 @@ function build_markers(markers, max = 100) {
             className: 'xpc-icon',
             riseOnHover: true,
         })
+
         let mpos = [-70 + Math.random() * 140, -150 + Math.random() * 300]
+        // get infos from index i
+        let post = XpGaia.vstore.posts[i]
+        if (post) {
+            // console.log('post', post.created)
+            // extract month and day
+            let d = new Date(post.created)
+            let m = d.getMonth() + 1
+            let day = d.getDate()
+            // update marker position mpos with month and day
+            // month map [1, 12] to [-70, 70]
+            // day map [1, 31] to [-150, 150]
+            mpos = [
+                -60 + 10 * (m - 1) + i,
+                -150 + 10 * (day - 1) + i, // add i to avoid overlapping
+            ]
+            console.log('post', i, post.created, m, day, mpos)
+
+        }
+
         let mm = L.marker(mpos, {
             draggable: true,
             icon: di,

@@ -14,8 +14,11 @@ class xpa_route_page
 {
     //#class_start
 
-    static function response ($dirname, $filename, $extension)
+    static function response ($dirname="", $filename="", $extension="")
     {
+        // get the params from storage
+        extract(xpa_os::kv("xpa_route_page::response") ?? []);
+
         $prefix = "pages";
 
         // echo "xp_route_blog::response($dirname)($filename)\n";

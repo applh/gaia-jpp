@@ -6,6 +6,8 @@ import XpApp from 'XpApp'
 import XpMap from 'XpMap'
 import XpForm from 'XpForm'
 import XpCrud from 'XpCrud'
+import XpCalendar from 'XpCalendar'
+
 import XpcMarker from 'XpcMarker'
 import XpcHud from 'XpcHud'
 
@@ -245,7 +247,7 @@ export default {
         app.component('XpMap', XpMap)
         app.component('XpCrud', XpCrud)
         app.component('XpForm', XpForm)
-        app.component('XpForm', XpForm)
+        app.component('XpCalendar', XpCalendar)
         app.component('MyTestA', MyTestA)
 
         // define async components

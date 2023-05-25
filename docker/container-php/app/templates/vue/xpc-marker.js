@@ -45,6 +45,7 @@ let data = {
     contents: [],
     title: '',
     url: '',
+    created: '',
     ui_maxi: false,
 }
 
@@ -115,6 +116,10 @@ let created = function () {
     if (post) {
         this.title = post.title
         this.url = post.url
+        this.created = post.created
+        // cut created to 10 chars max
+        this.created = this.created.substring(0, 10)
+
     }
 
     // add this marker to the list of markers

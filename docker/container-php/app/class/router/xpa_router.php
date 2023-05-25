@@ -41,9 +41,12 @@ class xpa_router
                 $sub_route = preg_replace("/[^a-zA-Z0-9_]/", "", $sub_route);
                 $callback = "xpa_route_$sub_route::response";
                 if (is_callable($callback)) {
+                    // store the params $dirname, $filename, $extension
+                    xpa_os::kv($callback, compact("dirname", "filename", "extension"));
+                    xpa_task::add($filename, $callback);
                     // call sub route
-                    $callback($dirname, $filename, $extension ?? "");
-                    return;
+                    // $callback($dirname, $filename, $extension ?? "");
+                    // return;
                 }
 
                 // echo "route not found ($filename)($path)($dirname)\n";
@@ -60,9 +63,13 @@ class xpa_router
                     $sub_route = "page";
                     $callback = "xpa_route_$sub_route::response";
                     if (is_callable($callback)) {
+                        // store the params $dirname, $filename, $extension
+                        xpa_os::kv($callback, compact("dirname", "filename", "extension"));
+                        xpa_task::add($filename, $callback);
+
                         // call sub route
-                        $callback($dirname, $filename, $extension ?? "");
-                        return;
+                        // $callback($dirname, $filename, $extension ?? "");
+                        // return;
                     }
     
                 }  
@@ -72,6 +79,14 @@ class xpa_router
             // cli mode
             xpa_task::add("cli", "xpa_cli::run");
         }
+
+        xpa_task::add("response", "xpa_router::response");
+
+    }
+
+    static function response ()
+    {
+
     }
 
     static function add($key, $cmd)

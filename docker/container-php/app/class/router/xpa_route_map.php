@@ -14,8 +14,11 @@ class xpa_route_map
 {
     //#class_start
 
-    static function response ($dirname, $filename, $extension)
+    static function response ($dirname="", $filename="", $extension="")
     {
+        // get the params from storage
+        extract(xpa_os::kv("xpa_route_map::response") ?? []);
+        
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
         $path_root = cli::kv("root");

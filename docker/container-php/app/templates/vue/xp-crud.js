@@ -9,7 +9,8 @@ let data = {
     ui_table: true,
     ui_grid: false,
     ui_dev: false,
-    form_feedback: {}
+    form_feedback: {},
+    filter: '',
 }
 
 let computed = {
@@ -76,6 +77,33 @@ let methods = {
         }
 
         return src
+    },
+    filter_ok (p) {
+        if (!this.filter) {
+            p.filter_ok = true
+            return true
+        }
+        // filter on created
+        if (p.created.indexOf(this.filter) > -1) {
+            p.filter_ok = true
+            return true
+        }
+
+        p.filter_ok = false
+        return false
+    },
+    filter_ok_count(filter) {
+        // FIXME: DOM is not sync with data
+        // select all h3.filter-ok
+        // let count = document.querySelectorAll('.box-crud table h3.filter-ok').length
+        let count = 0
+        for (let p of this.posts) {
+            if (p.filter_ok) {
+                count++
+            }
+        }
+        console.log('filter_ok_count', filter, count)
+        return count
     }
 }
 

@@ -195,6 +195,7 @@ class xps_action
             $cms_mix = xps_action::$cms_mix;
         }
 
+
         echo <<<html
 
         <div id="app" data-xp-admin-key="$xp_admin_key"></div>
