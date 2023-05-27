@@ -14,7 +14,7 @@ class xpa_view
 {
     //#class_start
 
-    static function test ()
+    static function run ()
     {
 
     }

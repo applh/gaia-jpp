@@ -14,7 +14,7 @@ class xpa_controller
 {
     //#class_start
 
-    static function test ()
+    static function run ()
     {
 
     }

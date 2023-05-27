@@ -43,7 +43,8 @@ class xpa_router
                 if (is_callable($callback)) {
                     // store the params $dirname, $filename, $extension
                     xpa_os::kv($callback, compact("dirname", "filename", "extension"));
-                    xpa_task::add($filename, $callback);
+                    xpa_os::task_add($callback, 50);
+                    // xpa_task::add($filename, $callback);
                     // call sub route
                     // $callback($dirname, $filename, $extension ?? "");
                     // return;
@@ -55,8 +56,9 @@ class xpa_router
                 // special routes defined in config
                 $route = static::$routes[$filename] ?? "";
                 if ($route) {
+                    xpa_os::task_add($route, 50);
                     // add task 
-                    xpa_task::add($filename, $route);
+                    // xpa_task::add($filename, $route);
                 }
                 else {
                     // use xpa_route_page as default
@@ -65,7 +67,8 @@ class xpa_router
                     if (is_callable($callback)) {
                         // store the params $dirname, $filename, $extension
                         xpa_os::kv($callback, compact("dirname", "filename", "extension"));
-                        xpa_task::add($filename, $callback);
+                        xpa_os::task_add($callback, 50);
+                        // xpa_task::add($filename, $callback);
 
                         // call sub route
                         // $callback($dirname, $filename, $extension ?? "");
@@ -77,11 +80,12 @@ class xpa_router
             }
         } else {
             // cli mode
-            xpa_task::add("cli", "xpa_cli::run");
+            // xpa_task::add("cli", "xpa_cli::run");
+            xpa_os::task_add("xpa_cli::run", 50);
         }
 
-        xpa_task::add("response", "xpa_router::response");
-
+        // xpa_task::add("response", "xpa_router::response");
+        xpa_os::task_add("xpa_router::response", 80);
     }
 
     static function response ()

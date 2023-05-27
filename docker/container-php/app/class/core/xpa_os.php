@@ -15,7 +15,12 @@ class xpa_os
     //#class_start
 
     static $kv = [];
-    
+
+    static $step = 2;
+    static $step_max = 100;
+    static $step_current = 0;
+    static $tasks = [];
+
     static function randomd5 ()
     {
         return md5(password_hash(md5(uniqid()), PASSWORD_DEFAULT));
@@ -50,6 +55,30 @@ class xpa_os
         $path_log_file = "$path_log/$today.log";
         file_put_contents($path_log_file, $text, FILE_APPEND);
 
+    }
+    
+    static function task_add ($task, $step) {
+        // TODO: should allow order tasks for each step
+        static::$tasks[$step][] = $task;
+    }
+
+    static function mix ()
+    {
+        // loop from 0 to $step_max, increment by $step
+        for ($i = 0; $i <= self::$step_max; $i += self::$step) {
+            // loop through tasks
+            $tasks = static::$tasks[$i] ?? [];
+            foreach ($tasks as $task) {
+                $task = trim($task);
+                if ($task && is_callable($task)) {
+                    // run task
+                    $task();
+                }
+            }
+
+            // increment step_current
+            self::$step_current += self::$step;
+        }    
     }
 
     //#class_end

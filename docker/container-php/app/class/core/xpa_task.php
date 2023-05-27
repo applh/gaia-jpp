@@ -21,7 +21,24 @@ class xpa_task
                 // get timer start
                 static::timer_start($curtask);
 
+                // FIXME: should be array
+                // call extra before
+                $cb_before = xpa_os::kv("task/before/$curtask") ?? "";
+                $cb_before = trim($cb_before);
+                if (is_callable($cb_before)) {
+                    $cb_before();
+                }
+
+                // call the task
                 $curtask();
+
+                // FIXME: should be array
+                // call extra after
+                $cb_after = xpa_os::kv("task/after/$curtask") ?? "";
+                $cb_after = trim($cb_after);
+                if (is_callable($cb_after)) {
+                    $cb_after();
+                }
 
                 // after each task
                 // get timer end

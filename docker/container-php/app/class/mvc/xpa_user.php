@@ -14,7 +14,7 @@ class xpa_user
 {
     //#class_start
 
-    static function test ()
+    static function build ()
     {
 
     }

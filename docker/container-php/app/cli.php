@@ -40,6 +40,9 @@ class cli
             }
         }
 
+        // set tasks
+        xpa_task::add("cms", "xpa_cms::run");
+
         // run tasks
         xpa_task::work();
     }
