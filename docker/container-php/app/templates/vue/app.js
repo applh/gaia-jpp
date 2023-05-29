@@ -4,6 +4,7 @@ import {
 
 import xpGaia from 'XpGaia'
 import { mytest } from 'vitelib'
+import ElementPlus from 'ElementPlus'
 
 createApp({
     template: '#appTemplate',
@@ -16,5 +17,6 @@ createApp({
 })
 .use(xpGaia)
 .use(mytest)
+.use(ElementPlus)
 .mount('#app')
 

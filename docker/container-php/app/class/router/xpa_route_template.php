@@ -27,13 +27,13 @@ class xpa_route_template
         if (file_exists($article)) {
             $content = file_get_contents($article);
             // get mime_type
-            $mime_type = xp_os::$mimes[$extension] ?? mime_content_type($article);
+            $mime_type = xpa_os::$mimes[$extension] ?? mime_content_type($article);
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
             header("Content-Type: $mime_type");
             echo $content;
 
-            xp_os::log("media ($dirname)($filename)($extension)");
+            // xp_os::log("media ($dirname)($filename)($extension)");
         }
         else {
             echo "article not found ($article)";

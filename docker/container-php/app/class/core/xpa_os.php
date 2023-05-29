@@ -21,6 +21,25 @@ class xpa_os
     static $step_current = 0;
     static $tasks = [];
 
+    static $mimes = [
+        "css" => "text/css",
+        "mjs" => "text/javascript",
+        "js" => "text/javascript",
+        "json" => "application/json",
+        "ttf" => "font/ttf",
+        "jpg" => "image/jpeg",
+        "jpeg" => "image/jpeg",
+        "png" => "image/png",
+        "gif" => "image/gif",
+        "svg" => "image/svg+xml",
+        "webp" => "image/webp",
+        "ico" => "image/x-icon",
+        "mp4" => "video/mp4",
+        "webm" => "video/webm",
+        "ogg" => "video/ogg",
+
+    ];
+
     static function randomd5 ()
     {
         return md5(password_hash(md5(uniqid()), PASSWORD_DEFAULT));

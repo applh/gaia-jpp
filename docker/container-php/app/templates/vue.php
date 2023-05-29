@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <?php include "vue/app.html" ?>
+    <?php include "vue/app.php" ?>
 </body>
 
 </html>
