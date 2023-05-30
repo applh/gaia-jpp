@@ -1,4 +1,5 @@
 <?php
+
 /**
  * xpa_os
  * 
@@ -40,7 +41,7 @@ class xpa_os
 
     ];
 
-    static function randomd5 ()
+    static function randomd5()
     {
         return md5(password_hash(md5(uniqid()), PASSWORD_DEFAULT));
     }
@@ -55,13 +56,13 @@ class xpa_os
         }
     }
 
-    static function log ($infos)
+    static function log($infos)
     {
         $mode_debug = xpa_os::kv("mode_debug") ?? false;
         if (!$mode_debug) {
             return;
         }
-        
+
         if (is_array($infos)) {
             $infos = json_encode($infos, JSON_PRETTY_PRINT);
         }
@@ -73,15 +74,15 @@ class xpa_os
         $today = date("Y-m-d", $time0);
         $path_log_file = "$path_log/$today.log";
         file_put_contents($path_log_file, $text, FILE_APPEND);
-
     }
-    
-    static function task_add ($task, $step) {
+
+    static function task_add($task, $step)
+    {
         // TODO: should allow order tasks for each step
         static::$tasks[$step][] = $task;
     }
 
-    static function mix ()
+    static function mix()
     {
         // loop from 0 to $step_max, increment by $step
         for ($i = 0; $i <= self::$step_max; $i += self::$step) {
@@ -97,7 +98,20 @@ class xpa_os
 
             // increment step_current
             self::$step_current += self::$step;
-        }    
+        }
+    }
+
+    static function template($name)
+    {
+        // FIXME: should use xpa_os::kv() instead of cli::kv()
+        $path_root = cli::kv("root");
+        $path_template = "$path_root/templates/$name.php";
+
+        if (is_file($path_template)) {
+            include($path_template);
+        } else {
+            echo "no $name.php file found as $path_template\n";
+        }
     }
 
     //#class_end

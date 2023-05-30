@@ -40,6 +40,12 @@
         a {
             text-decoration: none;
         }
+        .toolbar {
+            overflow:hidden;
+            width:100%;
+            height:10px;
+            background-color: #aaa;
+        }
     </style>
 </head>
 
@@ -55,9 +61,12 @@
                 <el-col :span="8">
                     <el-button type="success"><a target="_blank" href="/">Website</a></el-button>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="4">
                     <el-button type="primary">Admin</el-button>
                     <el-button type="warning">Logout</el-button>
+                </el-col>
+                <el-col :span="4">
+                    <el-switch v-model="is_mode_dev" active-text="dev"></el-switch>
                 </el-col>
             </el-row>
             <el-row>
@@ -87,15 +96,95 @@
                 </el-col>
                 <el-col :span="16" class="main-panel">
                     <h1 v-if="active_node">{{ active_node.label }}</h1>
+                    <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+                        Click to open drawer
+                    </el-button>
+
                 </el-col>
             </el-row>
             <el-row>
+            <el-col :span="8">
+                    <p>footer 1</p>
+                </el-col>
+                <el-col :span="8">
+                    <p>footer 2</p>
+                </el-col>
+                <el-col :span="8">
+                    <p>footer 3</p>
+                </el-col>
+            </el-row>
+            <el-row class="toolbar">
+                <el-col :span="8">
+                    <p>footer dialog</p>
+                    <el-button text @click="dialogVisible = true">
+                        Click to open Login Dialog
+                    </el-button>
+
+                    <el-dialog v-model="dialogVisible" title="Login" width="30%" draggable>
+                        <el-form :model="form_login" :rules="form_rules_login" @submit.prevent="act_login" label-width="5rem">
+                            <el-form-item label="email">
+                                <el-input type="email" v-model="form_login.email" required></el-input>
+                            </el-form-item>
+                            <el-form-item label="password">
+                                <el-input type="password" v-model="form_login.password" show-password required></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <button type="submit">login</button>
+                            </el-form-item>
+                        </el-form>
+                    </el-dialog>
+                </el-col>
+
+                <el-col :span="8">
+                    <p>footer drawer</p>
+                    <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+                        Click to open drawer
+                    </el-button>
+                    <el-drawer direction="rtl" v-model="drawer">
+                        <template #default>
+                            <el-row>
+                                <el-col :span="24">
+                                    <h3>More Options</h3>
+                                </el-col>
+                                <el-col>
+                                    <el-form :model="form_upload" :rules="form_rules_upload" @submit.prevent="act_upload" label-width="5rem">
+                                        <el-form-item>
+                                            <button type="submit">Send</button>
+                                        </el-form-item>
+                                        <el-form-item label="title">
+                                            <el-input type="text" v-model="form_upload.title"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="file">
+                                            <el-upload v-model:file-list="fileList" drag multiple list-type="picture">
+                                                <template #tip>
+                                                    <div class="el-upload__tip">
+                                                        jpg/png files with a size less than 500KB.
+                                                    </div>
+                                                </template>
+                                                <el-button type="primary">Click to upload</el-button>
+                                            </el-upload>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <button type="submit">Send</button>
+                                        </el-form-item>
+                                    </el-form>
+                                </el-col>
+                            </el-row>
+                        </template>
+                    </el-drawer>
+                </el-col>
+
+            </el-row>
+            <el-row v-show="is_mode_dev">
                 <el-col :span="8">
                     <p>footer 1</p>
                 </el-col>
                 <el-col :span="8">
                     <p>footer 2</p>
                     <el-form :model="form_upload" :rules="form_rules_upload" @submit.prevent="act_upload" label-width="5rem">
+                        <el-form-item>
+                            <button type="submit">Send</button>
+                        </el-form-item>
                         <el-form-item label="title">
                             <el-input type="text" v-model="form_upload.title"></el-input>
                         </el-form-item>
@@ -128,26 +217,7 @@
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <el-col :span="8">
-                    <p>footer 4</p>
-                    <el-button text @click="dialogVisible = true">
-                        Click to open Dialog
-                    </el-button>
 
-                    <el-dialog v-model="dialogVisible" title="Login" width="30%" draggable>
-                        <el-form :model="form_login" :rules="form_rules_login" @submit.prevent="act_login" label-width="5rem">
-                            <el-form-item label="email">
-                                <el-input type="email" v-model="form_login.email" required></el-input>
-                            </el-form-item>
-                            <el-form-item label="password">
-                                <el-input type="password" v-model="form_login.password" show-password required></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <button type="submit">login</button>
-                            </el-form-item>
-                        </el-form>
-                    </el-dialog>
-                </el-col>
             </el-row>
         </div>
         <div>
@@ -352,6 +422,21 @@
                 ]
             },
             {
+                label: 'Forms',
+                total: 3,
+                add: 'Add',
+                children: [{
+                        'label': 'Contact',
+                    },
+                    {
+                        'label': 'Newsletter',
+                    },
+                    {
+                        'label': 'Register',
+                    },
+                ]
+            },
+            {
                 label: 'Templates',
                 total: 3,
                 add: 'Add',
@@ -484,6 +569,8 @@
                         },
                         fileList: [],
                         dialogVisible: true,
+                        drawer: false,
+                        is_mode_dev: false,
                     }
                 },
                 methods,
