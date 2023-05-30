@@ -6,7 +6,7 @@
 </template>
 
 <script type="importmap">
-{
+    {
     "imports": {
         "vue": "/template/vue/vue.esm-browser.js",
         "XpGaia": "/template/vue/xp-gaia.js",
@@ -62,12 +62,11 @@
 
 
 <template id="xp-map">
-    <div class="container-map">                    
+    <div class="container-map">
         <div id="box-p5"></div>
         <div ref="map" id="map" class="box-map"></div>
         <input type="number" v-model="xpv.map_marker_index" @keyup.enter="act_marker_focus" style="text-align:right;" />
-        / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0"
-            :max="markers_length()">
+        / {{ markers_length() }}<input type="range" v-model.number="xpv.map_marker_index" min="0" :max="markers_length()">
         <button @click.prevent="act_marker_prev">👈</button>
         <button @click.prevent="act_marker_focus">👁️</button>
         <button @click.prevent="act_marker_next">👉</button>
@@ -85,10 +84,8 @@
         <form v-if="form" @submit.prevent="$event => act_submit($event)">
             <label v-for="f in form.fields">
                 <span>{{ f.name }}</span>
-                <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required"
-                    :placeholder="f.placeholder" v-model="f.value"></textarea>
-                <input v-else :type="f.type" :name="f.name" :required="f.required" :placeholder="f.placeholder"
-                    v-model="f.value" />
+                <textarea v-if="f.type=='textarea'" rows="10" cols="80" :required="f.required" :placeholder="f.placeholder" v-model="f.value"></textarea>
+                <input v-else :type="f.type" :name="f.name" :required="f.required" :placeholder="f.placeholder" v-model="f.value" />
             </label>
             <button type="submit">send</button>
         </form>
@@ -130,9 +127,9 @@
                                 <h3 class="filter-ok" :title="p.url">{{ p.title }}</h3>
                                 <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
                                 <input type="checkbox" v-model="p.expand" />
-                                <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)"/></div>
+                                <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)" /></div>
                             </td>
-                            <td> 
+                            <td>
                                 <label><span>code</span><textarea rows="10" v-model="p.code"></textarea></label>
                                 <label><span>x</span><input type="text" v-model="p.x" /></label>
                                 <label><span>y</span><input type="text" v-model="p.y" /></label>
@@ -159,7 +156,7 @@
                     </tr>
                 </tbody>
             </table>
-            </div>
+        </div>
         <div v-if="ui_grid" class="grid">
             <article v-for="p in posts">
                 <h3 :title="p.url">{{ p.title }}</h3>
@@ -172,8 +169,7 @@
         <div v-if="ui_dev">
             <em>CRUD</em>
             <div><label>level: {{ size }} <input type="range" v-model="size" min="0" max="100"></label></div>
-            <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0"
-                        :max="size*size"></label></div>
+            <div><label>score: {{ score2 }} / {{ size * size }}<input type="range" v-model="score2" min="0" :max="size*size"></label></div>
             <div class="grid">
                 <article v-for="a in (size*size)">
                     <h3 v-if="a <= score2">⭐️ {{ a }}</h3>
@@ -216,10 +212,10 @@
             <button @click.stop="act_save">save</button>
             <label>
                 <span> | sketch </span>
-                <input type="number" min="100" :max="p5_wmax" v-model="p5_size" @change.stop="act_sketch_size"/>
-                <input type="range" min="100" :max="p5_wmax" step="100" v-model="p5_size" @change.stop="act_sketch_size"/>
+                <input type="number" min="100" :max="p5_wmax" v-model="p5_size" @change.stop="act_sketch_size" />
+                <input type="range" min="100" :max="p5_wmax" step="100" v-model="p5_size" @change.stop="act_sketch_size" />
             </label>
-            <span> | grid</span><input type="checkbox" v-model="ui_grid" @click.stop="act_ui_grid"/>    
+            <span> | grid</span><input type="checkbox" v-model="ui_grid" @click.stop="act_ui_grid" />
         </div>
         <div class="box-table" v-if="ui_grid">
             <table>
@@ -237,80 +233,63 @@
 
 
 <template id="xp-calendar">
-    <div>
-        <h2>Calendar</h2>
-        <el-button type="success" round>I am ElButton</el-button>
-        <el-date-picker
-          v-model="date_picker"
-          type="week"
-          format="[Week] ww"
-          placeholder="Pick a week"
-        ></el-date-picker>
-        <el-collapse v-model="activeNames">
-      <el-collapse-item title="Consistency" name="1">
-        <div>
-          Consistent with real life: in line with the process and logic of real
-          life, and comply with languages and habits that the users are used to;
+    <div class="xp-calendar grid">
+        <h2 class="w100">Calendar</h2>
+        <div class="w100">
+            <el-button type="success" round>I am ElButton</el-button>
+            <el-date-picker v-model="date_picker" type="week" format="[Week] ww" placeholder="Pick a week"></el-date-picker>
         </div>
-        <div>
-          Consistent within interface: all elements should be consistent, such
-          as: design style, icons and texts, position of elements, etc.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Feedback" name="2">
-        <div>
-          Operation feedback: enable the users to clearly perceive their
-          operations by style updates and interactive effects;
-        </div>
-        <div>
-          Visual feedback: reflect current state by updating or rearranging
-          elements of the page.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Efficiency" name="3">
-        <div>
-          Simplify the process: keep operating process simple and intuitive;
-        </div>
-        <div>
-          Definite and clear: enunciate your intentions clearly so that the
-          users can quickly understand and make decisions;
-        </div>
-        <div>
-          Easy to identify: the interface should be straightforward, which helps
-          the users to identify and frees them from memorizing and recalling.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Controllability" name="4">
-        <div>
-          Decision making: giving advices about operations is acceptable, but do
-          not make decisions for the users;
-        </div>
-        <div>
-          Controlled consequences: users should be granted the freedom to
-          operate, including canceling, aborting or terminating current
-          operation.
-        </div>
-      </el-collapse-item>
-    </el-collapse>
+        <el-tree class="c-1-2" :data="tree_data" draggable node-key="id"></el-tree>
 
-    <el-tree
-    :data="tree_data"
-    draggable
-    node-key="id"
-  ></el-tree>
+        <el-collapse class="c-2-4" v-model="activeNames">
+            <el-collapse-item :title="p.title" :name="index" v-for="(p, index) in posts">
 
-        <div class="grid" v-for="m in 12">
-            <h2 class="">{{ month(m) }}</h2>
-            <article>
-                <h3>01 - 09</h3>
-            </article>
-            <article>
-                <h3>10 - 19</h3>
-            </article>
-            <article>
-                <h3>20 - 31</h3>
-            </article>
-        </div>
+                <article>
+                    <template v-if="filter_ok(p)">
+                        <div>{{ index }}</div>
+                        <div>
+                            <h3 class="filter-ok" :title="p.url">{{ p.title }}</h3>
+                            <div><a target="_blank" :href="p.url">{{ p.url }}</a></div>
+                            <input type="checkbox" v-model="p.expand" />
+                            <div :class="media_class(p)"><img loading="lazy" :src="media_src(p)" /></div>
+                        </div>
+                        <div>
+                            <label><span>code</span><textarea rows="10" v-model="p.code"></textarea></label>
+                            <label><span>x</span><input type="text" v-model="p.x" /></label>
+                            <label><span>y</span><input type="text" v-model="p.y" /></label>
+                            <label><span>z</span><input type="text" v-model="p.z" /></label>
+                            <label><span>created {{ txt(p.created) }}</span><input type="text" v-model="p.created"></label>
+                        </div>
+                        <div>
+                            <button class="green" @click.prevent="act_save(p)">save ({{ p.id }})</button>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div>{{ index }}</div>
+                        <div>
+                            <h3 :title="p.url">{{ p.title }}</h3>
+                        </div>
+                        <div>
+                            <label><span>created {{ txt(p.created) }}</span></label>
+                            <label><span>z</span><input type="text" v-model="p.z" /></label>
+                        </div>
+                        <div></div>
+                    </template>
+                    <el-rate v-model="p.rating"></el-rate>
+                </article>
+                <el-upload v-model:file-list="fileList" class="upload-demo" drag multiple accept="*" :limit="3" list-type="picture-card">
+                    <el-button type="primary">Click to upload</el-button>
+                    <template #tip>
+                        <div class="el-upload__tip">
+                            jpg/png files with a size less than 500KB.
+                        </div>
+                    </template>
+                </el-upload>
+            </el-collapse-item>
+        </el-collapse>
+
+
+
     </div>
 </template>
 
@@ -367,9 +346,11 @@
         padding: 0.5rem;
     }
 
-    form input, form textarea {
+    form input,
+    form textarea {
         width: 100%;
     }
+
     form button {
         padding: 0.5rem;
         background-color: #ddd;
@@ -478,9 +459,18 @@
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         grid-gap: 0.5rem;
     }
+
     .grid .w100 {
         grid-column: 1 / -1;
-    } 
+    }
+
+    .grid .c-1-2 {
+        grid-column: 1 / 2;
+    }
+
+    .grid .c-2-4 {
+        grid-column: 2 / 4;
+    }
 
     .grid article {
         border: 1px solid #ccc;
@@ -526,8 +516,9 @@
         justify-content: center;
         margin: 0 auto;
         position: absolute;
-        z-index:999;
+        z-index: 999;
     }
+
     .toolbar {
         text-align: left;
     }
@@ -538,53 +529,69 @@
 
     footer .logo {
         border-radius: 50%;
-        width:100%;
+        width: 100%;
         max-width: fit-content;
     }
+
     .box-img {
         height: 10vmin;
-        width:50vmin;
+        width: 50vmin;
         overflow-y: hidden;
         margin: 0 auto;
     }
+
     .box-img.expand {
-        height:80vmin;
-        width:80vmin;
+        height: 80vmin;
+        width: 80vmin;
         overflow-y: scroll;
     }
+
     .box-img img {
-        width:100%;
+        width: 100%;
     }
+
     td {
         vertical-align: top;
     }
+
     td textarea {
         min-width: 100%;
-        min-height:10vmin;
+        min-height: 10vmin;
         width: 100%;
         height: 100%;
         padding: 0.5rem;
     }
+
     td label {
         display: block;
     }
+
     td label span {
         display: inline-block;
         padding: 0.25rem;
     }
+
     td button {
         padding: 0.5rem;
         background-color: #ddd;
         margin: 0.5rem;
     }
+
     td button.green {
         background-color: rgb(155, 255, 155);
     }
+
     td button.red {
         background-color: rgb(255, 77, 77);
+    }
+
+    .xp-calendar {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-gap: 1rem;
     }
 </style>
 
 <style>
-<?php include __DIR__ . "/../element-plus/index.css" ?>    
+    <?php include __DIR__ . "/../element-plus/index.css" ?>
 </style>

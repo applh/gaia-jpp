@@ -3,6 +3,18 @@ import XpGaia from "XpGaia"
 
 let tree_data = [
     {
+        label: 'Media',
+    },
+    {
+        label: 'Posts',
+    },
+    {
+        label: 'Pages',
+    },
+    {
+        label: 'Options',
+    },
+    {
         label: '2022',
         children: [
             {
@@ -634,6 +646,8 @@ let data = {
     date_picker: '',
     activeNames: ['1'],
     tree_data,
+    posts: [],
+    fileList: [],
 }
 
 let month_names = [
@@ -654,7 +668,45 @@ let month_names = [
 let methods = {
     month: function (m) {
         return month_names[m - 1]
-    }
+    },
+    filter_ok (p) {
+        if (!p) return false
+
+        if (!this.filter) {
+            p.filter_ok = true
+            return true
+        }
+        // filter on created
+        if (p.created.indexOf(this.filter) > -1) {
+            p.filter_ok = true
+            return true
+        }
+
+        p.filter_ok = false
+        return false
+    },
+    media_src: function(p) {
+        return '/media/zoom5/screenshot-zoom5-' + p.id + '.png'
+    },
+    media_class: function(p) {
+        return {
+            'box-img': true,
+            'expand': p.expand
+        }
+    },
+    txt: function (src, max=10, suffix='') {
+        // cut to max chars
+        if (src.length > max) {
+            return src.substr(0, max) + suffix
+        }
+
+        return src
+    },
+
+}
+
+let created = async function () {
+    this.posts = await this.$xp('posts') ?? []
 }
 
 export default {
@@ -663,6 +715,6 @@ export default {
     data: () => Object.assign({}, data),
     // props,
     // computed,
-    // created,
+    created,
     methods,
 }
