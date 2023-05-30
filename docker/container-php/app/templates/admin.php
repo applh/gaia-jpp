@@ -11,10 +11,11 @@
         html,
         body {
             font-size: 16px;
-
         }
 
-        h1 {
+        h1,
+        h2,
+        h3 {
             margin: 0;
             padding: 1rem;
         }
@@ -40,11 +41,27 @@
         a {
             text-decoration: none;
         }
+
         .toolbar {
-            overflow:hidden;
-            width:100%;
-            height:10px;
+            overflow: hidden;
+            width: 100%;
+            height: 0.25rem;
+            padding: 0rem;
             background-color: #aaa;
+        }
+
+        p {
+            margin: 0;
+            padding: 0rem 1rem;
+        }
+
+        form {
+            padding: 1rem;
+        }
+        /* ELEMENT PLUS */
+        .el-collapse-item__header {
+            padding-left: 1rem;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -69,6 +86,7 @@
                     <el-switch v-model="is_mode_dev" active-text="dev"></el-switch>
                 </el-col>
             </el-row>
+
             <el-row>
                 <el-col :span="24" class="info-panel">
                     Welcome to your CMS admin
@@ -95,15 +113,93 @@
                     </el-tree>
                 </el-col>
                 <el-col :span="16" class="main-panel">
-                    <h1 v-if="active_node">{{ active_node.label }}</h1>
-                    <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
-                        Click to open drawer
-                    </el-button>
+                    <el-row>
+                        <el-col :span="16">
+                            <h1 v-if="active_node">{{ active_node.label }}</h1>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-rate v-model="rating" :colors="rating_colors"></el-rate>
+                            <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+                                more options...
+                            </el-button>
+                        </el-col>
+                        <el-col :span="16">
+                            <el-form :model="form_post" @submit.prevent="act_post" label-width="80px">
+                                <el-form-item>
+                                    <button type="submit">Post</button>
+                                </el-form-item>
+                                <el-form-item label="title">
+                                    <el-input v-model="form_post.title" placeholder="title"></el-input>
+                                </el-form-item>
+                                <el-form-item label="content">
+                                    <el-input v-model="form_post.content" :rows="10" type="textarea" placeholder="content"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <button type="submit">Post</button>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-tabs type="border-card">
+                                <el-tab-pane label="User">User</el-tab-pane>
+                                <el-tab-pane label="Config">Config</el-tab-pane>
+                                <el-tab-pane label="Role">Role</el-tab-pane>
+                                <el-tab-pane label="Task">Task</el-tab-pane>
+                            </el-tabs>
+                        </el-col>
+                        <el-col :span="16">
+                            <el-collapse v-model="activeNames">
+                                <el-collapse-item title="Consistency" name="1">
+                                    <p>
+                                        Consistent with real life: in line with the process and logic of real
+                                        life, and comply with languages and habits that the users are used to;
+                                        Consistent within interface: all elements should be consistent, such
+                                        as: design style, icons and texts, position of elements, etc.
+                                    </p>
+                                </el-collapse-item>
+                                <el-collapse-item title="Feedback" name="2">
+                                    <p>
+                                        Operation feedback: enable the users to clearly perceive their
+                                        operations by style updates and interactive effects;
+                                        Visual feedback: reflect current state by updating or rearranging
+                                        elements of the page.
+                                    </p>
+                                </el-collapse-item>
+                                <el-collapse-item title="Efficiency" name="3">
+                                    <p>
+                                        Simplify the process: keep operating process simple and intuitive;
+                                        Definite and clear: enunciate your intentions clearly so that the
+                                        users can quickly understand and make decisions;
+                                        Easy to identify: the interface should be straightforward, which helps
+                                        the users to identify and frees them from memorizing and recalling.
+                                    </p>
+                                </el-collapse-item>
+                                <el-collapse-item title="Controllability" name="4">
+                                    <p>
+                                        Decision making: giving advices about operations is acceptable, but do
+                                        not make decisions for the users;
+                                        Controlled consequences: users should be granted the freedom to
+                                        operate, including canceling, aborting or terminating current
+                                        operation.
+                                    </p>
+                                </el-collapse-item>
+                            </el-collapse>
+                        </el-col>
+                        <el-col :span="8">
+                            <h3>timeline</h3>
+                            <el-timeline>
+                                <el-timeline-item v-for="(activity, index) in activities" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :hollow="activity.hollow" :timestamp="activity.timestamp">
+                                    {{ activity.content }}
+                                </el-timeline-item>
+                            </el-timeline>
+                        </el-col>
+
+                    </el-row>
 
                 </el-col>
             </el-row>
             <el-row>
-            <el-col :span="8">
+                <el-col :span="8">
                     <p>footer 1</p>
                 </el-col>
                 <el-col :span="8">
@@ -140,7 +236,7 @@
                     <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
                         Click to open drawer
                     </el-button>
-                    <el-drawer direction="rtl" v-model="drawer">
+                    <el-drawer direction="rtl" v-model="drawer" size="40%">
                         <template #default>
                             <el-row>
                                 <el-col :span="24">
@@ -222,6 +318,7 @@
         </div>
         <div>
         </div>
+        <el-backtop :right="16" :bottom="16" />
     </template>
 
     <script type="importmap">
@@ -246,40 +343,40 @@
                 total: 12,
                 add: 'Add',
                 children: [{
-                        'label': 'January',
+                        'label': '01 - January',
                     },
                     {
-                        'label': 'February',
+                        'label': '02 - February',
                     },
                     {
-                        'label': 'March',
+                        'label': '03 - March',
                     },
                     {
-                        'label': 'April',
+                        'label': '04 - April',
                     },
                     {
-                        'label': 'May',
+                        'label': '05 - May',
                     },
                     {
-                        'label': 'June',
+                        'label': '06 - June',
                     },
                     {
-                        'label': 'July',
+                        'label': '07 - July',
                     },
                     {
-                        'label': 'August',
+                        'label': '08 - August',
                     },
                     {
-                        'label': 'September',
+                        'label': '09 - September',
                     },
                     {
-                        'label': 'October',
+                        'label': '10 - October',
                     },
                     {
-                        'label': 'November',
+                        'label': '11 - November',
                     },
                     {
-                        'label': 'December',
+                        'label': '12 - December',
                     },
                 ]
             },
@@ -288,40 +385,40 @@
                 total: 12,
                 add: 'Add',
                 children: [{
-                        'label': 'January',
+                        'label': '01 - January',
                     },
                     {
-                        'label': 'February',
+                        'label': '02 - February',
                     },
                     {
-                        'label': 'March',
+                        'label': '03 - March',
                     },
                     {
-                        'label': 'April',
+                        'label': '04 - April',
                     },
                     {
-                        'label': 'May',
+                        'label': '05 - May',
                     },
                     {
-                        'label': 'June',
+                        'label': '06 - June',
                     },
                     {
-                        'label': 'July',
+                        'label': '07 - July',
                     },
                     {
-                        'label': 'August',
+                        'label': '08 - August',
                     },
                     {
-                        'label': 'September',
+                        'label': '09 - September',
                     },
                     {
-                        'label': 'October',
+                        'label': '10 - October',
                     },
                     {
-                        'label': 'November',
+                        'label': '11 - November',
                     },
                     {
-                        'label': 'December',
+                        'label': '12 - December',
                     },
                 ]
             },
@@ -330,40 +427,40 @@
                 total: 12,
                 add: 'Add',
                 children: [{
-                        'label': 'January',
+                        'label': '01 - January',
                     },
                     {
-                        'label': 'February',
+                        'label': '02 - February',
                     },
                     {
-                        'label': 'March',
+                        'label': '03 - March',
                     },
                     {
-                        'label': 'April',
+                        'label': '04 - April',
                     },
                     {
-                        'label': 'May',
+                        'label': '05 - May',
                     },
                     {
-                        'label': 'June',
+                        'label': '06 - June',
                     },
                     {
-                        'label': 'July',
+                        'label': '07 - July',
                     },
                     {
-                        'label': 'August',
+                        'label': '08 - August',
                     },
                     {
-                        'label': 'September',
+                        'label': '09 - September',
                     },
                     {
-                        'label': 'October',
+                        'label': '10 - October',
                     },
                     {
-                        'label': 'November',
+                        'label': '11 - November',
                     },
                     {
-                        'label': 'December',
+                        'label': '12 - December',
                     },
                 ]
             },
@@ -372,40 +469,40 @@
                 total: 12,
                 add: 'Add',
                 children: [{
-                        'label': 'January',
+                        'label': '01 - January',
                     },
                     {
-                        'label': 'February',
+                        'label': '02 - February',
                     },
                     {
-                        'label': 'March',
+                        'label': '03 - March',
                     },
                     {
-                        'label': 'April',
+                        'label': '04 - April',
                     },
                     {
-                        'label': 'May',
+                        'label': '05 - May',
                     },
                     {
-                        'label': 'June',
+                        'label': '06 - June',
                     },
                     {
-                        'label': 'July',
+                        'label': '07 - July',
                     },
                     {
-                        'label': 'August',
+                        'label': '08 - August',
                     },
                     {
-                        'label': 'September',
+                        'label': '09 - September',
                     },
                     {
-                        'label': 'October',
+                        'label': '10 - October',
                     },
                     {
-                        'label': 'November',
+                        'label': '11 - November',
                     },
                     {
-                        'label': 'December',
+                        'label': '12 - December',
                     },
                 ]
             },
@@ -438,13 +535,16 @@
             },
             {
                 label: 'Templates',
-                total: 3,
+                total: 4,
                 add: 'Add',
                 children: [{
                         'label': 'Page',
                     },
                     {
                         'label': 'Post',
+                    },
+                    {
+                        'label': 'App',
                     },
                     {
                         'label': 'Admin',
@@ -479,6 +579,33 @@
             },
         ]
 
+        const activities = [{
+                content: 'Custom icon',
+                timestamp: '2018-04-12 20:46',
+                size: 'large',
+                type: 'primary',
+            },
+            {
+                content: 'Custom color',
+                timestamp: '2018-04-03 20:46',
+                color: '#0bbd87',
+            },
+            {
+                content: 'Custom size',
+                timestamp: '2018-04-03 20:46',
+                size: 'large',
+            },
+            {
+                content: 'Custom hollow',
+                timestamp: '2018-04-03 20:46',
+                type: 'primary',
+                hollow: true,
+            },
+            {
+                content: 'Default node',
+                timestamp: '2018-04-03 20:46',
+            },
+        ]
         let methods = {
             handleCheckChange(data, checked, indeterminate) {
                 console.log(data, checked, indeterminate);
@@ -512,7 +639,14 @@
                 if (!form_upload) {
                     return;
                 }
-            }
+            },
+            act_post (event) {
+                let form_post = event.target;
+                console.log('form_post', form_post)
+                if (!form_post) {
+                    return;
+                }
+            },
         }
 
         createApp({
@@ -571,6 +705,14 @@
                         dialogVisible: true,
                         drawer: false,
                         is_mode_dev: false,
+                        activities,
+                        activeNames: [],
+                        rating: 3,
+                        rating_colors: ['#FF0000', '#00FFFF', '#FFFF00'],
+                        form_post: {
+                            title: '',
+                            content: '',
+                        }
                     }
                 },
                 methods,
