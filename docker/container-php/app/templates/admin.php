@@ -58,6 +58,16 @@
         form {
             padding: 1rem;
         }
+
+        .affix {
+            float: right;
+        }
+
+        .box-msg {
+            float: right;
+            margin-right: 1rem;
+        }
+
         /* ELEMENT PLUS */
         .el-collapse-item__header {
             padding-left: 1rem;
@@ -70,6 +80,11 @@
     <div id="app"></div>
     <template id="app-template">
         <div class="box-admin">
+            <el-affix :offset="16" class="affix">
+                <el-button type="primary">Always visible...</el-button>
+                <div class="box-msg"></div>
+            </el-affix>
+
             <el-row>
                 <el-col :span="8">
                     <el-avatar src="/template/img/photo.jpg"></el-avatar>
@@ -132,7 +147,16 @@
                                     <el-input v-model="form_post.title" placeholder="title"></el-input>
                                 </el-form-item>
                                 <el-form-item label="content">
-                                    <el-input v-model="form_post.content" :rows="10" type="textarea" placeholder="content"></el-input>
+                                    <el-input v-model="form_post.content" :rows="30" type="textarea" placeholder="content"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-date-picker v-model="form_post.created" type="datetime" placeholder="Select date and time" :default-time="defaultTime" />
+                                </el-form-item>
+                                <el-form-item label="template">
+                                    <el-input v-model="form_post.template" placeholder="template"></el-input>
+                                </el-form-item>
+                                <el-form-item label="media">
+                                    <el-input v-model="form_post.media" placeholder="media"></el-input>
                                 </el-form-item>
                                 <el-form-item>
                                     <button type="submit">Post</button>
@@ -141,23 +165,50 @@
                         </el-col>
                         <el-col :span="8">
                             <el-tabs type="border-card">
-                                <el-tab-pane label="User">User</el-tab-pane>
-                                <el-tab-pane label="Config">Config</el-tab-pane>
-                                <el-tab-pane label="Role">Role</el-tab-pane>
-                                <el-tab-pane label="Task">Task</el-tab-pane>
+                                <el-tab-pane label="User">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto numquam, nobis animi nam explicabo architecto, non temporibus perferendis eum, dolorem modi. Ab corporis dicta error totam ipsum nostrum recusandae!</p>
+                                    <el-color-picker v-model="color" show-alpha :predefine="color_palette"></el-color-picker>
+                                    <el-progress :text-inside="true" :stroke-width="26" :percentage="slider" :color="color"></el-progress>
+                                    <el-calendar v-model="defaultTime"></el-calendar>
+                                </el-tab-pane>
+                                <el-tab-pane label="Config">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto numquam, nobis animi nam explicabo architecto, non temporibus perferendis eum, dolorem modi. Ab corporis dicta error totam ipsum nostrum recusandae!</p>
+                                    <el-progress :text-inside="true" :stroke-width="24" :percentage="100" status="success"></el-progress>
+                                </el-tab-pane>
+                                <el-tab-pane label="Role">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto numquam, nobis animi nam explicabo architecto, non temporibus perferendis eum, dolorem modi. Ab corporis dicta error totam ipsum nostrum recusandae!</p>
+                                    <el-progress :text-inside="true" :stroke-width="22" :percentage="80" status="warning"></el-progress>
+                                </el-tab-pane>
+                                <el-tab-pane label="Task">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto numquam, nobis animi nam explicabo architecto, non temporibus perferendis eum, dolorem modi. Ab corporis dicta error totam ipsum nostrum recusandae!</p>
+                                    <el-progress :text-inside="true" :stroke-width="20" :percentage="50" status="exception"></el-progress>
+                                </el-tab-pane>
                             </el-tabs>
                         </el-col>
                         <el-col :span="16">
+                            <h3>extras</h3>
                             <el-collapse v-model="activeNames">
                                 <el-collapse-item title="Consistency" name="1">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
                                     <p>
                                         Consistent with real life: in line with the process and logic of real
                                         life, and comply with languages and habits that the users are used to;
                                         Consistent within interface: all elements should be consistent, such
                                         as: design style, icons and texts, position of elements, etc.
                                     </p>
+                                    <p>
+                                        <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
+                                        <el-progress :text-inside="true" :stroke-width="24" :percentage="100" status="success"></el-progress>
+                                        <el-progress :text-inside="true" :stroke-width="22" :percentage="80" status="warning"></el-progress>
+                                        <el-progress :text-inside="true" :stroke-width="20" :percentage="50" status="exception"></el-progress>
+                                    </p>
                                 </el-collapse-item>
                                 <el-collapse-item title="Feedback" name="2">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
                                     <p>
                                         Operation feedback: enable the users to clearly perceive their
                                         operations by style updates and interactive effects;
@@ -166,6 +217,7 @@
                                     </p>
                                 </el-collapse-item>
                                 <el-collapse-item title="Efficiency" name="3">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
                                     <p>
                                         Simplify the process: keep operating process simple and intuitive;
                                         Definite and clear: enunciate your intentions clearly so that the
@@ -175,6 +227,7 @@
                                     </p>
                                 </el-collapse-item>
                                 <el-collapse-item title="Controllability" name="4">
+                                    <el-slider v-model="slider" :step="10" show-stops></el-slider>
                                     <p>
                                         Decision making: giving advices about operations is acceptable, but do
                                         not make decisions for the users;
@@ -315,6 +368,7 @@
                 </el-col>
 
             </el-row>
+
         </div>
         <div>
         </div>
@@ -334,6 +388,10 @@
             createApp
         } from 'vue'
         import ElementPlus from 'ElementPlus'
+        import {
+            ElMessage,
+            ElNotification
+        } from 'ElementPlus'
 
         let tree_data = [{
                 'label': 'Dashboard',
@@ -613,6 +671,22 @@
             handleNodeClick(data) {
                 console.log(data);
                 this.active_node = data;
+                // show message
+                let msg_types = ['success', 'info', 'warning', 'error'];
+                let msg_type = msg_types[Math.floor(Math.random() * msg_types.length)];
+                ElMessage({
+                    message: data.label,
+                    type: msg_type,
+                    showClose: true,
+                    appendTo: document.querySelector('.box-msg'),
+                });
+
+                ElNotification({
+                    title: data.label,
+                    message: data.label,
+                    type: msg_type,
+                    position: 'bottom-right',
+                });
             },
             async act_login(event) {
                 let form_login = event.target;
@@ -640,7 +714,7 @@
                     return;
                 }
             },
-            act_post (event) {
+            act_post(event) {
                 let form_post = event.target;
                 console.log('form_post', form_post)
                 if (!form_post) {
@@ -712,7 +786,14 @@
                         form_post: {
                             title: '',
                             content: '',
-                        }
+                            created: '',
+                            media: '',
+                            template: '',
+                        },
+                        defaultTime: new Date(),
+                        slider: 50,
+                        color: '#ff0000',
+                        color_palette: ['#ff0000', '#00ff00', '#0000ff'],
                     }
                 },
                 methods,
