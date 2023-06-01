@@ -101,6 +101,11 @@ class xpa_router
         }
     }
 
+    static function json_add ($key, $value)
+    {
+        static::$json[$key] = $value;
+    }
+    
     static function json()
     {
         // return json
@@ -113,6 +118,8 @@ class xpa_router
         $json["request"] = $_REQUEST;
         $json["files"] = $_FILES;
         $json["cookies"] = $_COOKIE;
+
+        xpa_router::$response_status = "200";
 
         // set header
         header("Content-Type: application/json");

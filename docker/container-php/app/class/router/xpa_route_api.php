@@ -31,6 +31,17 @@ class xpa_route_api
             static::response_scraps();
         }
 
+        if ($filename == "wp") {
+            static::response_wp();
+        }
+
+    }
+
+    static function response_wp ()
+    {
+        xps_api::process();
+        xpa_router::json();
+
     }
 
     static function response_scraps ()

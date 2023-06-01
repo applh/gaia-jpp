@@ -152,6 +152,11 @@
                                 <el-form-item>
                                     <el-date-picker v-model="form_post.created" type="datetime" placeholder="Select date and time" :default-time="defaultTime" />
                                 </el-form-item>
+                                <el-form-item label="tags">
+                                <el-tag v-for="tag in tags" :key="tag.name" class="mx-1" closable :type="tag.type">
+                                    {{ tag.name }}
+                                </el-tag>
+                                </el-form-item>
                                 <el-form-item label="template">
                                     <el-input v-model="form_post.template" placeholder="template"></el-input>
                                 </el-form-item>
@@ -794,6 +799,32 @@
                         slider: 50,
                         color: '#ff0000',
                         color_palette: ['#ff0000', '#00ff00', '#0000ff'],
+                        tags: [
+                            {
+                                name: 'Tag 1',
+                                type: '',
+                            },
+                            {
+                                name: 'Tag 2',
+                                type: '',
+                            },
+                            {
+                                name: 'Tag 3',
+                                type: 'success',
+                            },
+                            {
+                                name: 'Tag 4',
+                                type: 'info',
+                            },
+                            {
+                                name: 'Tag 5',
+                                type: 'warning',
+                            },
+                            {
+                                name: 'Tag 6',
+                                type: 'danger',
+                            },
+                        ]
                     }
                 },
                 methods,

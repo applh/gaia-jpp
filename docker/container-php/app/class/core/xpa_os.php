@@ -114,6 +114,16 @@ class xpa_os
         }
     }
 
+    static function now ($format = "Y-m-d H:i:s")
+    {
+        static $time0 = null;
+        if (!$time0) {
+            $time0 = time();
+        }
+        $now = date($format, $time0);
+        return $now;
+    }
+
     //#class_end
 }
 

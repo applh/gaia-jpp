@@ -1,0 +1,22 @@
+# DOCKER PHP-FPM mount for app/ is /var/www/html/
+APP_DIR=/var/www/html
+DATA_DIR=/var/www/my-data/cron
+
+# manually install crontab for root
+# cat /root/crontab-root-gaia | crontab -
+# service cron start
+
+# https://github.com/docker-library/php/blob/master/docker-php-entrypoint
+
+# https://doc.ubuntu-fr.org/cron
+# WARNING: prefix command with user if file in /etc/cron.d/
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+  *  *  *  *  *     /usr/local/bin/php $APP_DIR/cli.php >> $DATA_DIR/crontab-root.log
+

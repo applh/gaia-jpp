@@ -1,0 +1,11 @@
+.box-tabs h3 {
+    text-align: center;
+    background-color: #ccc;
+    padding: 1rem;
+    margin: 0;
+}
+
+input, input:focus {
+    border: none !important;
+    outline: none !important;
+}

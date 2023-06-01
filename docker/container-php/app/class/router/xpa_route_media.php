@@ -29,18 +29,18 @@ class xpa_route_media
         // cut $dirname by /
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
-        // print_r($dirs);
+
+        $path_root = cli::kv("root");
+        $path_data = cli::kv("path_data");
+        // FIXME: only subdir are allowed ?! 
         $dir1 = $dirs[1] ?? "";
         $dir2 = $dirs[2] ?? "";
-        if ($dir1) {
-            $filename = "$dir1/$filename";
-            if ($dir2) {
-                $filename = "$dir1/$dir2/$filename";
-            }
+        $article = "$path_root/media/$dir1/$filename.$extension";
+        if ($dir2) {
+            $article = "$path_root/media/$dir1/$dir2/$filename.$extension";
+            // dir3 needed ?!
         }
-
-        $path_data = cli::kv("path_data");
-        $article = "$path_data/media/$filename.$extension";
+        
         if (file_exists($article)) {
             $content = file_get_contents($article);
             // get mime_type

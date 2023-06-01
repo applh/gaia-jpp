@@ -18,4 +18,5 @@ services:
         volumes:
             - ./app:/var/www/html
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
+            - ./root-setup:/root/setup
         restart: always

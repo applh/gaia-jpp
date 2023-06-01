@@ -154,7 +154,7 @@ class xps_action
         add_plugins_page(
             "XP Studio",
             "XP Studio",
-            "read",
+            "manage_options",
             "xperia-studio",
             "xps_action::admin_page"
         );
@@ -171,7 +171,21 @@ class xps_action
             [],
             "0.0.1"
         );
-        // add css
+        // add css for element-plus
+        wp_enqueue_style(
+            "xps-element-plus",
+            "/template/element-plus/index.css",
+            [],
+            "0.0.1"
+        );
+        // add css for element-plus
+        wp_enqueue_style(
+            "xps-admin-css",
+            "/media/wp/template-admin.css",
+            [],
+            "0.0.1"
+        );
+
 
     }
 
@@ -195,12 +209,37 @@ class xps_action
             $cms_mix = xps_action::$cms_mix;
         }
 
+        $template_admin = xp_studio::$plugin_dir . "/media/wp/template-admin.php";
+        ob_start();
+        include_once $template_admin;
+        $template_code = ob_get_clean();
+
+        $app_json = [
+            "cms_mix" => $cms_mix,
+            "xp_admin_key" => $xp_admin_key,
+        ];
+        $template_json = json_encode($app_json, JSON_PRETTY_PRINT);
 
         echo <<<html
 
         <div id="app" data-xp-admin-key="$xp_admin_key"></div>
+        <template id="app-template">
+        $template_code
+        </template>
+        <template id="app-json">
+        $template_json
+        </template>
         <div>xps_cms_mix: $cms_mix</div>
-        <script type="module" src="/wp-json/xp-studio/v1/media?src=xp-app.js">
+        <script type="importmap">
+        {
+            "imports": {
+                "vue": "/template/vue/vue.esm-browser.js",
+                "ElementPlus": "/template/element-plus/index.full.mjs",
+                "XpwAdmin": "/template/vue/xpw-admin.js"
+            }
+        }
+        </script>
+        <script type="module" src="/template/vue/xp-studio-admin.js">
         </script>
 
         html;
