@@ -17,14 +17,14 @@
                                     <el-input v-model="form.code" type="textarea" rows="10"></el-input>
                                 </el-form-item>
                                 <el-form-item>
+                                    <el-input type="submit"></el-input>
+                                </el-form-item>
+                                <el-form-item>
                                     <el-upload drag multiple action="/api/wp?xps-admin-action=upload">
                                         <div class="el-upload__text">
                                             Drop file here or <em>click to upload</em>
                                         </div>
                                     </el-upload>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-input type="submit"></el-input>
                                 </el-form-item>
                             </el-form>
                         </el-tab-pane>
@@ -59,8 +59,8 @@
                     <el-tree :data="data_tree" draggable show-checkbox @node-click="act_tree_node_click"></el-tree>
                 </el-col>
                 <el-col :span="12">
-                    <div>cms_mix: {{ $store().cms_mix }}</div>
-                    <div>xp_admin_key: {{ $store().xp_admin_key }}</div>
+                    <el-calendar v-model="time1"></el-calendar>
+
                 </el-col>
             </el-row>
 
@@ -68,6 +68,8 @@
         <el-footer>
             <el-date-picker v-model="time1" type="datetime" placeholder="Select date and time" :default-time="time1">
             </el-date-picker>
+            <div>cms_mix: {{ $store().cms_mix }}</div>
+            <div>xp_admin_key: {{ $store().xp_admin_key }}</div>
         </el-footer>
     </el-container>
 </div>

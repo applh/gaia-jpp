@@ -101,6 +101,30 @@ class xps_api
         }
     }
 
+    static function cmd_backup ($parts)
+    {
+        // launch shell script mysqldump
+        $db_host = DB_HOST;
+        $db_name = DB_NAME;
+        $db_user = DB_USER;
+        $db_pass = DB_PASSWORD;
+        $db_charset = DB_CHARSET;
+        $db_collate = DB_COLLATE;
+        $db_prefix = $GLOBALS["table_prefix"];
+        $now = xpa_os::now("Ymd-His");
+        $db_file = "$db_name-$now.sql";
+
+        $db_file = xpa_os::kv("path_data") . "/$db_file";
+        
+        // $shell_cmd = "mysqldump --host=$db_host --user=$db_user --password=$db_pass --default-character-set=$db_charset --result-file=$db_file --databases $db_name";
+        $shell_cmd = "which mysqldump";
+        $shell_result = shell_exec($shell_cmd);
+
+        xpa_router::json_add("cmd_backup", $shell_cmd);
+        xpa_router::json_add("cmd_backup:result", $shell_result ?? "");
+
+    }
+
     //#class_end
 }
 

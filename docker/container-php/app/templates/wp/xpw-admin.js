@@ -18,10 +18,19 @@ let data_tree = [
                 label: 'SEO',
             },
             {
+                label: 'Forms',
+            },
+            {
+                label: 'Cache',
+            },
+            {
                 label: 'CMS',
             },
             {
                 label: 'Domains',
+            },
+            {
+                label: 'Backup',
             },
         ]
     },
@@ -50,6 +59,46 @@ let data_tree = [
     },
     {
         label: 'Infos',
+        children: [
+            {
+                label: '01 - January',
+            },
+            {
+                label: '02 - February',
+            },
+            {
+                label: '03 - March',
+            },
+            {
+                label: '04 - April',
+            },
+            {
+                label: '05 - May',
+            },
+            {
+                label: '06 - June',
+            },
+            {
+                label: '07 - July',
+            },
+            {
+                label: '08 - August',
+            },
+            {
+                label: '09 - September',
+            },
+            {
+                label: '10 - October',
+            },
+            {
+                label: '11 - November',
+            },
+            {
+                label: '12 - December',
+            },
+        ]    },
+    {
+        label: 'Archives',
         children: [
             {
                 label: '01 - January',

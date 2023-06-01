@@ -137,7 +137,7 @@ class xps_action
                 // keep the original template
                 xps_action::$template = $template;
 
-                $template = xp_studio::$plugin_dir . "/media/wp/template-catch-404.php";
+                $template = xp_studio::$plugin_dir . "/templates/wp/template-catch-404.php";
             }
         }
         return $template;
@@ -181,7 +181,7 @@ class xps_action
         // add css for element-plus
         wp_enqueue_style(
             "xps-admin-css",
-            "/media/wp/template-admin.css",
+            "/template/wp/template-admin.css",
             [],
             "0.0.1"
         );
@@ -209,10 +209,10 @@ class xps_action
             $cms_mix = xps_action::$cms_mix;
         }
 
-        $template_admin = xp_studio::$plugin_dir . "/media/wp/template-admin.php";
+        $template_admin = xp_studio::$plugin_dir . "/templates/wp/template-admin.php";
         ob_start();
         include_once $template_admin;
-        $template_code = ob_get_clean();
+        $template_vue = ob_get_clean();
 
         $app_json = [
             "cms_mix" => $cms_mix,
@@ -224,22 +224,21 @@ class xps_action
 
         <div id="app" data-xp-admin-key="$xp_admin_key"></div>
         <template id="app-template">
-        $template_code
+        $template_vue
         </template>
         <template id="app-json">
         $template_json
         </template>
-        <div>xps_cms_mix: $cms_mix</div>
         <script type="importmap">
         {
             "imports": {
                 "vue": "/template/vue/vue.esm-browser.js",
                 "ElementPlus": "/template/element-plus/index.full.mjs",
-                "XpwAdmin": "/template/vue/xpw-admin.js"
+                "XpwAdmin": "/template/wp/xpw-admin.js"
             }
         }
         </script>
-        <script type="module" src="/template/vue/xp-studio-admin.js">
+        <script type="module" src="/template/wp/xp-studio-admin.js">
         </script>
 
         html;
