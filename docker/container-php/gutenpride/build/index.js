@@ -2,6 +2,117 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/XpMain.js":
+/*!***********************!*\
+  !*** ./src/XpMain.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   XpButton2: () => (/* binding */ XpButton2),
+/* harmony export */   XpData: () => (/* binding */ XpData),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+// warning: 'react' and not 'React'
+
+const XpData = {
+  title: 'Gaia',
+  products: [{
+    title: 'Cabbage',
+    isFruit: false,
+    id: 1
+  }, {
+    title: 'Garlic',
+    isFruit: false,
+    id: 2
+  }, {
+    title: 'Apple',
+    isFruit: true,
+    id: 3
+  }],
+  counter: 0,
+  listeners: [],
+  subscribe: listener => {
+    console.log('subscribe', listener);
+    XpData.listeners.push(listener);
+    return () => {
+      console.log('unsubscribe', listener);
+      XpData.listeners = XpData.listeners.filter(l => l !== listener);
+    };
+  },
+  getSnapshot: () => {
+    // WARNING: Gutenberg calls this function a lot of times after each update ?!
+    console.log('getSnapshot', XpData.counter);
+    return XpData.counter;
+  },
+  emitChange: () => {
+    console.log('emitChange', XpData.listeners.length, XpData.counter);
+    XpData.listeners.forEach(listener => listener());
+  },
+  setSnapshot: counter => {
+    console.log('setSnapshot', counter);
+    XpData.counter = counter;
+    XpData.emitChange();
+  }
+};
+
+// WRONG
+// const [counter, setCounter] = useState(0);
+
+const listItems = XpData.products.map(product => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+  key: product.id,
+  style: {
+    color: product.isFruit ? 'red' : 'green'
+  }
+}, product.title));
+function XpButton2(_ref) {
+  let {
+    counter,
+    onClick
+  } = _ref;
+  const [count, setCount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0);
+  const commonCount = (0,react__WEBPACK_IMPORTED_MODULE_1__.useSyncExternalStore)(XpData.subscribe, XpData.getSnapshot);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    console.log('useEffect', count);
+    return () => {
+      // warning: called before the next useEffect
+      console.log('useEffect cleanup', count);
+    };
+  }, [count]);
+  // observer: called each time count changes
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useLayoutEffect)(() => {
+    console.log('useLayoutEffect', count);
+    return () => {
+      // warning: called before the next useLayoutEffect
+      console.log('useLayoutEffect cleanup', count);
+    };
+  }, [count]);
+  // observer: called each time count changes
+
+  function handleClick() {
+    setCount(count + 1);
+    XpData.counter++;
+    console.log('You clicked me!', count, XpData.counter);
+  }
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: onClick
+  }, counter, " / ", commonCount, " / ", XpData.counter);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  title: 'XpMain',
+  listItems
+});
+
+/***/ }),
+
 /***/ "./src/edit.js":
 /*!*********************!*\
   !*** ./src/edit.js ***!
@@ -18,6 +129,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _XpMain__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./XpMain */ "./src/XpMain.js");
 
 /**
  * WordPress components that create the necessary UI elements for the block
@@ -33,6 +147,16 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 
+
+/**
+ * GAIA HACK: add a component
+ */
+
+
+
+function XpButton() {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", null, _XpMain__WEBPACK_IMPORTED_MODULE_4__["default"].title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, _XpMain__WEBPACK_IMPORTED_MODULE_4__["default"].listItems));
+}
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -51,12 +175,30 @@ function Edit(_ref) {
     attributes,
     setAttributes
   } = _ref;
+  // warning: Gutenberg will call this function many times
+  console.log('Edit', attributes, setAttributes);
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
+
+  // warning: this is common to the block, not shared between blocks
+  const [counter, setCounter] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(0);
+  function handleClick() {
+    setCounter(counter + 1);
+
+    // share counter between all blocks
+    _XpMain__WEBPACK_IMPORTED_MODULE_4__.XpData.setSnapshot(_XpMain__WEBPACK_IMPORTED_MODULE_4__.XpData.counter + 1);
+    console.log('You clicked me!', counter, _XpMain__WEBPACK_IMPORTED_MODULE_4__.XpData.counter);
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     value: attributes.message,
     onChange: val => setAttributes({
       message: val
     })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(XpButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_XpMain__WEBPACK_IMPORTED_MODULE_4__.XpButton2, {
+    counter: counter,
+    onClick: handleClick
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, counter), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_XpMain__WEBPACK_IMPORTED_MODULE_4__.XpButton2, {
+    counter: counter,
+    onClick: handleClick
   }));
 }
 
@@ -192,6 +334,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
 
 /***/ }),
 
