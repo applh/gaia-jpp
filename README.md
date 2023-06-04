@@ -9,6 +9,9 @@ GAIA is a CMS available in several situations:
 * As a WP plugin, on WP+SQLite web hosting
 * Mix with Laravel
 * Mix with Laravel in Docker container
+And also:
+* Mix with Symfony (FIXME)
+* Mix with Symfony in Docker container (FIXME)
   
 * GAIA-JPP is some crazy VSCode dev environment
 * Build AI appications with JS, Python and PHP support.
