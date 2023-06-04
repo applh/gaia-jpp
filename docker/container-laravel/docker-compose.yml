@@ -7,6 +7,7 @@ services:
             - "${XP_ENV_PORT:-8654}:80"
         volumes:
             - ./app:/var/www/html
+            - ../container-php:/var/container-php
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
         restart: always
         links:
@@ -16,4 +17,29 @@ services:
         build: ../image-php-fpm-jupyter
         volumes:
             - ./app:/var/www/html
+            - ../container-php:/var/container-php
         restart: always
+
+
+# GAIA and Laravel mix
+# mount also ../container-php to /var/container-php
+
+# laravel .env
+# relative to base_path()
+# GAIA_PATH=../../container-php/app/public/index.php
+# then create fallback route in routes/web.php
+
+# // WARNING: must be the last route
+# Route::fallback(function () {
+#    $env_gaia_path = env('GAIA_PATH');
+#    // laravel base path
+#    $laravel_path = base_path();
+#    $path_gaia = realpath("$laravel_path/$env_gaia_path");
+#
+#    ob_start();
+#    include $path_gaia;
+#    $code = ob_get_clean();
+#
+#    return $code;
+#
+# });
