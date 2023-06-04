@@ -29,29 +29,45 @@ class xpa_route_media
         // cut $dirname by /
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
-
+        // remove non allowed chars
+        $filename = preg_replace("/[^a-zA-Z0-9_-]/", "", $filename);
+        // remove non allowed chars on each dir
+        foreach($dirs as $k=>$dir) {
+            $dirs[$k] = preg_replace("/[^a-zA-Z0-9_-]/", "", $dir);
+        }
         $path_root = cli::kv("root");
         $path_data = cli::kv("path_data");
-        // FIXME: only subdir are allowed ?! 
-        $dir1 = $dirs[1] ?? "";
-        $dir2 = $dirs[2] ?? "";
-        $article = "$path_root/media/$dir1/$filename.$extension";
-        if ($dir2) {
-            $article = "$path_root/media/$dir1/$dir2/$filename.$extension";
-            // dir3 needed ?!
-        }
-        
-        if (file_exists($article)) {
-            $content = file_get_contents($article);
-            // get mime_type
-            $mime_type = static::$mimes[$extension] ?? mime_content_type($article);
-            // allow gaia cms mix with others cms
-            xpa_router::$response_status = "200";
-            header("Content-Type: $mime_type");
-            echo $content;
-        }
-        else {
-            echo "article not found ($article)";
+
+        $searchs = [ 
+            "$path_data/media",
+            "$path_root/media", 
+            "$path_data/pages", // TODO: check if security issue ?!
+        ];
+        foreach($searchs as $search) {
+            // FIXME: only subdir are allowed ?! 
+            $dir1 = $dirs[1] ?? "";
+            $dir2 = $dirs[2] ?? "";
+            $article = "$search/$filename.$extension";
+            if ($dir1) {
+                $article = "$search/$dir1/$filename.$extension";
+            }
+            if ($dir2) {
+                $article = "$search/$dir1/$dir2/$filename.$extension";
+                // dir3 needed ?!
+            }
+            
+            if (file_exists($article)) {
+                $content = file_get_contents($article);
+                // get mime_type
+                $mime_type = static::$mimes[$extension] ?? mime_content_type($article);
+                // allow gaia cms mix with others cms
+                xpa_router::$response_status = "200";
+                header("Content-Type: $mime_type");
+                echo $content;
+                // don't search anymore
+                break;
+            }
+
         }
 
     }

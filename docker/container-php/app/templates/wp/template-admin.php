@@ -14,15 +14,16 @@
                                     <el-input v-model="form.title"></el-input>
                                 </el-form-item>
                                 <el-form-item label="Code">
-                                    <el-input v-model="form.code" type="textarea" rows="10"></el-input>
+                                    <el-input v-model="form.code" type="textarea" :autosize="{minRows: 10, maxRows: 30 }"></el-input>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-input type="submit"></el-input>
+                                    <el-input type="submit" value="SEND"></el-input>
                                 </el-form-item>
+                                <el-divider></el-divider>
                                 <el-form-item>
                                     <el-upload drag multiple action="/api/wp?xps-admin-action=upload">
                                         <div class="el-upload__text">
-                                            Drop file here or <em>click to upload</em>
+                                            <h4>(WP MEDIA)</h4> Drop file here or <em>click to upload</em>
                                         </div>
                                     </el-upload>
                                 </el-form-item>

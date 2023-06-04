@@ -5,6 +5,9 @@
     margin: 0;
 }
 
+.box-tabs h4 {
+    text-align: center;
+}
 input, input:focus {
     border: none !important;
     outline: none !important;

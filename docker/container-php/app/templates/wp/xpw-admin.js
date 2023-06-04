@@ -32,6 +32,9 @@ let data_tree = [
             {
                 label: 'Backup',
             },
+            {
+                label: 'Visits',
+            },
         ]
     },
     {
