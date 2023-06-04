@@ -32,6 +32,8 @@ class xpa_route_page
         if (file_exists($article)) {
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
+            xpa_router::$mime_type = "text/plain";
+
             $content = file_get_contents($article);
             echo $content;
         }
@@ -40,6 +42,8 @@ class xpa_route_page
         if (file_exists($notebook)) {
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
+            xpa_router::$mime_type = "text/javascript";
+
             $content = file_get_contents($notebook);
             $json = json_decode($content, true);
             $cells = $json["cells"] ?? [];
@@ -56,6 +60,8 @@ class xpa_route_page
         if (file_exists($css_template)) {
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
+            xpa_router::$mime_type = "text/css";
+
             header("Content-Type: text/css");
             include $css_template;
         }
@@ -63,6 +69,8 @@ class xpa_route_page
         if (file_exists($js_template)) {
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
+            xpa_router::$mime_type = "text/javascript";
+
             header("Content-Type: text/javascript");
             include $js_template;
         }
@@ -73,7 +81,10 @@ class xpa_route_page
             if (file_exists($image)) {
                 // allow gaia cms mix with others cms
                 xpa_router::$response_status = "200";
+                xpa_router::$mime_type = "image/$extension";
+
                 header("Content-Type: image/$extension");
+
                 echo file_get_contents($image);
             }
         }

@@ -62,6 +62,8 @@ class xpa_route_media
                 $mime_type = static::$mimes[$extension] ?? mime_content_type($article);
                 // allow gaia cms mix with others cms
                 xpa_router::$response_status = "200";
+                xpa_router::$mime_type = $mime_type;
+
                 header("Content-Type: $mime_type");
                 echo $content;
                 // don't search anymore

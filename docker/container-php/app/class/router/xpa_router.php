@@ -3,6 +3,7 @@
 class xpa_router
 {
     static $response_status = "404";
+    static $mime_type = "text/html";
     
     static $filename = "";
     static $routes = [];

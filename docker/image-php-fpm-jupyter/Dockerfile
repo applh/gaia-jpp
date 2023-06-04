@@ -35,6 +35,10 @@ RUN pecl install memcached
 
 RUN docker-php-ext-enable memcached
 
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
+
+RUN docker-php-ext-enable intl
+
 # install jupyter notebook
 RUN pip3 install jupyter Pillow requests numpy opencv-python matplotlib ipython db-sqlite3 playwright
 

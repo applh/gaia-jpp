@@ -18,10 +18,14 @@ class xpa_route_template
         // FIXME: only subdir are allowed ?! 
         $dir1 = $dirs[1] ?? "";
         $dir2 = $dirs[2] ?? "";
+        $dir3 = $dirs[3] ?? "";
         $article = "$path_root/templates/$dir1/$filename.$extension";
         if ($dir2) {
             $article = "$path_root/templates/$dir1/$dir2/$filename.$extension";
             // dir3 needed ?!
+            if ($dir3) {
+                $article = "$path_root/templates/$dir1/$dir2/$dir3/$filename.$extension";
+            }
         }
 
         if (file_exists($article)) {
@@ -30,6 +34,7 @@ class xpa_route_template
             $mime_type = xpa_os::$mimes[$extension] ?? mime_content_type($article);
             // allow gaia cms mix with others cms
             xpa_router::$response_status = "200";
+            xpa_router::$mime_type = $mime_type;
             header("Content-Type: $mime_type");
             echo $content;
 
