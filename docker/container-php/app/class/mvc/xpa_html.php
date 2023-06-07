@@ -47,14 +47,14 @@ class xpa_html
     static function link ()
     {
         echo <<<html
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/media/style.css">
         html;
     }
 
     static function script ()
     {
         echo <<<html
-        <script type="module" src="script.js"></script>
+        <script type="module" src="/media/script.js"></script>
         html;
     }
 
@@ -91,7 +91,7 @@ class xpa_html
 
     static function nb_sections ()
     {
-        return mt_rand(2, 8);
+        return mt_rand(4, 8);
     }
 
     static function main ()
@@ -112,12 +112,30 @@ class xpa_html
         echo "<section class=\"s$level\">\n";
         static::title($level);
 
+        $imgs = [
+            "media/smile-1.jpg",
+            "media/smile-2.jpg",
+            "media/smile-3.jpg",
+            "media/hand.webp",
+            "media/cutout-1.webp",
+            "media/cutout-2.webp",
+            "media/cutout-3.webp",
+            "media/cutout-4.webp",
+            "media/html5.svg",
+            "media/vue.svg",
+            "media/graph-3d.svg",
+            "media/tiger.svg",
+            "media/earth.svg",
+        ];
+        $img = $imgs[mt_rand(0, count($imgs)-1)];
+
         if ($level == 2) {
             static::content("section-$level");
-            static::picture();    
+            static::picture($img);    
         }
         else {
-            static::picture();
+
+            static::picture($img);
             // better layout if texts have different lengths
             static::content("section-$level");    
         }

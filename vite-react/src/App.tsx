@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import "primereact/resources/primereact.min.css";
+import 'primeicons/primeicons.css';
+import "primeflex/primeflex.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
 import { Button } from 'primereact/button';
@@ -86,12 +88,12 @@ function App() {
     setNodes(data);
   }, []);
 
-  function treeDrop(e) {
+  function treeDrop(e: any) {
     setNodes(e.value)
     // warning 
     // nodes is not updated
     // e.value is updated
-    console.log(e.value, nodes)
+    console.log(e, e.value, nodes)
   }
 
   return (
@@ -104,7 +106,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Vite + React + PrimeReact</h1>
       <Button label="Check" icon="pi pi-check" />
       <Tree value={nodes} dragdropScope="demo" onDragDrop={treeDrop} className="w-full md:w-30rem" />
     </>
