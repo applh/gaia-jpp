@@ -48,6 +48,9 @@ class xpa_html
     {
         echo <<<html
         <link rel="stylesheet" href="/media/style.css">
+        <!--
+        <link rel="stylesheet" href="/media/anime.css">
+        -->
         html;
     }
 
@@ -135,7 +138,7 @@ class xpa_html
         }
         else {
 
-            static::picture($img);
+            static::picture($img, "photo", "anim-scroll anim-pulse");
             // better layout if texts have different lengths
             static::content("section-$level");    
         }
@@ -160,12 +163,12 @@ class xpa_html
         echo "<p>$name</p>\n";
     }
 
-    static function picture ($src="photo.jpg", $alt="photo")
+    static function picture ($src="photo.jpg", $alt="photo", $class="")
     {
         echo <<<html
         <picture>
             <source srcset="$src" type="image/jpg">
-            <img loading="lazy" src="$src" alt="$alt">
+            <img  class="$class" loading="lazy" src="$src" alt="$alt">
         </picture>
         html;
     }
