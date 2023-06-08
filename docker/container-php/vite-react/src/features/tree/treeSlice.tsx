@@ -1,29 +1,6 @@
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { increment, ICounterState } from './features/counter/counterSlice'
-import { ITreeState, setTreeData } from './features/tree/treeSlice'
+import { createSlice } from '@reduxjs/toolkit'
 
-// import './App.css'
-
-import { Counter } from './features/counter/Counter.tsx'
-
-import "primereact/resources/primereact.min.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import 'primeicons/primeicons.css';
-
-import { Button } from 'primereact/button';
-import { Tree } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
-
-function App() {
-  const [nodes, setNodes] = useState<TreeNode[]>([]);
-
-  
-  const dispatch = useDispatch()
-  const counter = useSelector((state: ICounterState) => state.counter.value)
-  const treeData = useSelector((state: ITreeState) => state.tree.value)
-
-  const data = [
+const data = [
     {
       key: '0',
       label: 'Documents',
@@ -90,36 +67,31 @@ function App() {
     }
   ];
 
-  useEffect(() => {
-    console.log('useEffect');
-    setNodes(data);
-  }, []);
+export const treeSlice = createSlice({
+    name: 'tree',
+    initialState: {
+        value: data,
+    },
+    reducers: {
+        setTreeData (state, action) {
+            // update state value
+            state.value = action.payload
+        }
+    },
+})
 
-  // react useState data
-  function treeDrop(e: any) {
-    setNodes(e.value)
-    // warning 
-    // nodes is not updated
-    // e.value is updated
-    console.log(e, e.value, nodes)
-  }
+// Action creators are generated for each case reducer function
+export const { setTreeData } = treeSlice.actions
 
-  // redux treeData
-  function treeDataDrop (e:any) {
-    console.log(e, e.value, nodes)
-    // request update of treeData
-    dispatch(setTreeData(e.value))
-  }
+// FIXME: not working ?!
+// export type ICounterState = ReturnType<typeof counterSlice.reducer>
 
-  return (
-    <>
-      <h1>Vite + React + Redux + PrimeReact</h1>
-      <Button label={'Click ' + counter } icon="pi pi-check" onClick={() => dispatch(increment())} />
-      <Counter />
-      <Tree value={nodes} dragdropScope="demo" onDragDrop={treeDrop} className="w-full md:w-30rem" />
-      <Tree value={treeData} dragdropScope="demo" onDragDrop={treeDataDrop} className="w-full md:w-30rem" />
-    </>
-  )
+export interface ITreeState {
+    tree: {
+        value: any
+    }
 }
 
-export default App
+
+
+export default treeSlice.reducer

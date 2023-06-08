@@ -35,4 +35,20 @@ export interface ICounterState {
     }
 }
 
+// can be called sync at mount 
+// can be called by dispatch() in components
+export const logAndAdd = (amount: number) => {
+    return (dispatch: any, getState: any) => {
+        const stateBefore = getState()
+        console.log(`Counter before: ${stateBefore.counter.value}`)
+        
+        // modify state
+        dispatch(incrementByAmount(amount))
+
+        const stateAfter = getState()
+        console.log(`Counter after: ${stateAfter.counter.value}`)
+    }
+}
+
+
 export default counterSlice.reducer
