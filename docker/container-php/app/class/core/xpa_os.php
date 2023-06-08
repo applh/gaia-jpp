@@ -38,7 +38,8 @@ class xpa_os
         "mp4" => "video/mp4",
         "webm" => "video/webm",
         "ogg" => "video/ogg",
-
+        "woff" => "font/woff",
+        "woff2" => "font/woff2",
     ];
 
     static function randomd5()
