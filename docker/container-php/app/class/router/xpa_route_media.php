@@ -30,10 +30,10 @@ class xpa_route_media
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
         // remove non allowed chars
-        $filename = preg_replace("/[^a-zA-Z0-9_-]/", "", $filename);
+        $filename = preg_replace("/[^a-zA-Z0-9_.-]/", "", $filename);
         // remove non allowed chars on each dir
         foreach($dirs as $k=>$dir) {
-            $dirs[$k] = preg_replace("/[^a-zA-Z0-9_-]/", "", $dir);
+            $dirs[$k] = preg_replace("/[^a-zA-Z0-9_.-]/", "", $dir);
         }
         $path_root = cli::kv("root");
         $path_data = cli::kv("path_data");
@@ -65,6 +65,8 @@ class xpa_route_media
                 xpa_router::$mime_type = $mime_type;
 
                 header("Content-Type: $mime_type");
+                header("Cache-Control: max-age=31536000");
+
                 echo $content;
                 // don't search anymore
                 break;

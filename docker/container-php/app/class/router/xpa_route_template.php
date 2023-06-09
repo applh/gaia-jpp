@@ -12,6 +12,18 @@ class xpa_route_template
         // cut $dirname by /
         $dirname = trim($dirname, "/");
         $dirs = explode("/", $dirname);
+
+        // TODO: check regexp
+        // only allow alpha num and .-_ chars
+        // remove non allowed chars
+        $regexp = "/[^a-zA-Z0-9_.-]/";
+
+        $filename = preg_replace($regexp, "", $filename);
+        // remove non allowed chars on each dir
+        foreach($dirs as $k=>$dir) {
+            $dirs[$k] = preg_replace($regexp, "", $dir);
+        }
+        
         // print_r($dirs);
         $path_root = cli::kv("root");
 
@@ -19,6 +31,7 @@ class xpa_route_template
         $dir1 = $dirs[1] ?? "";
         $dir2 = $dirs[2] ?? "";
         $dir3 = $dirs[3] ?? "";
+
         $article = "$path_root/templates/$dir1/$filename.$extension";
         if ($dir2) {
             $article = "$path_root/templates/$dir1/$dir2/$filename.$extension";
@@ -36,6 +49,8 @@ class xpa_route_template
             xpa_router::$response_status = "200";
             xpa_router::$mime_type = $mime_type;
             header("Content-Type: $mime_type");
+            header("Cache-Control: max-age=31536000");
+
             echo $content;
 
             // xp_os::log("media ($dirname)($filename)($extension)");
