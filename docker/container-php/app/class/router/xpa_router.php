@@ -11,6 +11,9 @@ class xpa_router
 
     static function request()
     {
+        // FIXME:
+        // tasks index should be relative and not absolute
+        
         // check if called from cli or index::web
         if (is_callable("index::web")) {
             // web server mode
@@ -44,7 +47,7 @@ class xpa_router
                 if (is_callable($callback)) {
                     // store the params $dirname, $filename, $extension
                     xpa_os::kv($callback, compact("dirname", "filename", "extension"));
-                    xpa_os::task_add($callback, 50);
+                    xpa_os::task_add($callback, 60);
                     // xpa_task::add($filename, $callback);
                     // call sub route
                     // $callback($dirname, $filename, $extension ?? "");
@@ -57,7 +60,7 @@ class xpa_router
                 // special routes defined in config
                 $route = static::$routes[$filename] ?? "";
                 if ($route) {
-                    xpa_os::task_add($route, 50);
+                    xpa_os::task_add($route, 60);
                     // add task 
                     // xpa_task::add($filename, $route);
                 }
@@ -68,7 +71,7 @@ class xpa_router
                     if (is_callable($callback)) {
                         // store the params $dirname, $filename, $extension
                         xpa_os::kv($callback, compact("dirname", "filename", "extension"));
-                        xpa_os::task_add($callback, 50);
+                        xpa_os::task_add($callback, 60);
                         // xpa_task::add($filename, $callback);
 
                         // call sub route
@@ -82,7 +85,7 @@ class xpa_router
         } else {
             // cli mode
             // xpa_task::add("cli", "xpa_cli::run");
-            xpa_os::task_add("xpa_cli::run", 50);
+            xpa_os::task_add("xpa_cli::run", 60);
         }
 
         // xpa_task::add("response", "xpa_router::response");

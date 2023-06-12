@@ -208,6 +208,29 @@ class xpa_cron_task
         
     }
 
+    static function clean_cache ()
+    {
+        $path_data = cli::kv("path_data");
+        $path_cache = "$path_data/cache";
+        $path_cache = realpath($path_cache);
+        if ($path_cache) {
+            // get all files in cache
+            $files = glob("$path_cache/tmp-*");
+            // loop on files
+            foreach ($files as $file) {
+                // check if file is older than 1 hour
+                $mtime = filemtime($file);
+                $now = time();
+                $diff = $now - $mtime;
+                if ($diff > 3600) {
+                    // delete file
+                    unlink($file);
+                }
+            }
+        }
+
+    }
+
     //#class_end
 }
 

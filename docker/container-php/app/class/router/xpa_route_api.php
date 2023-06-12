@@ -5,6 +5,9 @@ class xpa_route_api
 
     static function response($dirname="", $filename="", $extension="")
     {
+        // disable cache
+        xpa_os::$cache_active = false;
+
         // get the params from storage
         extract(xpa_os::kv("xpa_route_api::response") ?? []);
 

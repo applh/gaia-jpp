@@ -36,7 +36,31 @@ class xps_action
         // WARNING: admin_menu can't be inside admin_init
         add_action("admin_menu", "xps_action::admin_menu");
 
+        // activate cache
+        xps_action::init_cache();
+
         add_filter("template_include", "xps_action::template_include");
+
+    }
+
+    static function init_cache ()
+    {
+        // only cache when not logged in
+        xpa_controller::$cache_active = false;
+        if (!is_user_logged_in()) {
+            xpa_controller::$cache_active = true;
+            xpa_controller::cache_read("wp@");
+            xpa_controller::cache_start();
+        }
+
+        // FIXME: NOT WORKING ?!
+        // setup cache capture at the end
+        // add_action("shutdown", "xps_action::shutdown");
+    }
+
+    static function shutdown ()
+    {
+        // xpa_controller::cache_end("wp@");
     }
 
     static function init_data_dir()
@@ -87,15 +111,16 @@ class xps_action
 
     static function cms_priority()
     {
+        $uri = $_SERVER["REQUEST_URI"];
+        $host = $_SERVER["HTTP_HOST"];
+
+        // GAIA cms has priority over WP
+        $path_root = xp_studio::$plugin_dir;
+
+        // WARNING: when using GAIA as WP plugin, data dir is not the same
+        xpa_os::kv("path_data", dirname(static::$local_dir));
+
         if (xps_action::$cms_mix == "gaia") {
-            $uri = $_SERVER["REQUEST_URI"];
-            $host = $_SERVER["HTTP_HOST"];
-
-            // GAIA cms has priority over WP
-            $path_root = xp_studio::$plugin_dir;
-
-            // WARNING: when using GAIA as WP plugin, data dir is not the same
-            xpa_os::kv("path_data", dirname(static::$local_dir));
 
             $path_index = "$path_root/public/index.php";
 
@@ -140,6 +165,16 @@ class xps_action
                 $template = xp_studio::$plugin_dir . "/templates/wp/template-catch-404.php";
             }
         }
+
+        if (xpa_controller::$cache_active) {
+            if ($template) {
+                // HACK: build the response here
+                include $template;
+                xpa_controller::cache_end("wp@");
+                $template = xp_studio::$plugin_dir . "/templates/wp/empty.php";
+            }
+        }
+
         return $template;
     }
 

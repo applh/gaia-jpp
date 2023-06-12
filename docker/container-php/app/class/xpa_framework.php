@@ -17,10 +17,13 @@ class xpa_framework
 
     static function setup ()
     {
-        xpa_os::task_add("xpa_controller::run", 10);
-        xpa_os::task_add("xpa_user::build", 20);
-        xpa_os::task_add("xpa_router::request", 30);
-        xpa_os::task_add("xpa_view::run", 60);
+        xpa_os::task_add("xpa_controller::cache_read", 10);
+        xpa_os::task_add("xpa_controller::cache_start", 20);
+        xpa_os::task_add("xpa_controller::run", 30);
+        xpa_os::task_add("xpa_user::build", 40);
+        xpa_os::task_add("xpa_router::request", 50);
+        xpa_os::task_add("xpa_view::run", 70);
+        xpa_os::task_add("xpa_controller::cache_end", 80);
     }
 
 

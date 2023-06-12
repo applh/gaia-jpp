@@ -42,6 +42,8 @@ class xpa_os
         "woff2" => "font/woff2",
     ];
 
+    static $cache_active = true;
+
     static function randomd5()
     {
         return md5(password_hash(md5(uniqid()), PASSWORD_DEFAULT));
@@ -123,6 +125,88 @@ class xpa_os
         }
         $now = date($format, $time0);
         return $now;
+    }
+
+    static function cache_save ($path, $response)
+    {
+        // some routes should not be cached
+        if (!static::$cache_active) {
+            return;
+        }
+
+        $path_data = xpa_os::kv("path_data") ?? cli::kv("path_data");
+        $path_cache = "$path_data/cache";
+        $hash = md5($path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        // if no extension, use txt
+        if (!$extension) {
+            $extension = "txt";
+            // get router mime
+            // html
+            $mime = xpa_router::$mime_type;
+            if ($mime == "text/html") {
+                $extension = "html";
+            }
+            // json
+            if ($mime == "application/json") {
+                $extension = "json";
+            }
+        }
+
+        $path_cache_file = "$path_cache/tmp-$hash.$extension";
+        file_put_contents($path_cache_file, $response);
+    }
+
+    static function cache_send ($path, $response = null)
+    {
+        $path_data = xpa_os::kv("path_data") ?? cli::kv("path_data");
+        $path_cache = "$path_data/cache";
+        $hash = md5($path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        // if no extension, use txt
+        if (!$extension) {
+            $extension = "txt";
+        }
+
+        $path_cache_file = "$path_cache/tmp-$hash.$extension";
+        // search with glob on all extensions
+        $path_cache_file = glob("$path_cache/tmp-$hash.*")[0] ?? null;
+        if ($path_cache_file && is_file($path_cache_file)) {
+            $response = file_get_contents($path_cache_file);
+
+            // add debug header
+            $basename = basename($path_cache_file);
+            if ($response) {
+                $mime = "text/html";
+                if ($extension != "txt") {
+                    // send header content-type
+                    $mime = static::$mimes[$extension] ?? "text/plain";
+                }
+                else {
+    
+                }
+    
+                header("Content-Type: $mime");
+                header("X-Gaia-Debug: cache / $basename");
+    
+                // send response
+                echo $response;
+                xpa_os::die();
+    
+            }
+            else {
+                // debug
+                header("X-Gaia-Debug: empty cache / $basename");
+            }
+        }
+
+        return $response;
+    }
+
+    static function die ()
+    {
+        // TODO: should allow to kill only tasks by framework
+        die();
     }
 
     //#class_end
