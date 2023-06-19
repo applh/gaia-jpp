@@ -69,6 +69,19 @@ class xpa_route_api
                 }
             }
         }
+        if ($method == "update") {
+            $post = $request_json["post"] ?? [];
+            if (!empty($post)) {
+                $id = intval($post["id"] ?? 0);
+                if ($id > 0) {
+                    xpa_router::json_add("post", $post);
+                    // WARNING: all columns can be updated
+                    // updated 
+                    $post["updated"] = xpa_os::now();
+                    xpa_sqlite::update("zoom5/geocms", $id, $post);
+                }
+            }
+        }
 
         xpa_router::json_add("forms", $forms);
         xpa_router::json_add("errors", xpa_form::$errors);
