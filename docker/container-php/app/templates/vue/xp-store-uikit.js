@@ -2,7 +2,7 @@ import { defineAsyncComponent, reactive, defineCustomElement } from 'vue'
 
 console.log('XpStoreUiKit: loading...')
 
-
+// forms can de declared locally or loaded from server
 let forms = {
     // 'contact': {
     //     title: 'Contact Us',
@@ -27,6 +27,7 @@ let storer = reactive({
     name: 'xp-store-uikit',
     counter: 0,
     forms,
+    forms_teleport: [],
 })
 
 let form_load = async function (name) {
@@ -61,6 +62,15 @@ let xp_fetch = async function (url, params) {
     return json
 }
 
+let forms_teleport_init = function () {
+    // search for target [data-xp-form]
+    let targets = document.querySelectorAll('[data-xp-form]')
+    for (let target of targets) {
+        let name = target.dataset.xpForm
+        storer.forms_teleport.push(name)
+    }
+}
+
 // register custom element xp-form
 // https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue
 const CeForm = defineCustomElement({
@@ -70,8 +80,8 @@ const CeForm = defineCustomElement({
                 <h1>{{ form?.title }}</h1>
                 <label v-for="f in form.fields">
                     <span>{{ f.label }}</span>
-                    <textarea v-if="f.type=='textarea'" :name="f.name" rows="10" v-model="f.value"></textarea>
-                    <input v-else :type="f.type" :name="f.name" :value="f.value" v-model="f.value" />
+                    <textarea v-if="f.type=='textarea'" :name="f.name" rows="10" v-model="f.value" required autocomplete="on"></textarea>
+                    <input v-else :type="f.type" :name="f.name" :value="f.value" v-model="f.value" required autocomplete="on" />
                 </label>
                 <button type="submit">Send</button>
                 <div class="feedback">{{ form?.feedback ?? '...' }}</div>
@@ -124,11 +134,13 @@ customElements.define('ce-form', CeForm)
 export default {
     install: (app, options) => {
 
+
         // register async component xp-form
         app.component('xp-form', defineAsyncComponent(() =>
             import('XpForm')
         ))
-
+        // init forms_teleport
+        forms_teleport_init()
 
         // add global properties
         app.config.globalProperties.$xp = (cmd = '') => {
@@ -136,6 +148,9 @@ export default {
         }
 
         app.config.globalProperties.$storer = () => storer
+
+        app.config.globalProperties.$form_load = (name) => form_load(name)
+        app.config.globalProperties.$xp_fetch = async (url, params) => xp_fetch(url, params)
 
     }
 }

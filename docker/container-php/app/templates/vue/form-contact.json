@@ -1,6 +1,9 @@
 {
     "name": "contact",
     "title": "Contact Us",
+    "labels": {
+        "ok": "Thank you for your message!"
+    },
     "fields": [
         {
             "name": "name",

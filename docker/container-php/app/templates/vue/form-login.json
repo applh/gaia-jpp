@@ -1,6 +1,9 @@
 {
     "name": "login",
     "title": "Login",
+    "labels": {
+        "ok": "login ongoing..."
+    },
     "fields": [
         {
             "name": "email",

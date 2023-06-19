@@ -1,5 +1,9 @@
 {
     "name": "register",
+    "title": "Create Your Account",
+    "labels": {
+        "ok": "Thank you for becoming a member of our community!"
+    },    
     "fields": [
         {
             "name": "name",
@@ -24,9 +28,9 @@
         {
             "name": "password",
             "type": "password",
-            "label": "Name",
+            "label": "Password",
             "value": "",
-            "placeholder": "Your name",
+            "placeholder": "Your password",
             "required": true,
             "minlength": 3,
             "maxlength": 255

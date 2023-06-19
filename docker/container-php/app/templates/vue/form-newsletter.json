@@ -1,6 +1,9 @@
 {
     "name": "newsletter",
     "title": "Join Our Newsletter",
+    "labels": {
+        "ok": "Thank you for joining our newsletter!"
+    },
     "fields": [
         {
             "name": "name",

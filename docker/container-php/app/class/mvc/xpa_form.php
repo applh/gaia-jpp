@@ -17,6 +17,13 @@ class xpa_form
     static $errors = [];
     static $request_json = null;
 
+    /**
+     * WARNING: 
+     * password will be stored in upload file
+     * this could be a problem on shared server as tmp dir is shared
+     * upload_tmp_dir should be set to a private dir ?!
+     * MAYBE: isolate password only in POST parameters
+     */
     static function request_json ()
     {
         // get $_FILES["request_json"] 
@@ -98,7 +105,16 @@ class xpa_form
             foreach($fields as $index => $field) {
                 $input_name = $field["name"] ?? "";
                 $input = $inputs[$index]["value"] ?? "";
-                $cols[$input_name] = $input; 
+                // trim 
+                $input = trim($input);
+                $cols[$input_name] = $input;
+
+                // WARNING: SECURITY
+                // CONFIDENTIALITY: if password, hash it
+                if ($field["type"] == "password") {
+                    $cols[$input_name] = password_hash($input, PASSWORD_DEFAULT);
+                    $form["fields"][$index]["value"] = $cols[$input_name];
+                } 
             }
             $form["cols"] = $cols;
             // save to db
@@ -109,6 +125,10 @@ class xpa_form
                 "created" => $now,
             ];
             xpa_sqlite::create("form/geocms", $row);
+
+            // feedback
+            $ok = $form["labels"]["ok"] ?? "...(ok $now)...";
+            $form["feedback"] = $ok;
         }
 
         return $form;
