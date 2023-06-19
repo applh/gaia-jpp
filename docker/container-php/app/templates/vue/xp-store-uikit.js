@@ -36,7 +36,11 @@ let form_load = async function (name) {
     }
     // else load it from server
     let url = `/api/forms`
-    let json = await xp_fetch(url, { name })
+    let json = await xp_fetch(url, {
+        class: 'form',
+        method: 'load',
+        name: name,
+    })
     storer.forms[name] = json?.forms[name] ?? null
     return storer.forms[name]
 }
@@ -70,6 +74,7 @@ const CeForm = defineCustomElement({
                     <input v-else :type="f.type" :name="f.name" :value="f.value" v-model="f.value" />
                 </label>
                 <button type="submit">Send</button>
+                <div class="feedback">{{ form?.feedback ?? '...' }}</div>
             </form>
         </div>
     `,
@@ -87,7 +92,19 @@ const CeForm = defineCustomElement({
     },
     methods: {
         async act_submit() {
-            console.log('submit', this.form)
+            // console.log('submit', this.form)
+            // else load it from server
+            let url = `/api/forms`
+            let json = await xp_fetch(url, {
+                class: 'form',
+                method: 'submit',
+                form: this.form,
+            })
+            // console.log('json', json)
+            let form = json?.forms[this.form.name] ?? null
+            if (form?.feedback) {
+                this.form = form
+            }
         }
     },
     async created() {
@@ -108,13 +125,13 @@ export default {
     install: (app, options) => {
 
         // register async component xp-form
-        app.component('xp-form', defineAsyncComponent(() => 
+        app.component('xp-form', defineAsyncComponent(() =>
             import('XpForm')
         ))
 
- 
+
         // add global properties
-        app.config.globalProperties.$xp = (cmd='') => {
+        app.config.globalProperties.$xp = (cmd = '') => {
             return cmd + ' from xp-store-uikit.js'
         }
 

@@ -15,7 +15,7 @@
         {
             "name": "password",
             "type": "password",
-            "label": "Name",
+            "label": "Password",
             "value": "",
             "placeholder": "Your name",
             "required": true,

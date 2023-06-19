@@ -14,6 +14,9 @@ class xpa_form
 {
     //#class_start
 
+    static $errors = [];
+    static $request_json = null;
+
     static function request_json ()
     {
         // get $_FILES["request_json"] 
@@ -27,6 +30,10 @@ class xpa_form
             // xpa_router::json_add("debug_content", $content);
             // decode json
             $json_request = json_decode($content, true);
+
+            // store for later use
+            xpa_form::$request_json = $json_request;
+
             return $json_request;
         }
 
@@ -59,6 +66,54 @@ class xpa_form
         return $res;
         
     }
+
+    static function request_filename($name, $default = null) 
+    {
+        $res = $default;
+        $input = xpa_form::$request_json[$name] ?? $default;
+        if (!empty($input)) {
+            $res = xpa_form::filter_filename($input);
+        }
+        else {
+            // add error
+            xpa_form::$errors[] = "input_filename: $name is empty";
+        }
+        return $res;
+    }
+
+    static function process ($form)
+    {
+        $now = xpa_os::now();
+        $form ??= [];
+        $form["feedback"] = "...(processing $now)...";
+
+        $name = $form["name"] ?? "";
+        if ($name) {
+            $form_process = xpa_os::load_json("templates/vue/form-$name.json") ?? [];
+            $fields = $form_process["fields"] ?? [];
+            $inputs = $form["fields"] ?? [];
+            $cols = [];
+            // CHECK: can $index be mixed by front ?
+            // WARNING: front can't change fields index order 
+            foreach($fields as $index => $field) {
+                $input_name = $field["name"] ?? "";
+                $input = $inputs[$index]["value"] ?? "";
+                $cols[$input_name] = $input; 
+            }
+            $form["cols"] = $cols;
+            // save to db
+            $row = [
+                "path" => "form/$name",
+                "cat" => $name,
+                "code" => json_encode($form, JSON_PRETTY_PRINT),
+                "created" => $now,
+            ];
+            xpa_sqlite::create("form/geocms", $row);
+        }
+
+        return $form;
+    }
+
     //#class_end
 }
 
