@@ -1,4 +1,6 @@
 <?php
+// disable cache
+xpa_controller::$cache_active = false;
 
 function lorem()
 {
@@ -223,7 +225,9 @@ function lorem()
         </section>
     </main>
     <aside>
-
+        <ce-form></ce-form>
+        <ce-form name="newsletter"></ce-form>
+        <ce-form name="login"></ce-form>
     </aside>
     <footer>
     </footer>
@@ -237,6 +241,8 @@ function lorem()
             <div class="uk-text-center">{{ sv.name }}</div>
             <div class="uk-text-center">{{ $xp('hello') }}</div>
             <button class="uk-width-1-4" @click.prevent="sv.counter++">click {{ sv.counter }}</button>
+            <xp-form></xp-form>
+            <ce-form></ce-form>
         </div>
     </template>
 
@@ -244,7 +250,8 @@ function lorem()
         {
         "imports": {
             "vue": "/template/vue/vue.esm-browser.prod.js",
-            "xp-store": "/template/vue/xp-store-uikit.js"
+            "xp-store": "/template/vue/xp-store-uikit.js",
+            "XpForm": "/template/vue/xp-store-form.js"
         }
     }
     </script>

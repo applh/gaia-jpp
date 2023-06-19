@@ -38,8 +38,32 @@ class xpa_route_api
             static::response_wp();
         }
 
+        if ($filename == "forms") {
+            static::response_forms();
+        }
+
     }
 
+    static function response_forms ()
+    {
+        $forms = [];
+
+        $request_json = xpa_form::request_json();
+        $name = $request_json["name"] ?? "";
+        if ($name) {
+            // filter name
+            xpa_form::filter_filename($name);
+            $json = xpa_os::load_json("templates/vue/form-$name.json") ?? [ "paf" => "pif"];
+            $forms[$name] = $json;
+        }
+
+        xpa_router::json_add("forms", $forms);
+        xpa_router::json_add("request_json", $request_json);
+
+        xpa_router::json();
+
+    }
+    
     static function response_wp ()
     {
         xps_api::process();

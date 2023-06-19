@@ -1,5 +1,6 @@
 {
     "name": "newsletter",
+    "title": "Join Our Newsletter",
     "fields": [
         {
             "name": "name",

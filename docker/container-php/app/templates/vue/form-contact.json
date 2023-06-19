@@ -1,5 +1,6 @@
 {
     "name": "contact",
+    "title": "Contact Us",
     "fields": [
         {
             "name": "name",

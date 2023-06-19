@@ -30,6 +30,7 @@ class xpa_controller
 
     static function cache_start()
     {
+        // TODO: check router before to decide if cache is active
         if (xpa_controller::$cache_active) {
             // header("X-Debug-Cache: true");
             ob_start();
@@ -39,8 +40,6 @@ class xpa_controller
     static function run()
     {
         // TODO: process request infos
-        // show xpa_os::$tasks
-        // print_r(xpa_os::$tasks);
     }
 
     static function cache_end($prefix="")

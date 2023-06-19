@@ -209,6 +209,19 @@ class xpa_os
         die();
     }
 
+    static function load_json ($path)
+    {
+        // get path_data
+        $root = xpa_os::kv("root") ?? cli::kv("root");
+        $path = "$root/$path";
+        if (!is_file($path)) {
+            return null;
+        }
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+        return $data;
+    }
+
     //#class_end
 }
 

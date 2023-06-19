@@ -25,6 +25,10 @@ class xps_action
 
         // WARNING: 🔥 maybe the plugin can override WP core (and kill WP code)
         xps_action::cms_priority();
+        // activate cache
+        xps_action::init_cache();
+        // WARNING: CACHE CAN STOP WP HERE IF CACHE IS ACTIVE
+        // (that's why cache is useful to consume less PHP resources... 🔥😱)
 
         // if WP is still active, then we can add our own actions
         add_action('wp_head', 'xps_action::wp_head_meta_description');
@@ -36,9 +40,7 @@ class xps_action
         // WARNING: admin_menu can't be inside admin_init
         add_action("admin_menu", "xps_action::admin_menu");
 
-        // activate cache
-        xps_action::init_cache();
-
+        // WARNING: cache build can happen here...
         add_filter("template_include", "xps_action::template_include");
 
     }

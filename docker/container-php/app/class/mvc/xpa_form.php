@@ -30,6 +30,7 @@ class xpa_form
             return $json_request;
         }
 
+        return null;
     }
 
     static function request ($name, $default = null)
@@ -38,6 +39,26 @@ class xpa_form
         return $value;
     }
 
+    /**
+     * The code excerpt is a static PHP function called filter_filename() 
+     * that takes two parameters: $input and $mask. 
+     * The purpose of the function is to filter a filename 
+     * by removing any characters that do not match the specified mask.
+     * The function first uses the preg_replace() function with the $mask parameter 
+     * to remove any characters that do not match the specified mask. 
+     * The resulting string is then passed through a series of additional preg_replace() functions 
+     * to remove any occurrences of .., ., and -- characters. 
+     * Finally, the filtered string is returned.
+     */
+    static function filter_filename ($input, $mask="/[^a-zA-Z0-9\.\-\_]/")
+    {
+        $res = preg_replace($mask, "", $input);
+        $res = preg_replace("/\.\./", "", $res);
+        $res = preg_replace("/\./", "", $res);
+        $res = preg_replace("/\-\-/", "-", $res);
+        return $res;
+        
+    }
     //#class_end
 }
 
