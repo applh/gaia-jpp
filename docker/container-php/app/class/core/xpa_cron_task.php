@@ -127,6 +127,68 @@ class xpa_cron_task
         }
     }
 
+    static function scrap_check ()
+    {
+        $path_data = cli::kv("path_data");
+        $config_scrap = json_decode(file_get_contents("$path_data/config-scrap.json"), true);
+        if (empty($config_scrap)) {
+            $config_scrap = [];
+        }
+        $config_scrap_labels = $config_scrap["labels"] ?? [];
+        $label_gone = $config_scrap_labels["gone"] ?? "";
+        $limit = intval($config_scrap["limit"]) ?? 10;
+
+        if ($label_gone) {
+            $rows = xpa_sqlite::read("zoom5/geocms", "WHERE z > 0 ORDER BY updated ASC, created ASC  LIMIT $limit");
+            // $rows = xpa_sqlite::read("zoom5/geocms", "WHERE code LIKE '%GONE%' ORDER BY created ASC LIMIT 10");
+            $nb_found = count($rows);
+            foreach($rows as $index => $row) {
+                extract($row);
+                $url ??= "";
+                $id ??= 0;
+                $code ??= "";
+
+                $created = substr($created, 0, 10);
+                $content = "";
+                if ($id && $url) {
+                    // check if $code contains $label_gone
+                    if (strpos($code, $label_gone) !== false) {
+                        // echo "$index/$nb_found: GONE ($id, $created) $url <br>";
+                        // already checked
+                        continue;
+                    }
+
+                    // echo "$index/$nb_found: ($id, $created) $url <br>";
+                    // get content 
+                    $content = file_get_contents($url);
+                    if ($content) {
+                        $path_data = cli::kv("path_data");
+                        $path_cron = "$path_data/cron";
+                        // save content to file
+                        $path_content = "$path_cron/scrap/content/content-$id-$created.html";
+                        // check if label_gone is in content
+                        if (strpos($content, $label_gone) !== false) {
+                            // echo "GONE: $id, $created <br>";
+                            // set z to 0
+                            xpa_sqlite::update("zoom5/geocms", $id, [
+                                "code" => "$code \n$label_gone", 
+                                "z" => 0, 
+                                "updated" => xpa_os::now()
+                            ]);
+                        }
+                        else {
+                            // save content to file
+                            file_put_contents($path_content, $content);
+                            xpa_sqlite::update("zoom5/geocms", $id, [
+                                "updated" => xpa_os::now()
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     static function scrap_score()
     {
         $path_data = cli::kv("path_data");
@@ -145,11 +207,18 @@ class xpa_cron_task
             foreach ($rows as $row) {
                 extract($row);
                 $title ??= "";
+                $url ??= "";
 
                 $score = null;
-                if ($title) {
+                if ($title && $url) {
                     // lowercase
                     $title = strtolower($title);
+                    $url = strtolower($url);
+                    $path = parse_url($url, PHP_URL_PATH);
+                    // change / to -
+                    $path = str_replace("/", "-", $path);
+                    // remove -
+                    $path = str_replace("-", " ", $path);
 
                     // check if title contains a filter
                     foreach ($config_scrap_filters as $filter => $value) {
@@ -157,6 +226,12 @@ class xpa_cron_task
                         if ($filter) {
                             // lowercase
                             $filter = strtolower($filter);
+                            if (strpos($path, $filter) !== false) {
+                                $score = $value;
+                                // debug
+                                // file_put_contents($debug_log, "$id:$score: $title\n", FILE_APPEND);
+                                break;
+                            }
                             if (strpos($title, $filter) !== false) {
                                 $score = $value;
                                 // debug
@@ -184,7 +259,7 @@ class xpa_cron_task
         // loop on rows
         foreach ($rows as $row) {
             extract($row);
-            echo "$id $z $title $date\n";
+            // echo "$id $z $title $date\n";
             $copy = [];
             $copy["path"] = "zoom5";
             $copy["filename"] = $md5;

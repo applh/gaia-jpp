@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `geocms`
     title TEXT,
     content TEXT,
     media TEXT,
+    template TEXT,
     cat TEXT,
     tags TEXT,
     created TEXT,

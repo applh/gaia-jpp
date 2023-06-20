@@ -1,5 +1,6 @@
 {
     "name": "login",
+    "action": "login",    
     "title": "Login",
     "labels": {
         "ok": "login ongoing..."

@@ -27,11 +27,21 @@
             margin: 0;
         }
 
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            flex-direction: column-reverse;
+        }
+
         input,
         button {
             padding: 0.5rem;
         }
-
+        input[type="number"] {
+            display: inline-block;
+            width: 5rem;
+        }
         textarea {
             width: 100%;
             padding: 0.5rem;
@@ -40,12 +50,12 @@
         .box-img {
             width: 100%;
             max-width: 60vw;
-            height: 10vmin;
+            height: 20vmin;
             overflow-y: auto;
         }
 
         li .box-img:hover {
-            height: 20vmin;
+            height: 30vmin;
         }
 
         img {
@@ -65,6 +75,7 @@
             height: 100vh;
             z-index: 100;
         }
+
         /* COLORS */
         h2 {
             background-color: #333;
@@ -82,27 +93,31 @@
 
     <template id="appTemplate">
         <h1>{{ msg }}</h1>
-        <div v-for="(wval, wkey, windex) of weeks">
-            <h2>
-                <span>Week {{ wkey }} (total: {{ wval.length }})</span>
-                <input type="checkbox" v-model="ui.weeks[wkey]" />
-            </h2>
-            <ol v-if="ui.weeks[wkey]">
-                <li v-for="post in wval">
-                    <h3>{{ post.title }} / {{ post.ui.part2 }} / {{ post.z }} / {{ post.created.substring(5, 10) }}</h3>
-                    <p><a :href="post.url" target="_blank">{{ post.url }}</a></p>
-                    <form @submit.prevent="act_save(post)">
-                        <input type="number" v-model="post.z" />
-                        <button>SAVE ({{ post.id}})</button>
-                        <textarea v-model="post.code" rows="5"></textarea>
-                        <button>SAVE ({{ post.id}})</button>
-                    </form>
-                    <div class="box-img" @mouseover="act_image_hover">
-                        <img loading="lazy" :src="'/media/zoom5/screenshot-zoom5-' + post.id + '.png'" />
-                    </div>
-                </li>
-            </ol>
+        <div class="posts">
+            <div v-for="(wval, wkey, windex) of weeks">
+                <h2>
+                    <span>Week {{ wkey }} (total: {{ wval.length }})</span>
+                    <input type="checkbox" v-model="ui.weeks[wkey]" />
+                </h2>
+                <ol v-if="ui.weeks[wkey]">
+                    <li v-for="post in wval">
+                        <div class="box-img" @mouseover="act_image_hover">
+                            <img loading="lazy" :src="'/media/zoom5/screenshot-zoom5-' + post.id + '.png'" />
+                        </div>
+                        <h3>{{ post.title }} / {{ post.ui.part2 }} / {{ post.z }} / {{ post.created.substring(5, 10) }}</h3>
+                        <p><a :href="post.url" target="_blank">{{ post.url }}</a></p>
+                        <form @submit.prevent="act_save(post)">
+                            <button>SAVE ({{ post.id}})</button>
+                            <input type="range" v-model="post.z" min="-10" max="10"/>
+                            <input type="number" v-model="post.z" />
+                            <textarea v-model="post.code" rows="5"></textarea>
+                            <button>SAVE ({{ post.id}})</button>
+                        </form>
+                    </li>
+                </ol>
+            </div>
         </div>
+
         <div class="box-img focus">
             <img class="" ref="focus" />
         </div>
@@ -168,11 +183,11 @@
                     let part2 = post.url.split("/")[5];
                     if (!post.ui) {
                         post.ui = {};
-                    }   
+                    }
                     post.ui.part2 = part2;
                 }
 
-                this.msg = "Welcome! (count: " + this.posts.length + ")";
+                this.msg = "Welcome! (total: " + this.posts.length + ")";
             },
             methods: {
                 act_image_hover(e) {
@@ -223,7 +238,9 @@
             }
         });
         app.mount('#app');
+
     </script>
+    <script type="module" src="/template/vue/cookies.js"></script>
 </body>
 
 </html>

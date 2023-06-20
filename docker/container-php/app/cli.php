@@ -27,6 +27,12 @@ class cli
 
         // add autoload
         spl_autoload_register("cli::autoload");
+        
+        // add composer autoload if exists
+        $path_composer = __DIR__ . "/vendor/autoload.php";
+        if (file_exists($path_composer)) {
+            require_once $path_composer;
+        }
 
         // search for config files
         // then load it

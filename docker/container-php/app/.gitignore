@@ -1,2 +1,7 @@
 # FIXME: could be too vague
 # tmp*
+
+composer.lock
+vendor
+
+

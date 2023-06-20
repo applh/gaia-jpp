@@ -1,5 +1,6 @@
 {
     "name": "register",
+    "action": "register",
     "title": "Create Your Account",
     "labels": {
         "ok": "Thank you for becoming a member of our community!"

@@ -97,7 +97,9 @@ class xpa_form
         $name = $form["name"] ?? "";
         if ($name) {
             $form_process = xpa_os::load_json("templates/vue/form-$name.json") ?? [];
+            $action = $form_process["action"] ?? "create";
             $fields = $form_process["fields"] ?? [];
+
             $inputs = $form["fields"] ?? [];
             $cols = [];
             // CHECK: can $index be mixed by front ?
@@ -116,15 +118,20 @@ class xpa_form
                     $form["fields"][$index]["value"] = $cols[$input_name];
                 } 
             }
+
             $form["cols"] = $cols;
-            // save to db
-            $row = [
-                "path" => "form/$name",
-                "cat" => $name,
-                "code" => json_encode($form, JSON_PRETTY_PRINT),
-                "created" => $now,
-            ];
-            xpa_sqlite::create("form/geocms", $row);
+
+            if (in_array($action, ["create", "register"])) {
+                // save to db
+                $row = [
+                    "path" => "form/$name",
+                    "cat" => $name,
+                    "code" => json_encode($form, JSON_PRETTY_PRINT),
+                    "created" => $now,
+                ];
+                xpa_sqlite::create("form/geocms", $row);
+
+            }
 
             // feedback
             $ok = $form["labels"]["ok"] ?? "...(ok $now)...";
