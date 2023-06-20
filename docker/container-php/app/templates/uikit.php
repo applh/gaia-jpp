@@ -1,11 +1,12 @@
 <?php
+
 // disable cache
 xpa_controller::$cache_active = false;
 
 function lorem()
 {
     $lorem =
-        <<<html
+    <<<html
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
     Nulla vel odio vitae mag na aliquam aliquam. 
     Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
@@ -22,12 +23,20 @@ function lorem()
 <html lang="en">
 
 <head>
-    <title>UIKIT</title>
-    <meta charset="utf-8">
+<meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="uikit template">
+
+    <title>UIKIT</title>
+    <?php xpa_html::ld_json() ?>        
+
     <link rel="stylesheet" href="/template/uikit/css/uikit.min.css" />
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         h1,
         h2,
         h3 {
@@ -74,17 +83,50 @@ function lorem()
         section p {
             padding: 1rem;
         }
+
         section p:hover {
             background-color: rgba(200, 200, 200, 0.5);
             border-radius: 1rem;
         }
+
         section.uk-light p:hover {
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 1rem;
         }
+
         /* COLORS */
         header {
             background-color: #f66;
+        }
+
+        /* FORMS */
+        form {
+            padding: 1rem;
+            border: 1px solid #f66;
+            border-radius: 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            width: 100%;
+        }
+
+        form label {
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        form input {
+            padding: 1rem;
+            width: 100%;
+        }
+
+        form textarea {
+            padding: 1rem;
+            width: 100%;
+        }
+
+        form button {
+            padding: 1rem;
+            width: 100%;
         }
     </style>
 </head>
@@ -98,6 +140,9 @@ function lorem()
                 </li>
                 <li>
                     <a href="/uikit">uikit</a>
+                </li>
+                <li>
+                    <a href="/app">app</a>
                 </li>
             </ul>
         </nav>
@@ -138,8 +183,9 @@ function lorem()
 
         <section class="s2 uk-section">
             <div class="uk-container">
-                <h2>title 2</h1>
-                    <p class="uk-column-1-2"><?php lorem() ?></p>
+                <h2>title 2</h2>
+                <p class="uk-column-1-2"><?php lorem() ?></p>
+                <div data-xp-form="register"></div>
             </div>
             <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
                 <section class="uk-section">
@@ -175,8 +221,9 @@ function lorem()
 
         <section class="s2 uk-section uk-light" uk-parallax="bgy: -200" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
             <div class="uk-container">
-                <h2>title 2</h1>
-                    <p class="uk-column-1-2"><?php lorem() ?></p>
+                <h2>title 2</h2>
+                <p class="uk-column-1-2"><?php lorem() ?></p>
+                <div data-xp-form="contact"></div>
             </div>
             <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
                 <section class="uk-section">
@@ -223,11 +270,66 @@ function lorem()
                 </section>
             </div>
         </section>
+
+        <section class="s2 uk-section uk-dark" uk-parallax="bgy: -200" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
+            <div class="uk-container">
+                <h2>title 2</h2>
+                <p class="uk-column-1-2"><?php lorem() ?></p>
+                <ce-form name="newsletter"></ce-form>
+            </div>
+            <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+                <section class="uk-section">
+                    <div class="uk-container">
+                        <h3>title 3</h1>
+                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
+                            <p><?php lorem() ?></p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
     </main>
     <aside>
         <ce-form></ce-form>
-        <ce-form name="newsletter"></ce-form>
         <ce-form name="login"></ce-form>
+        <div data-xp-form="lost-password"></div>
+        <div data-xp-form="new-password"></div>
+
     </aside>
     <footer>
     </footer>
@@ -241,8 +343,7 @@ function lorem()
             <div class="uk-text-center">{{ sv.name }}</div>
             <div class="uk-text-center">{{ $xp('hello') }}</div>
             <button class="uk-width-1-4" @click.prevent="sv.counter++">click {{ sv.counter }}</button>
-            <xp-form></xp-form>
-            <ce-form></ce-form>
+            <xp-form v-for="fname in sv.forms_teleport" :name="fname"></xp-form>
         </div>
     </template>
 
@@ -277,7 +378,7 @@ function lorem()
             },
             mounted() {
                 // count the number of titles
-                [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img' ].forEach(tag => {
+                ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img'].forEach(tag => {
                     let titles = document.querySelectorAll('main ' + tag)
                     console.log(tag, titles.length);
                 });
@@ -293,7 +394,7 @@ function lorem()
                         // type = "attributes"
                         // if class changes
                         // then attributeName = "class" if class changes
-                        
+
                         // type = "childList"
                         // when child nodes are updated
 
