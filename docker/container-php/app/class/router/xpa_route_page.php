@@ -15,6 +15,8 @@ class xpa_route_page
 {
     //#class_start
 
+    static $template = "";
+
     static function response($dirname = "", $filename = "", $extension = "")
     {
         // get the params from storage
@@ -105,6 +107,9 @@ class xpa_route_page
         $text_titles = $matches[2];
         $level_titles = $matches[1];
 
+        $lines = explode("\n", $content);
+        $cur_line = 0;
+
         $tree_sections = [];
         $index_1 = 0;
         $index_2 = 0;
@@ -112,18 +117,21 @@ class xpa_route_page
         $index_4 = 0;
         $index_5 = 0;
         $index_6 = 0;
-        foreach($html_titles as $i => $html_title) {
+        foreach ($html_titles as $i => $html_title) {
             $text_title = $text_titles[$i];
             $level_title = $level_titles[$i];
+            $bloc = xpa_route_page::get_bloc($level_title, $text_title, $lines);
             $titles[] = [
                 "text" => $text_title,
                 "level" => $level_title,
+                "bloc" => $bloc,
             ];
 
             if ($level_title == 1) {
                 $index_1++;
                 $tree_sections[] = [
                     "text" => $text_title,
+                    "bloc" => $bloc,
                     "level" => $level_title,
                     "children" => [],
                 ];
@@ -131,8 +139,9 @@ class xpa_route_page
 
             if ($level_title == 2) {
                 $index_2++;
-                $tree_sections[$index_1 -1]["children"][] = [
+                $tree_sections[$index_1 - 1]["children"][] = [
                     "text" => $text_title,
+                    "bloc" => $bloc,
                     "level" => $level_title,
                     "children" => [],
                 ];
@@ -140,8 +149,9 @@ class xpa_route_page
 
             if ($level_title == 3) {
                 $index_3++;
-                $tree_sections[$index_1 -1]["children"][$index_2 -1]["children"][] = [
+                $tree_sections[$index_1 - 1]["children"][$index_2 - 1]["children"][] = [
                     "text" => $text_title,
+                    "bloc" => $bloc,
                     "level" => $level_title,
                     "children" => [],
                 ];
@@ -175,37 +185,90 @@ class xpa_route_page
             // }
 
         }
-        // print_r($tree_sections);
 
-        $html_sections = xpa_route_page::build_sections($tree_sections);
-        // echo $html_sections;
+        static::$template = "uikit";
 
-        // echo $html;
-        $style =  '<link rel="stylesheet" href="/media/howto-style.css">';
-
-        xpa_html::add_part("link", $style);
-        xpa_html::add_part("main", $html_sections);
-        xpa_html::page();
+        if (static::$template == "uikit") {
+            $html_sections = xpa_route_page::build_sections_uikit($tree_sections);
+            xpa_html::add_part("main", $html_sections);
+            xpa_os::template("uikit");
+        }
+        else {
+            $html_sections = xpa_route_page::build_sections($tree_sections);
+            $style =  '<link rel="stylesheet" href="/media/howto-style.css">';
+    
+            xpa_html::add_part("link", $style);
+            xpa_html::add_part("main", $html_sections);
+            xpa_html::page();    
+        }
     }
 
+    static function get_bloc ($level, $text, $lines)
+    {
+        static $parsedown = null;
+        if ($parsedown == null) {
+            $parsedown = new Parsedown();
+        }
 
-    static function build_sections ($tree_sections, $tab="")
+        static $cur_line = 0;
+        static $lines_count = 0;
+        // read each line and find start and end of bloc
+        // start of bloc is the line after the title
+        // end of bloc is the line before the next title
+        if ($cur_line == 0) {
+            $lines_count = count($lines);
+        }
+        $title = str_repeat("#", $level) . " " . $text;
+
+        $bloc_start = $cur_line;
+        $bloc_end = $lines_count;
+        while ($cur_line < $lines_count) {
+            $line = $lines[$cur_line];
+            $cur_line++;
+            // left pad $text with # to match the level
+            if (trim($line) == $title) {
+                $bloc_start = $cur_line;
+                break;
+            }
+        }
+
+        while ($cur_line < $lines_count) {
+            $line = $lines[$cur_line];
+            $cur_line++;
+            // check: next title starts with ## as h1 is #
+            if (strpos($line, "# ") > 0) {
+                $bloc_end = $cur_line - 1;
+                // warning: rewind to keep the next title
+                $cur_line--; 
+                break;
+            }
+        }
+        $bloc = "";
+        for ($i = $bloc_start; $i < $bloc_end; $i++) {
+            // warning: don't remove left spaces (indentation)
+            $bloc .= rtrim($lines[$i]) . "\n";
+        }
+
+        // $bloc = $parsedown->line($bloc);
+        $bloc = $parsedown->text($bloc);
+
+        return $bloc;
+    
+    }
+
+    static function build_sections($tree_sections, $tab = "", $tab0 = "    ")
     {
         $html = "";
-        foreach($tree_sections as $tree_section) {
+        foreach ($tree_sections as $tree_section) {
             $text = $tree_section["text"];
             $level = $tree_section["level"];
             $hlevel = "h$level";
             $tag = ($level > 1) ? "section" : "main";
 
+            $bloc = $tree_section["bloc"];
+
             $children = $tree_section["children"];
-
-            // $html .= "<section>";
-            // $html .= "<h$level>$text</h$level>";
-            // $html .= xpa_route_page::build_sections($children);
-            // $html .= "</section>";
-
-            $html_children = xpa_route_page::build_sections($children, $tab . "    ");
+            $html_children = xpa_route_page::build_sections($children, $tab . $tab0);
 
             $html .=
             <<<HTML
@@ -213,12 +276,70 @@ class xpa_route_page
             $tab<!--$level-->
             $tab<$tag class="s$level">
             $tab    <$hlevel>$text</$hlevel>
+            $tab    $bloc
             $tab    $html_children
             $tab</$tag>
 
             HTML;
         }
         return $html;
+    }
+
+    static function build_sections_uikit ($tree_sections, $tab = "", $tab0 = "    ")
+    {
+        $html = "";
+        foreach ($tree_sections as $tree_section) {
+            $text = $tree_section["text"];
+            $level = $tree_section["level"];
+            $hlevel = "h$level";
+            $bloc = $tree_section["bloc"];
+
+            $children = $tree_section["children"];
+            $html_children = xpa_route_page::build_sections_uikit($children, $tab . $tab0);
+
+            if ($level == 1) {
+                $html .=
+                <<<HTML
+                <main>
+                    <div class="uk-section">
+                        <div class="uk-container">
+                            <h1>$text</h1>
+                            $bloc
+                        </div>
+                    </div>
+                    $html_children
+                </main>
+                HTML;
+            }
+
+            if ($level == 2) {
+                $html .=
+                <<<HTML
+                $tab<section class="s2 uk-section" uk-parallax="bgy: -200">
+                $tab    <div class="uk-container">
+                $tab        <h2>$text</h2>
+                $tab        $bloc
+                $tab    </div>
+                $tab    <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@xl">
+                $tab    $html_children
+                $tab    </div>
+                $tab</section>
+                HTML;
+            }
+
+            if ($level == 3) {
+                $html .=
+                <<<HTML
+                $tab    <div class="uk-container">
+                $tab        <h2>$text</h2>
+                $tab        $bloc
+                $tab    </div>
+                HTML;
+            }
+
+        }
+        return $html;
+
     }
 
     //#class_end

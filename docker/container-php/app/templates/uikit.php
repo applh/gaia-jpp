@@ -1,7 +1,8 @@
 <?php
 
 // disable cache
-xpa_controller::$cache_active = false;
+// xpa_controller::$cache_active = false;
+setcookie('xpa_cache', 'false');
 
 function lorem()
 {
@@ -147,6 +148,9 @@ function lorem()
             </ul>
         </nav>
     </header>
+    <!-- MD -->
+    <?php xpa_html::main() ?>
+    <!-- MD -->
     <main>
         <div class="uk-section">
             <div class="uk-container">
@@ -155,25 +159,25 @@ function lorem()
         </div>
         <section class="s2 uk-section uk-light" uk-parallax="bgy: -200">
             <div class="uk-container">
-                <h2>title 2</h1>
+                <h2>title 2</h2>
                     <p class="uk-column-1-2"><?php lorem() ?></p>
             </div>
             <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m">
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
@@ -190,28 +194,28 @@ function lorem()
             <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
@@ -228,42 +232,42 @@ function lorem()
             <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
@@ -280,42 +284,42 @@ function lorem()
             <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
                 </section>
                 <section class="uk-section">
                     <div class="uk-container">
-                        <h3>title 3</h1>
+                        <h3>title 3</h3>
                             <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
                             <p><?php lorem() ?></p>
                     </div>
