@@ -27,9 +27,10 @@ function lorem()
 <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="uikit template">
 
-    <title>UIKIT</title>
+    <?php xpa_html::title0() ?>        
+    <?php xpa_html::description() ?> 
+           
     <?php xpa_html::ld_json() ?>        
 
     <link rel="stylesheet" href="/template/uikit/css/uikit.min.css" />
@@ -148,192 +149,9 @@ function lorem()
             </ul>
         </nav>
     </header>
-    <!-- MD -->
     <?php xpa_html::main() ?>
-    <!-- MD -->
-    <main>
-        <div class="uk-section">
-            <div class="uk-container">
-                <h1>title 1</h1>
-            </div>
-        </div>
-        <section class="s2 uk-section uk-light" uk-parallax="bgy: -200">
-            <div class="uk-container">
-                <h2>title 2</h2>
-                    <p class="uk-column-1-2"><?php lorem() ?></p>
-            </div>
-            <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m">
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
 
-            </div>
-        </section>
-
-        <section class="s2 uk-section">
-            <div class="uk-container">
-                <h2>title 2</h2>
-                <p class="uk-column-1-2"><?php lorem() ?></p>
-                <div data-xp-form="register"></div>
-            </div>
-            <div class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-2.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-            </div>
-        </section>
-
-        <section class="s2 uk-section uk-light" uk-parallax="bgy: -200" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
-            <div class="uk-container">
-                <h2>title 2</h2>
-                <p class="uk-column-1-2"><?php lorem() ?></p>
-                <div data-xp-form="contact"></div>
-            </div>
-            <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-            </div>
-        </section>
-
-        <section class="s2 uk-section uk-dark" uk-parallax="bgy: -200" uk-scrollspy="target: [uk-img]; cls:uk-animation-slide-bottom">
-            <div class="uk-container">
-                <h2>title 2</h2>
-                <p class="uk-column-1-2"><?php lorem() ?></p>
-                <ce-form name="newsletter"></ce-form>
-            </div>
-            <div uk-sortable class="uk-grid uk-flex-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-                <section class="uk-section">
-                    <div class="uk-container">
-                        <h3>title 3</h3>
-                            <div class="image uk-height-medium uk-background-cover" uk-img data-src="/media/cutout-1.webp"></div>
-                            <p><?php lorem() ?></p>
-                    </div>
-                </section>
-            </div>
-        </section>
-
-    </main>
     <aside>
-        <ce-form></ce-form>
-        <ce-form name="login"></ce-form>
-        <div data-xp-form="lost-password"></div>
-        <div data-xp-form="new-password"></div>
-
     </aside>
     <footer>
     </footer>
@@ -430,6 +248,9 @@ function lorem()
         // mount
         app.mount('#app')
     </script>
+
+    <?php xpa_html::template_debug() ?>
+
 </body>
 
 </html>

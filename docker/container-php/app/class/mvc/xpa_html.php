@@ -48,7 +48,30 @@ class xpa_html
 
     static function title0($text = "title")
     {
-        echo "<title>$text</title>\n";
+        // check if present in $html_parts
+        $content = static::$html_parts["title"] ?? null;
+        if ($content) {
+            echo "<title>$content</title>\n";
+        } else {
+            echo "<title>$text</title>\n";
+        }
+    }
+
+    static function description($text = "description")
+    {
+        // check if present in $html_parts
+        $content = static::$html_parts["description"] ?? null;
+        if ($content) {
+            echo 
+            <<<HTML
+            <meta name="description" content="$content">
+            HTML;
+        } else {
+            echo 
+            <<<HTML
+            <meta name="description" content="$text">
+            HTML;
+        }
     }
 
     static function link()
@@ -260,6 +283,33 @@ class xpa_html
             <img  class="$class" loading="lazy" src="$src" alt="$alt">
         </picture>
         html;
+    }
+
+    static function template_debug ()
+    {
+        // check if present in $html_parts
+        $content = static::$html_parts["template_debug"] ?? null;
+
+        if ($content) {
+            // convert to base64 (to avoid code conflicts)
+            $content = base64_encode($content);
+
+            echo 
+            <<<HTML
+            <template class="deb64">
+            $content
+            </template>
+            <script type="module">
+                document.querySelectorAll("template.deb64").forEach((template) => {
+                    const content = template.innerHTML;
+                    // convert from base64 to utf8
+                    const decoded = atob(content);
+                    console.log(decoded);
+                });
+            </script>
+            HTML;
+        }
+
     }
 
     //#class_end

@@ -43,7 +43,7 @@ The autoload feature allows to organize the code in class files, and to load the
 
 * No import or require is needed.
 * This is where PHP is better than Python or NodeJS.
-* That's surprising, but Python and NodeJS still don't have a class autoload feature.
+* That's surprising, but Python and NodeJS still don't have a class autoload feature. 😱
 
 Class autoloader can be very flexible and opens new features
 * class code stored in .zip archives
@@ -60,6 +60,49 @@ Class autoloader can be very flexible and opens new features
 * PHP has a very large ecosystem, with many libraries, frameworks and CMS.
 * WordPress, Laravel, Symfony
   * WordPress is +43% of websites
+
+## Why Vue ? (and not React or Angular)
+
+* Vue made a very smart choice of using HTML templates 
+  * Stay close of browser JS
+  * (instead of JSX or TypeScript... 😱)
+* Vue compiler can be bundled and sent to the browser.
+  * Vue with compiler is about 100Kb 😎
+  * (about same size as jQuery...)
+* Keeping templates in HTML is a very good idea.
+  * Open source is about customization.
+  * Vue templates can be customized by different approaches
+    * PHP dynamic templates
+    * JS dynamic templates
+
+### Async Components
+
+* So easy to create async components
+  * load component code on demand
+
+### Vue Reactive 
+
+* So easy to create reactive store
+  * (try React Redux and simply compare... 😱)
+
+## AI vs Human
+
+* Human life
+  * about 1.000 months
+  * education
+    * about 20 years
+    * about 240 months
+  * work
+    * about 40 years
+    * about 480 months
+* Human annual work
+  * about 1.600 hours
+  * about 10.000 minutes
+  * about 10.000 tasks
+
+* AI heartbeat
+  * 24H: about 1.440 minutes
+  * about 1.440 tasks
 
 ## Installation
 

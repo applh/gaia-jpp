@@ -16,6 +16,7 @@ class xpa_route_page
     //#class_start
 
     static $template = "";
+    static $config = [];
 
     static function response($dirname = "", $filename = "", $extension = "")
     {
@@ -120,7 +121,9 @@ class xpa_route_page
         foreach ($html_titles as $i => $html_title) {
             $text_title = $text_titles[$i];
             $level_title = $level_titles[$i];
-            $bloc = xpa_route_page::get_bloc($level_title, $text_title, $lines);
+            $bloc_infos = xpa_route_page::get_bloc($level_title, $text_title, $lines);
+            $bloc = $bloc_infos["bloc"] ?? "";
+
             $titles[] = [
                 "text" => $text_title,
                 "level" => $level_title,
@@ -157,6 +160,41 @@ class xpa_route_page
                 ];
             }
 
+            // HACK: as h4 are unused foe content, we use it for config
+            // insert a codeblock in format 
+            // ```json,meta
+            // {
+            //     "template": "uikit",
+            //     "title": "my title",
+            //     "description": "my description",
+            //     "keywords": "my keywords",
+            //     "image": "my image",
+            //     "robots": "my robots",
+            //     "canonical": "my canonical",
+            //     "og:title": "my og:title",
+            //     "og:description": "my og:description",
+            //     "og:image": "my og:image",
+            //     "og:url": "my og:url",
+            //     "og:site_name": "my og:site_name",
+            //     "og:type": "my og:type"
+            // }
+            if ($level_title == 4) {
+                // get the markdown bloc
+                $bloc_md = $bloc_infos["bloc_md"] ?? "";
+                static::$config["bloc_md"] = $bloc_md;
+                // FIXME: only one code bloc is allowed
+                // extract the smallest json code bloc (not containing ```) betwwen lines starting with ```json,meta and ```
+                $pattern = "/```json,meta\s(.*)```/s";
+                preg_match($pattern, $bloc_md, $matches);                
+
+                static::$config["matches"] = $matches;
+
+                $json = trim($matches[1] ?? "");
+                // decode json
+                $json = json_decode($json, true);
+                static::$config["page"] = $json;
+            }
+
             // if ($level_title == 4) {
             //     $index_4++;
             //     $tree_sections[$index_1]["children"][$index_2]["children"][$index_3]["children"][] = [
@@ -186,11 +224,21 @@ class xpa_route_page
 
         }
 
-        static::$template = "uikit";
+        static::$template = static::$config["page"]["template"] ?? "";
+        $title = static::$config["page"]["title"] ?? "";
+        $description = static::$config["page"]["description"] ?? $title;
 
         if (static::$template == "uikit") {
             $html_sections = xpa_route_page::build_sections_uikit($tree_sections);
+
+            xpa_html::add_part("title", $title);
+            xpa_html::add_part("description", $description);
             xpa_html::add_part("main", $html_sections);
+
+            static::$config["tree_sections"] = $tree_sections;
+            $template_debug = json_encode(static::$config, JSON_PRETTY_PRINT);
+            xpa_html::add_part("template_debug", $template_debug);
+
             xpa_os::template("uikit");
         }
         else {
@@ -243,16 +291,16 @@ class xpa_route_page
                 break;
             }
         }
-        $bloc = "";
+        $bloc_md = "";
         for ($i = $bloc_start; $i < $bloc_end; $i++) {
             // warning: don't remove left spaces (indentation)
-            $bloc .= rtrim($lines[$i]) . "\n";
+            $bloc_md .= rtrim($lines[$i]) . "\n";
         }
 
         // $bloc = $parsedown->line($bloc);
-        $bloc = $parsedown->text($bloc);
+        $bloc = $parsedown->text($bloc_md);
 
-        return $bloc;
+        return compact("bloc", "bloc_md");
     
     }
 
@@ -288,6 +336,8 @@ class xpa_route_page
     static function build_sections_uikit ($tree_sections, $tab = "", $tab0 = "    ")
     {
         $html = "";
+        $index_s2 = 0;
+        $index_s3 = 0;
         foreach ($tree_sections as $tree_section) {
             $text = $tree_section["text"];
             $level = $tree_section["level"];
@@ -313,9 +363,17 @@ class xpa_route_page
             }
 
             if ($level == 2) {
+                $index_s2++;
+                $s2_class = "s2 uk-section s2-$index_s2";
+                // check if config has extra css
+                $extra_css = static::$config["page"]["css"]["s2-$index_s2"] ?? "";
+                if ($extra_css) {
+                    $s2_class .= " $extra_css";
+                }
+
                 $html .=
                 <<<HTML
-                $tab<section class="s2 uk-section" uk-parallax="bgy: -200">
+                $tab<section class="$s2_class" uk-parallax="bgy: -200">
                 $tab    <div class="uk-container">
                 $tab        <h2>$text</h2>
                 $tab        $bloc
@@ -328,9 +386,15 @@ class xpa_route_page
             }
 
             if ($level == 3) {
+                $index_s3++;
+                $s3_class = "s3 uk-container s3-$index_s3";
+                // check if config has extra css
+                $extra_css = static::$config["page"]["css"]["s3-$index_s3"] ?? "";
+                $s3_class .= $extra_css ?: " $extra_css";
+
                 $html .=
                 <<<HTML
-                $tab    <div class="uk-container">
+                $tab    <div class="$s3_class">
                 $tab        <h2>$text</h2>
                 $tab        $bloc
                 $tab    </div>
