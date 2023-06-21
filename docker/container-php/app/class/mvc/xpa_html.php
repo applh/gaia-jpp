@@ -62,12 +62,12 @@ class xpa_html
         // check if present in $html_parts
         $content = static::$html_parts["description"] ?? null;
         if ($content) {
-            echo 
+            echo
             <<<HTML
             <meta name="description" content="$content">
             HTML;
         } else {
-            echo 
+            echo
             <<<HTML
             <meta name="description" content="$text">
             HTML;
@@ -222,6 +222,24 @@ class xpa_html
             echo "</main>\n";
         }
     }
+    
+    static function head_append($default = "")
+    {
+        // check if present in $html_parts
+        $content = static::$html_parts["head_append"] ?? $default;
+        if ($content) {
+            echo $content;
+        }
+    }
+
+    static function body_append($default = "")
+    {
+        // check if present in $html_parts
+        $content = static::$html_parts["body_append"] ?? $default;
+        if ($content) {
+            echo $content;
+        }
+    }
 
     static function section($level = 2)
     {
@@ -285,7 +303,7 @@ class xpa_html
         html;
     }
 
-    static function template_debug ()
+    static function template_debug()
     {
         // check if present in $html_parts
         $content = static::$html_parts["template_debug"] ?? null;
@@ -294,7 +312,7 @@ class xpa_html
             // convert to base64 (to avoid code conflicts)
             $content = base64_encode($content);
 
-            echo 
+            echo
             <<<HTML
             <template class="deb64">
             $content
@@ -309,7 +327,6 @@ class xpa_html
             </script>
             HTML;
         }
-
     }
 
     //#class_end

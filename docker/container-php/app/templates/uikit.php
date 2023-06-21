@@ -24,14 +24,25 @@ function lorem()
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <?php xpa_html::title0() ?>        
     <?php xpa_html::description() ?> 
-           
+
     <?php xpa_html::ld_json() ?>        
+
+    <!-- WARNING: MUST BE BEFORE script modules -->
+    <script type="importmap">
+        {
+        "imports": {
+            "vue": "/template/vue/vue.esm-browser.prod.js",
+            "xp-store": "/template/vue/xp-store-uikit.js",
+            "XpForm": "/template/vue/xp-store-form.js"
+        }
+    }
+    </script>
 
     <link rel="stylesheet" href="/template/uikit/css/uikit.min.css" />
     <style>
@@ -45,21 +56,11 @@ function lorem()
             text-align: center;
         }
 
-        .s2:nth-of-type(1) {
-            background-image: url('/media/mountains.webp');
+        .s2:nth-of-type(odd) {
             background-repeat: no-repeat;
             background-position: top center;
             background-size: 100%;
             background-color: #aaa;
-        }
-
-        .s2:nth-of-type(3) {
-            background-image: url('/media/sea.jpg');
-            background-repeat: no-repeat;
-            background-position: top center;
-            background-size: 100%;
-            background-color: #aaa;
-
         }
 
         .uk-light h3 {
@@ -131,6 +132,9 @@ function lorem()
             width: 100%;
         }
     </style>
+
+    <?php xpa_html::head_append() ?>
+
 </head>
 
 <body>
@@ -169,15 +173,6 @@ function lorem()
         </div>
     </template>
 
-    <script type="importmap">
-        {
-        "imports": {
-            "vue": "/template/vue/vue.esm-browser.prod.js",
-            "xp-store": "/template/vue/xp-store-uikit.js",
-            "XpForm": "/template/vue/xp-store-form.js"
-        }
-    }
-    </script>
 
     <script type="module">
         import {
@@ -249,7 +244,10 @@ function lorem()
         app.mount('#app')
     </script>
 
+    <?php xpa_html::body_append() ?>
+
     <?php xpa_html::template_debug() ?>
+
 
 </body>
 

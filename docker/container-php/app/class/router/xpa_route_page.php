@@ -185,6 +185,7 @@ class xpa_route_page
                 // FIXME: only one code bloc is allowed
                 // extract the smallest json code bloc (not containing ```) betwwen lines starting with ```json,meta and ```
                 $pattern = "/```json,meta\s(.*)```/s";
+                $matches = [];
                 preg_match($pattern, $bloc_md, $matches);                
 
                 static::$config["matches"] = $matches;
@@ -193,6 +194,13 @@ class xpa_route_page
                 // decode json
                 $json = json_decode($json, true);
                 static::$config["page"] = $json;
+
+                // find the bloc after the last ```
+                // TODO: CHECK IF CODE IS CORRECT ?! 😱
+                $pattern = "/.*```(.*)/s";
+                preg_match($pattern, $bloc_md, $matches);
+                static::$config["body_debug"] = $matches;
+                static::$config["body_append"] = end($matches);
             }
 
             // if ($level_title == 4) {
@@ -227,6 +235,7 @@ class xpa_route_page
         static::$template = static::$config["page"]["template"] ?? "";
         $title = static::$config["page"]["title"] ?? "";
         $description = static::$config["page"]["description"] ?? $title;
+        $body_append = static::$config["body_append"] ?? "";
 
         if (static::$template == "uikit") {
             $html_sections = xpa_route_page::build_sections_uikit($tree_sections);
@@ -234,6 +243,7 @@ class xpa_route_page
             xpa_html::add_part("title", $title);
             xpa_html::add_part("description", $description);
             xpa_html::add_part("main", $html_sections);
+            xpa_html::add_part("body_append", $body_append);
 
             static::$config["tree_sections"] = $tree_sections;
             $template_debug = json_encode(static::$config, JSON_PRETTY_PRINT);
@@ -352,7 +362,7 @@ class xpa_route_page
                 <<<HTML
                 <main>
                     <div class="uk-section">
-                        <div class="uk-container">
+                        <div class="b1 uk-container">
                             <h1>$text</h1>
                             $bloc
                         </div>
@@ -374,7 +384,7 @@ class xpa_route_page
                 $html .=
                 <<<HTML
                 $tab<section class="$s2_class" uk-parallax="bgy: -200">
-                $tab    <div class="uk-container">
+                $tab    <div class="b2 uk-container">
                 $tab        <h2>$text</h2>
                 $tab        $bloc
                 $tab    </div>
