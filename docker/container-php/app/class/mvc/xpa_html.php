@@ -67,11 +67,13 @@ class xpa_html
             echo
             <<<HTML
             <meta name="description" content="$content">
+
             HTML;
         } else {
             echo
             <<<HTML
             <meta name="description" content="$text">
+
             HTML;
         }
     }
@@ -167,6 +169,7 @@ class xpa_html
         <script type="application/ld+json">
         $script
         </script>
+
         html;
     }
 
@@ -434,12 +437,16 @@ class xpa_html
         echo $lorem;
     }
 
-    static function template_markdown($template)
+    static function template_markdown($template, $infos = [])
     {
+        extract($infos);
+        $lang ??= "en";
+        $body_class ??= "";
+
         echo <<<HTML
 
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="$lang">
         
         HTML;
 
@@ -457,7 +464,10 @@ class xpa_html
         xpa_html::head_append();
 
         echo "\n</head>\n";
-        echo "\n<body>\n";
+        echo <<<HTML
+        <body class="$body_class">
+
+        HTML;
 
         xpa_html::get_bloc($template, "## header");
         xpa_html::main();

@@ -237,6 +237,8 @@ class xpa_route_page
         $description = static::$config["page"]["description"] ?? $title;
         $body_append = static::$config["body_append"] ?? "";
 
+        // debug header
+        header("X-Xp-Template: " . static::$template);
         if (static::$template == "uikit") {
             $html_sections = xpa_route_page::build_sections_uikit($tree_sections);
 
@@ -250,6 +252,11 @@ class xpa_route_page
             xpa_html::add_part("template_debug", $template_debug);
 
             xpa_os::template("uikit");
+        }
+        else if (static::$template != "") {
+            $html_sections = xpa_route_page::build_sections($tree_sections);
+            xpa_html::add_part("main", $html_sections);
+            xpa_os::template(static::$template);
         }
         else {
             $html_sections = xpa_route_page::build_sections($tree_sections);
