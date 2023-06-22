@@ -104,7 +104,7 @@ class xpa_os
         }
     }
 
-    static function template($name)
+    static function template($name, $infos = [])
     {
         // FIXME: should use xpa_os::kv() instead of cli::kv()
         $path_root = cli::kv("root");
@@ -118,10 +118,10 @@ class xpa_os
         
         $path_template_markdown = "$path_root/templates/markdown/$name.md";
         if (!$found && is_file($path_template_markdown)) {
-            xpa_html::template_markdown($name);
+            xpa_html::template_markdown($name, $infos);
             $found = true;
         }
-        
+
         if (!$found){
             echo "no $name.php file found as $path_template\n";
         }

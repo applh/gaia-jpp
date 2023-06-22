@@ -91,6 +91,7 @@ class xpa_route_page
 
     static function response_md($article)
     {
+
         // allow gaia cms mix with others cms
         xpa_router::$response_status = "200";
         xpa_router::$mime_type = "text/plain";
@@ -255,8 +256,19 @@ class xpa_route_page
         }
         else if (static::$template != "") {
             $html_sections = xpa_route_page::build_sections($tree_sections);
+
+            $body_blocs = [
+                [
+                    "template" => basename($article),
+                    "title" => "##### vue template",
+                    "path_root" => dirname($article),
+                ]
+            ];
+            $infos = [
+                "body_blocs" => $body_blocs,
+            ];
             xpa_html::add_part("main", $html_sections);
-            xpa_os::template(static::$template);
+            xpa_os::template(static::$template, $infos);
         }
         else {
             $html_sections = xpa_route_page::build_sections($tree_sections);

@@ -38,29 +38,28 @@
 
 <div id="app"></div>
 
-<template id="appTemplate">
-    <h1>{{ message }}</h1>
-    <button @click="counter--">-1</button>
-    <span> {{ $xp_toto(counter) ?? 0 }} </span>
-    <button @click="counter++">+1</button>
-    <div>
-    {{ $xp_toto(counter) }}
-    {{ $xp_titi(counter) }}
-    </div>
-    <div v-if="counter > 0">
-        <xp-compo-a></xp-compo-a>
-    </div>
-</template>
 
 <script type="module">
-    import { createApp, defineAsyncComponent } from 'vue';
+    import { createApp, defineAsyncComponent, reactive } from 'vue';
+
+    // central store for all components
+    let store = reactive({
+    });
 
     function plugin_build (plugin) {
+        plugin.xprox = null;
+
         // if plugin.url then load it as module
         if (plugin.url) {
             import(plugin.url).then((module) => {
                 plugin.xprox = module.default;
                 console.log('loaded plugin', plugin.xprox);
+                // if plugin.xprox.store is present then copy all values in plugin.store
+                if (plugin.xprox.store) {
+                    Object.keys(plugin.xprox.store).forEach((key) => {
+                        store[key] = plugin.xprox.store[key];
+                    });
+                }
             })
         }
 
@@ -77,13 +76,16 @@
             });
 
             // warning: can be called for each refresh
-            app.config.globalProperties['$xp_' + plugin.name ] = (...params) => {
+            app.config.globalProperties['$' + plugin.name ] = (...params) => {
                 // console.log('calling plugin', plugin, options);
                 let res = null;
                 if (plugin?.xprox?.activate ?? false) 
-                    res = plugin.xprox.activate(...params)
+                    res = plugin.xprox.activate(...params, store)
                 return res;
             };
+             
+            app.config.globalProperties[ '$s' ] ?? 
+                (app.config.globalProperties[ '$s' ] = store);
         };
 
         // add plugin to vue app
@@ -105,12 +107,12 @@
         });
     }
 
+    // warning: vue template is defined by content markdown file
     const appConfig = {
         template: '#appTemplate',
-        data () {
-            return {
-                message: 'Hello Vue!',
-                counter: 0
+        computed: {
+            store () {
+                return store;
             }
         }
     };

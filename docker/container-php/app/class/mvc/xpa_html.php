@@ -353,17 +353,18 @@ class xpa_html
         }
     }
 
-    static function get_bloc($path_markdown_file, $title)
+    static function get_bloc($path_markdown_file, $title, $show = true, $path_root = null)
     {
         $res = "";
 
+        $path_root ??= xpa_os::kv("root");
+        $search_file =  "$path_root/$path_markdown_file";
+    
         // check if already loaded
-        $blocs = static::$md_files[$path_markdown_file] ?? [];
+        $blocs = static::$md_files[$search_file] ?? [];
 
         if (empty($blocs)) {
-            $path_root = xpa_os::kv("root");
-            $search_file =  "$path_root/templates/markdown/$path_markdown_file.md";
-    
+
             if (file_exists($search_file)) {
                 $content = file_get_contents($search_file);
                 // trim
@@ -376,7 +377,7 @@ class xpa_html
                     foreach ($rows as $row) {
                         // rtrim
                         $row = rtrim($row);
-    
+
                         // check if new bloc
                         if (preg_match("/^#/", $row)) {
                             // save previous bloc
@@ -393,16 +394,16 @@ class xpa_html
                             $bloc["content"] .= $row . "\n";
                         }
                     }
-    
+
                     // save last bloc
                     if ($bloc) {
                         $bloc_title = $bloc["title"];
                         $blocs[$bloc_title] = $bloc;
                     }
                     // store the blocs for next calls
-                    static::$md_files[$path_markdown_file] = $blocs;
+                    static::$md_files[$search_file] = $blocs;
                 }
-            }            
+            }
         }
 
         // check if bloc exists
@@ -418,7 +419,9 @@ class xpa_html
             $res = rtrim($res, "```");
         }
 
-        echo $res;
+        if ($show) echo $res;
+
+        return $res;
     }
 
     static function lorem()
@@ -439,6 +442,9 @@ class xpa_html
 
     static function template_markdown($template, $infos = [])
     {
+        // fill missing path
+        $template = "templates/markdown/$template.md";
+
         extract($infos);
         $lang ??= "en";
         $body_class ??= "";
@@ -474,6 +480,13 @@ class xpa_html
         xpa_html::get_bloc($template, "## aside");
         xpa_html::get_bloc($template, "## footer");
         xpa_html::get_bloc($template, "## body");
+
+        foreach($body_blocs ?? [] as $body_bloc) {
+            $bloc_template = $body_bloc["template"] ?? "";
+            $bloc_title = $body_bloc["title"] ?? "";
+            $path_root = $body_bloc["path_root"] ?? null;
+            xpa_html::get_bloc($bloc_template, $bloc_title, path_root: $path_root);
+        }
 
         xpa_html::body_append();
 
