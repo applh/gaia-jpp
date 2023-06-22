@@ -15,6 +15,8 @@ class xpa_html
 {
     //#class_start
     static $html_parts = [];
+    static $md_files =  [];
+
 
     static function add_part($name, $content)
     {
@@ -185,6 +187,22 @@ class xpa_html
         echo "</header>\n";
     }
 
+    static function charset()
+    {
+        echo
+        <<<HTML
+        <meta charset="utf-8">
+        HTML;
+    }
+
+    static function viewport()
+    {
+        echo
+        <<<HTML
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        HTML;
+    }
+
     static function footer()
     {
         echo "<footer>\n";
@@ -222,7 +240,7 @@ class xpa_html
             echo "</main>\n";
         }
     }
-    
+
     static function head_append($default = "")
     {
         // check if present in $html_parts
@@ -322,11 +340,137 @@ class xpa_html
                     const content = template.innerHTML;
                     // convert from base64 to utf8
                     const decoded = atob(content);
-                    console.log(decoded);
+                    // console.log(decoded);
+                    // convert json to object
+                    const obj = JSON.parse(decoded);
+                    console.log(obj);
                 });
             </script>
             HTML;
         }
+    }
+
+    static function get_bloc($path_markdown_file, $title)
+    {
+        $res = "";
+
+        // check if already loaded
+        $blocs = static::$md_files[$path_markdown_file] ?? [];
+
+        if (empty($blocs)) {
+            $path_root = xpa_os::kv("root");
+            $search_file =  "$path_root/templates/markdown/$path_markdown_file.md";
+    
+            if (file_exists($search_file)) {
+                $content = file_get_contents($search_file);
+                // trim
+                $content = trim($content);
+                if ($content) {
+                    // split into rows
+                    $rows = explode("\n", $content);
+                    // loop on rows and extract blocs
+                    $bloc = [];
+                    foreach ($rows as $row) {
+                        // rtrim
+                        $row = rtrim($row);
+    
+                        // check if new bloc
+                        if (preg_match("/^#/", $row)) {
+                            // save previous bloc
+                            if ($bloc) {
+                                $bloc_title = $bloc["title"];
+                                $blocs[$bloc_title] = $bloc;
+                            }
+                            // start new bloc
+                            $bloc = [];
+                            $bloc["title"] = $row;
+                            $bloc["content"] = "";
+                        } else {
+                            // add row to current bloc
+                            $bloc["content"] .= $row . "\n";
+                        }
+                    }
+    
+                    // save last bloc
+                    if ($bloc) {
+                        $bloc_title = $bloc["title"];
+                        $blocs[$bloc_title] = $bloc;
+                    }
+                    // store the blocs for next calls
+                    static::$md_files[$path_markdown_file] = $blocs;
+                }
+            }            
+        }
+
+        // check if bloc exists
+        if (isset($blocs[$title])) {
+            $bloc = $blocs[$title];
+            $res = $bloc["content"];
+            // trim
+            $res = trim($res);
+
+            // strip tags ```html and ```
+            // $res = preg_replace("/^```html/", "", $res);
+            $res = ltrim($res, "```html");
+            $res = rtrim($res, "```");
+        }
+
+        echo $res;
+    }
+
+    static function lorem()
+    {
+        $lorem =
+            <<<html
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    Nulla vel odio vitae mag na aliquam aliquam. 
+    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+    Nulla facilisi.
+    il nec libero sit amet velit aliquet dictum.
+    urba accumsan, nisl nec aliquam ultricies, nunc nisl aliquam nunc, id aliquam nunc nisl nec libero.
+    
+    html;
+
+        echo $lorem;
+    }
+
+    static function template_markdown($template)
+    {
+        echo <<<HTML
+
+        <!DOCTYPE html>
+        <html lang="en">
+        
+        HTML;
+
+        echo "\n<head>\n";
+
+        xpa_html::charset();
+        xpa_html::viewport();
+
+        xpa_html::title0();
+        xpa_html::description();
+
+        xpa_html::ld_json();
+
+        xpa_html::get_bloc($template, "## head");
+        xpa_html::head_append();
+
+        echo "\n</head>\n";
+        echo "\n<body>\n";
+
+        xpa_html::get_bloc($template, "## header");
+        xpa_html::main();
+        xpa_html::get_bloc($template, "## aside");
+        xpa_html::get_bloc($template, "## footer");
+        xpa_html::get_bloc($template, "## body");
+
+        xpa_html::body_append();
+
+        xpa_html::template_debug();
+
+        echo "\n</body>\n";
+        echo "\n</html>\n";
     }
 
     //#class_end

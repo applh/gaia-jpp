@@ -46,6 +46,10 @@ class cli
             }
         }
 
+        // setup xpa_os
+        xpa_os::kv("root", cli::kv("root"));
+        xpa_os::kv("path_data", cli::kv("path_data"));
+        
         // set tasks
         xpa_task::add("cms", "xpa_cms::run");
 

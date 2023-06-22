@@ -4,20 +4,21 @@
 * JPP: JavaScript, Python, PHP
 
 GAIA is a CMS available in several situations:
-* In a Docker container, with PHP+Python+SQLite
-* As a standalone CMS, on PHP+SQLite web hosting
-* As a WP plugin, on WP+SQLite web hosting
+* In a Docker container, with PHP + Python + SQLite
+* As a standalone CMS, on PHP + SQLite web hosting
+* As a WP plugin, on WP + MySQL + SQLite web hosting
 * Mix with Laravel
 * Mix with Laravel in Docker container
+
 And also:
 * Mix with Symfony (FIXME)
 * Mix with Symfony in Docker container (FIXME)
   
-* GAIA-JPP is some crazy VSCode dev environment
+GAIA-JPP is some crazy VSCode dev environment
 * Build AI appications with JS, Python and PHP support.
   * And even WordPress + Gutenberg + React 
 
-* Automatic testing is provided by Playwright
+Automatic testing is provided by Playwright
 * 3D is powered by Blender
 
 
@@ -87,6 +88,8 @@ Class autoloader can be very flexible and opens new features
 
 ## AI vs Human
 
+### Human
+
 * Human life
   * about 1.000 months
   * education
@@ -99,6 +102,16 @@ Class autoloader can be very flexible and opens new features
   * about 1.600 hours
   * about 10.000 minutes
   * about 10.000 tasks
+* Human daily work
+  * about 400 minutes
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+  * daily average of 16 tasks of 25 minutes
+
+
+### AI 
 
 * AI heartbeat
   * 24H: about 1.440 minutes

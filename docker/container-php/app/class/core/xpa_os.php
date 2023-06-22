@@ -110,9 +110,19 @@ class xpa_os
         $path_root = cli::kv("root");
         $path_template = "$path_root/templates/$name.php";
 
-        if (is_file($path_template)) {
+        $found = false;
+        if (!$found && is_file($path_template)) {
             include($path_template);
-        } else {
+            $found = true;
+        } 
+        
+        $path_template_markdown = "$path_root/templates/markdown/$name.md";
+        if (!$found && is_file($path_template_markdown)) {
+            xpa_html::template_markdown($name);
+            $found = true;
+        }
+        
+        if (!$found){
             echo "no $name.php file found as $path_template\n";
         }
     }
