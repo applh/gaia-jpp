@@ -257,6 +257,14 @@ class xpa_route_page
         else if (static::$template != "") {
             $html_sections = xpa_route_page::build_sections($tree_sections);
 
+            $head_blocs = [
+                [
+                    "template" => basename($article),
+                    "title" => "##### head",
+                    "path_root" => dirname($article),
+                ]
+            ];
+            
             $body_blocs = [
                 [
                     "template" => basename($article),
@@ -265,8 +273,10 @@ class xpa_route_page
                 ]
             ];
             $infos = [
+                "head_blocs" => $head_blocs,
                 "body_blocs" => $body_blocs,
             ];
+
             xpa_html::add_part("main", $html_sections);
             xpa_os::template(static::$template, $infos);
         }

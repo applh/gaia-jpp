@@ -467,6 +467,14 @@ class xpa_html
         xpa_html::ld_json();
 
         xpa_html::get_bloc($template, "## head");
+
+        foreach($head_blocs ?? [] as $head_bloc) {
+            $bloc_template = $head_bloc["template"] ?? "";
+            $bloc_title = $head_bloc["title"] ?? "";
+            $path_root = $head_bloc["path_root"] ?? null;
+            xpa_html::get_bloc($bloc_template, $bloc_title, path_root: $path_root);
+        }
+
         xpa_html::head_append();
 
         echo "\n</head>\n";
