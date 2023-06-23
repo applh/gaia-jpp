@@ -100,8 +100,8 @@ Class autoloader can be very flexible and opens new features
     * about 480 months
 * Human annual work
   * about 1.600 hours
-  * about 10.000 minutes
-  * about 10.000 tasks
+  * about 100.000 minutes
+  * about 10.000 tasks of 10 minutes
 * Human daily work
   * about 400 minutes
     * 100 = 10 + 20 + 30 + 40
@@ -110,12 +110,59 @@ Class autoloader can be very flexible and opens new features
     * 100 = 10 + 20 + 30 + 40
   * daily average of 16 tasks of 25 minutes
 
+#### Human Developer
+
+1 line of code per minute of work ?! 😅🤔
+
+* Human annual work
+  * about 1.600 hours
+  * about 100.000 minutes
+  * about 100.000 lines of code
+
+#### Human 4x4x4 daily tasks
+
+* Human daily work
+  * about 400 minutes
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+    * 100 = 10 + 20 + 30 + 40
+  * 16 tasks per working day
+* And each task can be divided in 4 sub-tasks
+  * 10 = 1 + 2 + 3 + 4
+  * 20 = 2 + 4 + 6 + 8
+  * 30 = 3 + 6 + 9 + 12
+  * 40 = 4 + 8 + 12 + 16
+* 16 x 4 = 64 sub-tasks per working day
 
 ### AI 
 
 * AI heartbeat
   * 24H: about 1.440 minutes
   * about 1.440 tasks
+
+## HTML + Markdown template engine
+
+A web page if the result of the combination of a page content and a page template.
+Non-developers should be able to build both parts.
+* Page Builder
+* Template Builder
+
+Markdown is a very simple language, and is a good choice for non-developers.
+* Page content in Markdown
+* Page template in Markdown
+
+### Builder: tree of components
+
+A web page has a strong hierarchical structure.
+
+A web page or a template is a tree of components.
+* titles h1, h2, h3, h4, h5, h6
+  * implicit/explicit sections
+* main = h1
+* sections = h2
+* columns = h3
+
 
 ## Installation
 

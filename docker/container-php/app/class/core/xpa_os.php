@@ -104,6 +104,18 @@ class xpa_os
         }
     }
 
+    static function process ($cmds)
+    {
+        // loop through cmds and check if they are callable
+        foreach ($cmds as $cmd) {
+            $cmd = trim($cmd);
+            if ($cmd && is_callable($cmd)) {
+                // run cmd
+                $cmd();
+            }
+        }
+    }
+
     static function template($name, $infos = [])
     {
         // FIXME: should use xpa_os::kv() instead of cli::kv()

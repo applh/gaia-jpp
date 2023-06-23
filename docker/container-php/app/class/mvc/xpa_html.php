@@ -465,10 +465,12 @@ class xpa_html
         $head_html ??= [];
         $body_html ??= [];
 
+        // hack: concatenate with objects
+        // use magic methods __toString to convert object to string
         $head = new xpa_html_head($template, $head_html);
         $body = new xpa_html_body($template, $body_html);
 
-        echo <<<HTML
+        $res = <<<HTML
 
         <!DOCTYPE html>
         <html lang="$lang">
@@ -481,6 +483,9 @@ class xpa_html
         </html>
 
         HTML;
+
+        // TODO: add a filter to modify the result
+        echo $res;
     }
 
     //#class_end
@@ -488,62 +493,106 @@ class xpa_html
 
 class xpa_html_head
 {
-    function __construct(
-        public $template,
-        public $head_html,
-    ) {
+    static $template = "";
+    static $head_html = [];
+    static $title = "## head";
+    static $cmds = [
+        "xpa_html::charset",
+        "xpa_html::viewport",
+        "xpa_html::title0",
+        "xpa_html::description",
+        "xpa_html::ld_json",
+        "xpa_html_head::head",
+        "xpa_html_head::blocs",
+        "xpa_html::head_append",
+    ];
+
+    function __construct($template, $head_html, $cmds = null)
+    {
+        static::$template = $template;
+        static::$head_html = $head_html;
+        if ($cmds) static::$cmds = $cmds;
     }
 
     function __toString()
     {
         ob_start();
-
-        xpa_html::charset();
-        xpa_html::viewport();
-
-        xpa_html::title0();
-        xpa_html::description();
-
-        xpa_html::ld_json();
-
-        xpa_html::get_bloc($this->template, "## head");
-
-        xpa_html::add_blocs($this->head_html);
-        xpa_html::head_append();
-
+        xpa_os::process(static::$cmds);
         $res = ob_get_clean();
         return $res;
+    }
+
+    static function head()
+    {
+        xpa_html::get_bloc(static::$template, static::$title);
+    }
+
+    static function blocs()
+    {
+        xpa_html::add_blocs(static::$head_html);
     }
 }
 
 class xpa_html_body
 {
-    function __construct(
-        public $template,
-        public $body_html,
-    ) {
+    static $template = "";
+    static $body_html = [];
+    static $titles = [
+        "header" => "## header",
+        "aside" => "## aside",
+        "footer" => "## footer",
+        "body" => "## body",
+    ];
+    static $title_index = 0;
+    static $cmds = [
+        "xpa_html_body::part_header",
+        "xpa_html::main",
+        "xpa_html_body::part_body",
+        "xpa_html_body::part_aside",
+        "xpa_html_body::part_footer",
+        "xpa_html_body::blocs",
+        "xpa_html::body_append",
+        "xpa_html::template_debug",
+    ];
+
+    function __construct($template, $body_html, $cmds = null)
+    {
+        static::$template = $template;
+        static::$body_html = $body_html;
+        if ($cmds) static::$cmds = $cmds;
     }
 
     function __toString()
     {
-        $template = $this->template;
-        $body_html = $this->body_html;
-
         ob_start();
-
-        xpa_html::get_bloc($template, "## header");
-        xpa_html::main();
-        xpa_html::get_bloc($template, "## aside");
-        xpa_html::get_bloc($template, "## footer");
-        xpa_html::get_bloc($template, "## body");
-
-        xpa_html::add_blocs($body_html);
-        xpa_html::body_append();
-
-        xpa_html::template_debug();
-
+        xpa_os::process(static::$cmds);
         $res = ob_get_clean();
         return $res;
+    }
+
+    /**
+     * hack: param is in the method name part_XXXX
+     */
+    static function __callStatic($name, $arguments)
+    {
+        // check if $name starts with part_
+        if (str_starts_with($name, "part_")) {
+            // get the part suffix
+            $part = substr($name, 5);
+            // get the title
+            $title = static::$titles[$part] ?? "";
+            if ($title) {
+                // get the template
+                $template = static::$template;
+                // get the bloc
+                xpa_html::get_bloc($template, $title);
+            }
+        }
+    }
+
+    static function blocs()
+    {
+        xpa_html::add_blocs(static::$body_html);
     }
 }
 
