@@ -13,7 +13,7 @@ import { Tree } from 'primereact/tree';
 import { TreeNode } from 'primereact/treenode';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
   const [nodes, setNodes] = useState<TreeNode[]>([]);
 
   const data = [

@@ -109,6 +109,8 @@ class xpa_route_page
         $text_titles = $matches[2];
         $level_titles = $matches[1];
 
+        // print_r($html_titles);
+
         $lines = explode("\n", $content);
         $cur_line = 0;
 
@@ -180,56 +182,18 @@ class xpa_route_page
             //     "og:type": "my og:type"
             // }
             if ($level_title == 4) {
-                // get the markdown bloc
-                $bloc_md = $bloc_infos["bloc_md"] ?? "";
-                static::$config["bloc_md"] = $bloc_md;
-                // FIXME: only one code bloc is allowed
-                // extract the smallest json code bloc (not containing ```) betwwen lines starting with ```json,meta and ```
-                $pattern = "/```json,meta\s(.*)```/s";
-                $matches = [];
-                preg_match($pattern, $bloc_md, $matches);                
 
-                static::$config["matches"] = $matches;
-
-                $json = trim($matches[1] ?? "");
-                // decode json
-                $json = json_decode($json, true);
+                $code = xpa_html::get_bloc(
+                    basename($article), 
+                    "#### $text_title", 
+                    false, 
+                    dirname($article), 
+                    "json,meta"
+                );
+                $json = json_decode($code, true);
+                // store page config
                 static::$config["page"] = $json;
-
-                // find the bloc after the last ```
-                // TODO: CHECK IF CODE IS CORRECT ?! 😱
-                $pattern = "/.*```(.*)/s";
-                preg_match($pattern, $bloc_md, $matches);
-                static::$config["body_debug"] = $matches;
-                static::$config["body_append"] = end($matches);
             }
-
-            // if ($level_title == 4) {
-            //     $index_4++;
-            //     $tree_sections[$index_1]["children"][$index_2]["children"][$index_3]["children"][] = [
-            //         "text" => $text_title,
-            //         "level" => $level_title,
-            //         "children" => [],
-            //     ];
-            // }
-
-            // if ($level_title == 5) {
-            //     $index_5++;
-            //     $tree_sections[$index_1]["children"][$index_2]["children"][$index_3]["children"][$index_4]["children"][] = [
-            //         "text" => $text_title,
-            //         "level" => $level_title,
-            //         "children" => [],
-            //     ];
-            // }
-
-            // if ($level_title == 6) {
-            //     $index_6++;
-            //     $tree_sections[$index_1]["children"][$index_2]["children"][$index_3]["children"][$index_4]["children"][$index_5]["children"][] = [
-            //         "text" => $text_title,
-            //         "level" => $level_title,
-            //         "children" => [],
-            //     ];
-            // }
 
         }
 
@@ -240,6 +204,8 @@ class xpa_route_page
 
         // debug header
         header("X-Xp-Template: " . static::$template);
+        // print_r(static::$config);
+
         if (static::$template == "uikit") {
             $html_sections = xpa_route_page::build_sections_uikit($tree_sections);
 
@@ -257,25 +223,24 @@ class xpa_route_page
         else if (static::$template != "") {
             $html_sections = xpa_route_page::build_sections($tree_sections);
 
-            $head_blocs = [
-                [
-                    "template" => basename($article),
-                    "title" => "##### head",
-                    "path_root" => dirname($article),
-                ]
-            ];
-            
-            $body_blocs = [
-                [
-                    "template" => basename($article),
-                    "title" => "##### vue template",
-                    "path_root" => dirname($article),
-                ]
-            ];
             $infos = [
-                "head_blocs" => $head_blocs,
-                "body_blocs" => $body_blocs,
+                "head_html" => [],
+                "body_html" => [],
             ];
+            foreach($infos as $key => $info) {
+                $search_blocs = static::$config["page"][$key] ?? [];
+                $res = [];
+                foreach ($search_blocs as $search_bloc) {    
+                    $res[] = [
+                        "template" => basename($article),
+                        "title" => $search_bloc,
+                        "path_root" => dirname($article),
+                    ];
+                }
+                $infos[$key] = $res;
+            }
+
+            // print_r($infos);
 
             xpa_html::add_part("main", $html_sections);
             xpa_os::template(static::$template, $infos);

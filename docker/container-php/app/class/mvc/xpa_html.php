@@ -353,13 +353,13 @@ class xpa_html
         }
     }
 
-    static function get_bloc($path_markdown_file, $title, $show = true, $path_root = null)
+    static function get_bloc($path_markdown_file, $title, $show = true, $path_root = null, $format = "html")
     {
         $res = "";
 
         $path_root ??= xpa_os::kv("root");
         $search_file =  "$path_root/$path_markdown_file";
-    
+
         // check if already loaded
         $blocs = static::$md_files[$search_file] ?? [];
 
@@ -415,7 +415,7 @@ class xpa_html
 
             // strip tags ```html and ```
             // $res = preg_replace("/^```html/", "", $res);
-            $res = ltrim($res, "```html");
+            $res = ltrim($res, "```$format");
             $res = rtrim($res, "```");
         }
 
@@ -440,23 +440,63 @@ class xpa_html
         echo $lorem;
     }
 
+    static function add_blocs($blocs)
+    {
+        foreach ($blocs as $head_bloc) {
+            $bloc_template = $head_bloc["template"] ?? "";
+            $bloc_title = $head_bloc["title"] ?? "";
+            $path_root = $head_bloc["path_root"] ?? null;
+            xpa_html::get_bloc($bloc_template, $bloc_title, path_root: $path_root);
+        }
+    }
+
     static function template_markdown($template, $infos = [])
     {
         // fill missing path
         $template = "templates/markdown/$template.md";
 
         extract($infos);
+        // warning: should create variables from keys
+        // $head_html
+        // $body_html
+
         $lang ??= "en";
         $body_class ??= "";
+        $head_html ??= [];
+        $body_html ??= [];
+
+        $head = new xpa_html_head($template, $head_html);
+        $body = new xpa_html_body($template, $body_html);
 
         echo <<<HTML
 
         <!DOCTYPE html>
         <html lang="$lang">
-        
-        HTML;
+            <head>
+                $head
+            </head>
+            <body class="$body_class">
+                $body
+            </body>
+        </html>
 
-        echo "\n<head>\n";
+        HTML;
+    }
+
+    //#class_end
+}
+
+class xpa_html_head
+{
+    function __construct(
+        public $template,
+        public $head_html,
+    ) {
+    }
+
+    function __toString()
+    {
+        ob_start();
 
         xpa_html::charset();
         xpa_html::viewport();
@@ -466,22 +506,30 @@ class xpa_html
 
         xpa_html::ld_json();
 
-        xpa_html::get_bloc($template, "## head");
+        xpa_html::get_bloc($this->template, "## head");
 
-        foreach($head_blocs ?? [] as $head_bloc) {
-            $bloc_template = $head_bloc["template"] ?? "";
-            $bloc_title = $head_bloc["title"] ?? "";
-            $path_root = $head_bloc["path_root"] ?? null;
-            xpa_html::get_bloc($bloc_template, $bloc_title, path_root: $path_root);
-        }
-
+        xpa_html::add_blocs($this->head_html);
         xpa_html::head_append();
 
-        echo "\n</head>\n";
-        echo <<<HTML
-        <body class="$body_class">
+        $res = ob_get_clean();
+        return $res;
+    }
+}
 
-        HTML;
+class xpa_html_body
+{
+    function __construct(
+        public $template,
+        public $body_html,
+    ) {
+    }
+
+    function __toString()
+    {
+        $template = $this->template;
+        $body_html = $this->body_html;
+
+        ob_start();
 
         xpa_html::get_bloc($template, "## header");
         xpa_html::main();
@@ -489,22 +537,14 @@ class xpa_html
         xpa_html::get_bloc($template, "## footer");
         xpa_html::get_bloc($template, "## body");
 
-        foreach($body_blocs ?? [] as $body_bloc) {
-            $bloc_template = $body_bloc["template"] ?? "";
-            $bloc_title = $body_bloc["title"] ?? "";
-            $path_root = $body_bloc["path_root"] ?? null;
-            xpa_html::get_bloc($bloc_template, $bloc_title, path_root: $path_root);
-        }
-
+        xpa_html::add_blocs($body_html);
         xpa_html::body_append();
 
         xpa_html::template_debug();
 
-        echo "\n</body>\n";
-        echo "\n</html>\n";
+        $res = ob_get_clean();
+        return $res;
     }
-
-    //#class_end
 }
 
 //#file_end
