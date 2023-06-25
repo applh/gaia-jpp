@@ -306,6 +306,37 @@ class xpa_cron_task
 
     }
 
+    static function dev_code ()
+    {
+        $path_root = xpa_os::kv("root");
+        $path_class = "$path_root/class";
+        $path_class = realpath($path_class);
+        // find all directories in class
+        $dirs = glob("$path_class/*", GLOB_ONLYDIR);
+        // pick a random directory
+        $dir = $dirs[array_rand($dirs)];
+        // basename
+        $dir = basename($dir);
+        // lowercase
+        $dir = strtolower($dir);
+        // remove non alpha num chars
+        $dir = preg_replace("/[^a-z0-9-]/", "", $dir);
+        // replace - with _
+        $dir = str_replace("-", "_", $dir);
+        // trim
+        $dir = trim($dir);
+
+        $classname = "mc_{$dir}_" . date("Ymd_His");
+        $code = xpa_dev::code_class($classname);
+        // store in db
+        xpa_sqlite::create("class/geocms", [
+            "path" => "class",
+            "filename" => $classname,
+            "code" => $code,
+            "created" => xpa_os::now(),
+        ]);
+    }
+
     //#class_end
 }
 

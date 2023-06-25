@@ -166,10 +166,21 @@ A web page or a template is a tree of components.
 
 ## Installation
 
+### Main development
+
+The main application is currently in the folder `docker/container-php`
+* go to [docker/container-php](docker/container-php/)
+
+The source code is mostly in the folder `app`
+
+
 ### wp
 
+from the folder `docker/container-php`
+  * (technically, the folder where the file .wp-env.json is located)
+  * launch the command `wp-env-start`
+
 ```
-cd wp
 wp-env start
 ```
 

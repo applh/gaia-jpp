@@ -49,11 +49,15 @@ class xpa_test
         // FIXME: 
         // UserWarning: IPython parent '/var/www' is not a writable location, using a temp directory.
         // => set env var HOME
-        $command = "HOME=/var/www/home jupyter nbconvert --to notebook -y --allow-chromium-download --log-level 50 --execute --output task-$name-$now0.ipynb --output-dir $path_ipython task-$name.ipynb";
+        $command = "HOME=/var/www/home /var/www/venv/bin/jupyter nbconvert --to notebook -y --allow-chromium-download --log-level 50 --execute --output task-$name-$now0.ipynb --output-dir $path_ipython task-$name.ipynb";
+        // echo $command;
 
         // $command = "which jupyter";
         // $command = "ls -la";
         $output = shell_exec($command);
+
+        echo $command;
+        echo $output;
 
         // log line with timestamp in file test.log
         $file = "$path_data/cron/my-test.log";

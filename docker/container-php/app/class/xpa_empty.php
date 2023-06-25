@@ -16,7 +16,7 @@ class xpa_empty
 
     static function test ()
     {
-
+        return date("Y-m-d H:i:s");
     }
 
     //#class_end

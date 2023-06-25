@@ -9,6 +9,24 @@ class xpa_dev
             $path_root = cli::kv("root");
             $path_class = $path_root . "/class";
 
+            $src_code = static::code_class($classname);
+
+            // create the file
+            $file = "$path_class/$classname.php";
+            file_put_contents($file, $src_code);
+
+        }
+    }
+
+    static function code_class ($classname)
+    {
+        $res = "";
+        // TODO: add security on $classname
+        // remove non alpha numeric characters
+        $classname = preg_replace("/[^a-zA-Z0-9-_]/", "", $classname);
+        // trim
+        $classname = trim($classname);
+        if ($classname) {
             // get the code of the class
             $reflection = new ReflectionClass("xpa_empty");
             // get the source code
@@ -21,10 +39,8 @@ class xpa_dev
             $src_code = str_replace("__AUTHOR__", "applh/gaia", $src_code);
             $src_code = str_replace("__LICENSE__", "MIT", $src_code);
 
-            // create the file
-            $file = "$path_class/$classname.php";
-            file_put_contents($file, $src_code);
-
+            $res = $src_code;
         }
+        return $res;
     }
 }

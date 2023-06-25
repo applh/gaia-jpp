@@ -2,6 +2,7 @@ FROM php:fpm
 
 RUN apt-get update --fix-missing
 
+# SETUP system libs and other apps
 RUN apt-get install -y curl cron build-essential \
 libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libssh2-1-dev \
 ffmpeg libssh2-1 ghostscript \
@@ -9,6 +10,7 @@ imagemagick libmagickwand-dev \
 memcached libmemcached-dev \
 python3-pip
 
+# SETUP php extensions
 RUN docker-php-ext-configure gd && docker-php-ext-install gd
 
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
@@ -39,13 +41,44 @@ RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 RUN docker-php-ext-enable intl
 
-# install jupyter notebook
-RUN pip3 install jupyter Pillow requests numpy opencv-python matplotlib ipython db-sqlite3 playwright
+# SETUP jupyter notebook
+
+# OLD
+# RUN pip3 install jupyter Pillow requests numpy opencv-python matplotlib ipython db-sqlite3 playwright
+# RUN playwright install
+# RUN playwright install-deps
+# RUN playwright install chromium
+
+RUN apt-get install -y pipx \
+        && pipx ensurepath
+
+# OK
+# RUN pipx install --include-deps jupyter 
+# RUN pipx install --include-deps requests
+# RUN pipx install --include-deps numpy
+# RUN pipx install --include-deps opencv-python
+# RUN pipx install --include-deps matplotlib
+# RUN pipx install --include-deps ipython
+# KO
+# RUN pipx install --include-deps Pillow
+# RUN pipx install --include-deps db-sqlite3
+# RUN pipx install --include-deps playwright
+
+RUN apt install -y python3-venv
+RUN python3 -m venv /var/www/venv
+RUN /var/www/venv/bin/pip install --upgrade pip
+RUN /var/www/venv/bin/pip install --upgrade setuptools
+RUN /var/www/venv/bin/pip install jupyter Pillow requests numpy opencv-python matplotlib ipython db-sqlite3 playwright
+
 
 # playwright and ipython setup
-RUN playwright install
-RUN playwright install-deps
-# RUN playwright install chromium
+RUN /var/www/venv/bin/playwright install
+
+# AT THE END TO AVOID REBUILDING PREVIOUS STEPS
+RUN apt install -y chromium
+
+#RUN /var/www/venv/bin/playwright install-deps
+RUN /var/www/venv/bin/playwright install chromium
 
 # ipython will need $HOME env variable
 # and playwright must be installed in $HOME/.cache

@@ -104,7 +104,7 @@ class xpa_os
         }
     }
 
-    static function process ($cmds)
+    static function process($cmds)
     {
         // loop through cmds and check if they are callable
         foreach ($cmds as $cmd) {
@@ -126,20 +126,20 @@ class xpa_os
         if (!$found && is_file($path_template)) {
             include($path_template);
             $found = true;
-        } 
-        
+        }
+
         $path_template_markdown = "$path_root/templates/markdown/$name.md";
         if (!$found && is_file($path_template_markdown)) {
             xpa_html::template_markdown($name, $infos);
             $found = true;
         }
 
-        if (!$found){
+        if (!$found) {
             echo "no $name.php file found as $path_template\n";
         }
     }
 
-    static function now ($format = "Y-m-d H:i:s")
+    static function now($format = "Y-m-d H:i:s")
     {
         static $time0 = null;
         if (!$time0) {
@@ -149,7 +149,7 @@ class xpa_os
         return $now;
     }
 
-    static function cache_save ($path, $response)
+    static function cache_save($path, $response)
     {
         // some routes should not be cached
         if (!static::$cache_active) {
@@ -179,7 +179,7 @@ class xpa_os
         file_put_contents($path_cache_file, $response);
     }
 
-    static function cache_send ($path, $response = null)
+    static function cache_send($path, $response = null)
     {
         $path_data = xpa_os::kv("path_data") ?? cli::kv("path_data");
         $path_cache = "$path_data/cache";
@@ -203,20 +203,16 @@ class xpa_os
                 if ($extension != "txt") {
                     // send header content-type
                     $mime = static::$mimes[$extension] ?? "text/plain";
+                } else {
                 }
-                else {
-    
-                }
-    
+
                 header("Content-Type: $mime");
                 header("X-Gaia-Debug: cache / $basename");
-    
+
                 // send response
                 echo $response;
                 xpa_os::die();
-    
-            }
-            else {
+            } else {
                 // debug
                 header("X-Gaia-Debug: empty cache / $basename");
             }
@@ -225,13 +221,13 @@ class xpa_os
         return $response;
     }
 
-    static function die ()
+    static function die()
     {
         // TODO: should allow to kill only tasks by framework
         die();
     }
 
-    static function load_json ($path)
+    static function load_json($path)
     {
         // get path_data
         $root = xpa_os::kv("root") ?? cli::kv("root");
