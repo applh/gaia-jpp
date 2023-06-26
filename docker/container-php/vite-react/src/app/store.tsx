@@ -3,11 +3,13 @@ import counterReducer from '../features/counter/counterSlice'
 import { logAndAdd } from '../features/counter/counterSlice'
 
 import treeReducer from '../features/tree/treeSlice'
+import userReducer from '../features/user/userSlice'
 
 const store = configureStore({
     reducer: {
         counter: counterReducer,
         tree: treeReducer,
+        user: userReducer,
     },
 })
 

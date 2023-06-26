@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react'
+import { lazy, useState, useEffect, Suspense } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
+// WARNING: don't forget to add reducer to app/store.tsx
 import { increment, ICounterState } from './features/counter/counterSlice'
 import { ITreeState, setTreeData } from './features/tree/treeSlice'
+import { IUserState, setUserMode } from './features/user/userSlice.tsx'
 
 // import './App.css'
 
 import { Counter } from './features/counter/Counter.tsx'
-import { Admin } from './features/user/Admin.tsx'
+
+const Member = lazy(() => import('./features/user/Member.tsx'))
+const Admin = lazy(() => import('./features/user/Admin.tsx'))
+import Login from './features/user/Login.tsx'
 
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -19,10 +25,11 @@ import { TreeNode } from 'primereact/treenode';
 function App() {
   const [nodes, setNodes] = useState<TreeNode[]>([]);
 
-  
+
   const dispatch = useDispatch()
   const counter = useSelector((state: ICounterState) => state.counter.value)
   const treeData = useSelector((state: ITreeState) => state.tree.value)
+  const user = useSelector((state: IUserState) => state.user.value)
 
   const data = [
     {
@@ -106,17 +113,47 @@ function App() {
   }
 
   // redux treeData
-  function treeDataDrop (e:any) {
+  function treeDataDrop(e: any) {
     console.log(e, e.value, nodes)
     // request update of treeData
     dispatch(setTreeData(e.value))
   }
 
+  const act_change = function (event: React.ChangeEvent<HTMLElement>) {
+    const user_choice = event.currentTarget.getAttribute('value') as string
+    console.log('act_change', user_choice, event)
+    // reactivity
+    dispatch(setUserMode(user_choice))
+  }
+
+  let userPanel = <Login />
+  if (user.userMode === 'member') {
+    userPanel = <Member />
+  }
+  if (user.userMode === 'admin') {
+    userPanel = <Admin />
+  }
+
   return (
     <>
-      <Admin />
-      <h1>Vite + React + Redux + PrimeReact</h1>
-      <Button label={'Click ' + counter } icon="pi pi-check" onClick={() => dispatch(increment())} />
+      <label>
+        <input type="radio" name="userMode" value="login" checked={user.userMode == 'login'} onChange={act_change} />
+        <span>Login</span>
+      </label>
+      <label>
+        <input type="radio" name="userMode" value="admin" onChange={act_change} />
+        <span>Admin</span>
+      </label>
+      <label>
+        <input type="radio" name="userMode" value="member" onChange={act_change} />
+        <span>Member</span>
+      </label>
+      <p>user: { user.name }</p>
+      <Suspense>
+        {userPanel}
+      </Suspense>
+      <p>Vite + React + Redux + PrimeReact</p>
+      <Button label={'Click ' + counter} icon="pi pi-check" onClick={() => dispatch(increment())} />
       <Counter />
       <Tree value={nodes} dragdropScope="demo" onDragDrop={treeDrop} className="w-full md:w-30rem" />
       <Tree value={treeData} dragdropScope="demo" onDragDrop={treeDataDrop} className="w-full md:w-30rem" />

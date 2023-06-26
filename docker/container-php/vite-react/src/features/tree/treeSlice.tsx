@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+console.log('treeSlice.tsx')
+
 const data = [
     {
       key: '0',
@@ -76,6 +78,7 @@ export const treeSlice = createSlice({
         setTreeData (state, action) {
             // update state value
             state.value = action.payload
+            console.log('setTreeData', action.payload)
         }
     },
 })
