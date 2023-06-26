@@ -19,3 +19,7 @@ const store = configureStore({
 store.dispatch(logAndAdd(5))
 
 export default store
+
+// TS helpers
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
