@@ -1,6 +1,9 @@
 import { Suspense, lazy, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+// lazy
+const PostList = lazy(() => import('../post/PostList'))
+
 // redux store
 import { IUserState, logout } from './userSlice'
 
@@ -49,6 +52,7 @@ export default function Admin () {
                 <button onClick={act_logout}>Logout</button>
             </label>
             <h2>{ choice }</h2>
+            <PostList />
             <Suspense>
                 { panel }
             </Suspense>
