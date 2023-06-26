@@ -6,6 +6,7 @@ import { ITreeState, setTreeData } from './features/tree/treeSlice'
 // import './App.css'
 
 import { Counter } from './features/counter/Counter.tsx'
+import { Admin } from './features/user/Admin.tsx'
 
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -113,6 +114,7 @@ function App() {
 
   return (
     <>
+      <Admin />
       <h1>Vite + React + Redux + PrimeReact</h1>
       <Button label={'Click ' + counter } icon="pi pi-check" onClick={() => dispatch(increment())} />
       <Counter />
