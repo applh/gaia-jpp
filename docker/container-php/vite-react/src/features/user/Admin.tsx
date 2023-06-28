@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const PostList = lazy(() => import('../post/PostList'))
 
 // redux store
-import { IUserState, logout } from './userSlice'
+import { userSelect, logout } from './userSlice'
 
 // warning: components must be defined as default export
 const AdminDashboard = lazy(() => import('./AdminDashboard'))
@@ -24,10 +24,7 @@ export default function Admin () {
     
     // react redux
     const dispatch = useDispatch()
-    const user = useSelector((state: IUserState) => {
-        console.log('user', state)
-        return state.user.value
-    })
+    const user = useSelector(userSelect)
 
     const act_logout = function (event: React.MouseEvent<HTMLElement>) {
         console.log('act_logout', event)

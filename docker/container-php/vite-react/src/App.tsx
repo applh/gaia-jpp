@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 // WARNING: don't forget to add reducer to app/store.tsx
 import { increment, ICounterState } from './features/counter/counterSlice'
 import { ITreeState, setTreeData } from './features/tree/treeSlice'
-import { IUserState, setUserMode } from './features/user/userSlice.tsx'
+import { userSelect, setUserMode } from './features/user/userSlice.tsx'
 
 // import './App.css'
 
@@ -29,7 +29,7 @@ function App() {
   const dispatch = useDispatch()
   const counter = useSelector((state: ICounterState) => state.counter.value)
   const treeData = useSelector((state: ITreeState) => state.tree.value)
-  const user = useSelector((state: IUserState) => state.user.value)
+  const user = useSelector(userSelect)
 
   const data = [
     {

@@ -4,6 +4,9 @@ class xpa_route_dev
 {
     static function response ($dirname="", $filename="", $extension="")
     {
+        // disable cache
+        xpa_os::$cache_active = false;
+
         // get the params from storage
         extract(xpa_os::kv("xpa_route_dev::response") ?? []);
 
@@ -41,6 +44,7 @@ class xpa_route_dev
         // allow gaia cms mix with others cms
         xpa_router::$response_status = "200";
         // CORS *
+        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Credentials");
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
         echo $json;

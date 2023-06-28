@@ -1,6 +1,7 @@
 // redux store
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+// import { useAppDispatch } from '../../app/store'
 import { postSelect, setItems } from './postSlice'
 
 // isolate config
@@ -11,12 +12,13 @@ import './PostList.css'
 
 export default function PostList ()
 {
-
     // react redux
     // WARNING:  
     // hooks can only be called inside of the body of a function component.
     // useDispatch is a hook 
     const dispatch = useDispatch()
+    // https://redux-toolkit.js.org/usage/usage-with-typescript
+    // const dispatch = useAppDispatch()
 
     const post = useSelector(postSelect)
     

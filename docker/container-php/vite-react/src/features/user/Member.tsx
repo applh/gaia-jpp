@@ -1,6 +1,6 @@
 // redux store
 import { useDispatch, useSelector } from 'react-redux'
-import { IUserState, logout } from './userSlice'
+import { logout, userSelect } from './userSlice'
 
 export default function Member() {
     // react redux
@@ -10,10 +10,7 @@ export default function Member() {
         dispatch(logout())
     }
 
-    const user = useSelector((state: IUserState) => {
-        console.log('user', state)
-        return state.user.value
-    })
+    const user = useSelector(userSelect)
 
     return (
         <div>
