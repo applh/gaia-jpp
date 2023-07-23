@@ -1,6 +1,25 @@
 version: "3.9"
 
 services:
+    directus:
+        image: directus/directus:latest
+        restart: always
+        ports:
+            - 8555:8055
+        volumes:
+            - ./my-data/directus/database:/directus/database
+            - ./my-data/directus/uploads:/directus/uploads
+        environment:
+            KEY: 'replace-with-random-value'
+            SECRET: 'replace-with-random-value'
+            ADMIN_EMAIL: 'admin@example.com'
+            ADMIN_PASSWORD: 'd1r3ctu5'
+            DB_CLIENT: 'sqlite3'
+            DB_FILENAME: '/directus/database/db-directus.sqlite'
+            WEBSOCKETS_ENABLED: true
+        links:
+            - php-fpm
+
     web:
         image: nginx:latest
         ports:
@@ -22,3 +41,4 @@ services:
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
+
