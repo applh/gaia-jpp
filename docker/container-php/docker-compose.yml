@@ -17,6 +17,8 @@ services:
             DB_CLIENT: 'sqlite3'
             DB_FILENAME: '/directus/database/db-directus.sqlite'
             WEBSOCKETS_ENABLED: true
+            CORS_ENABLED: true
+            CORS_ORIGIN: '*'
         links:
             - php-fpm
 
