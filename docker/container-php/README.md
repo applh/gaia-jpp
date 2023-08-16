@@ -133,4 +133,20 @@ wp-env start
 ```
 
 
+### Docker: error no space left on device
+
+* Directus app container logged this error and didn't start
+
+```
+...no space left on device, mkdir '/directus/node_modules/.cache'
+```
+
+* cleanup docker
+
+```bash
+
+docker system prune
+
+```
+
 
