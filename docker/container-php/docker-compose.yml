@@ -8,10 +8,15 @@ services:
             - "${XP_ENV_PORT:-8666}:80"
             - "${XP_ENV_PORT:-443}:443"
         volumes:
-            - ./app:/var/www/html
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ${XP_ENV_NGINX_CONF:-./nginx-ssl.conf}:/etc/nginx/conf.d/default.conf
             - ./my-ssl:/etc/nginx/ssl
+            # static files for nginx
+            - ./app:/var/www/html
+            - ./app-php:/var/www/html-php
+            - ./app-laravel:/var/www/html-laravel
+            - ./app-symfony:/var/www/html-symfony
+            - ./app-nest:/var/www/html-nest
         restart: always
         links:
             - php-fpm
@@ -27,7 +32,7 @@ services:
     php-fpm2:
         build: ../image-php-fpm-jupyter
         volumes:
-            - ./app-php:/var/www/html
+            - ./app-php:/var/www/html-php
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
@@ -35,7 +40,7 @@ services:
     php-fpm3:
         build: ../image-php-fpm-jupyter
         volumes:
-            - ./app-laravel:/var/www/html
+            - ./app-laravel:/var/www/html-laravel
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
@@ -43,7 +48,7 @@ services:
     php-fpm4:
         build: ../image-php-fpm-jupyter
         volumes:
-            - ./app-symfony:/var/www/html
+            - ./app-symfony:/var/www/html-symfony
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
