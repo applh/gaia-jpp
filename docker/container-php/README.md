@@ -149,4 +149,13 @@ docker system prune
 
 ```
 
+### Docker + Nest
 
+https://www.tomray.dev/nestjs-docker-production
+
+```
+docker build -t nest-cloud-run .
+
+docker run -p8765:3000 nest-cloud-run
+
+```

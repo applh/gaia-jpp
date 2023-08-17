@@ -1,29 +1,8 @@
 version: "3.9"
 
 services:
-    directus:
-        image: directus/directus:latest
-        restart: always
-        ports:
-            - 8555:8055
-        volumes:
-            - ./my-data/directus/database:/directus/database
-            - ./my-data/directus/uploads:/directus/uploads
-        environment:
-            TELEMETRY: false
-            KEY: 'replace-with-random-value'
-            SECRET: 'replace-with-random-value'
-            ADMIN_EMAIL: 'admin@example.com'
-            ADMIN_PASSWORD: 'd1r3ctu5'
-            DB_CLIENT: 'sqlite3'
-            DB_FILENAME: '/directus/database/db-directus.sqlite'
-            WEBSOCKETS_ENABLED: true
-            CORS_ENABLED: true
-            CORS_ORIGIN: '*'
-        links:
-            - web
 
-    web:
+    nginx-webserver:
         image: nginx:latest
         ports:
             - "${XP_ENV_PORT:-8666}:80"
@@ -48,8 +27,33 @@ services:
     php-fpm2:
         build: ../image-php-fpm-jupyter
         volumes:
-            - ./app2:/var/www/html
+            - ./app-php:/var/www/html
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
 
+    node-directus:
+        image: directus/directus:latest
+        restart: always
+        ports:
+            - 8555:8055
+        volumes:
+            - ./my-data/directus/database:/directus/database
+            - ./my-data/directus/uploads:/directus/uploads
+        environment:
+            TELEMETRY: false
+            KEY: 'replace-with-random-value'
+            SECRET: 'replace-with-random-value'
+            ADMIN_EMAIL: 'admin@example.com'
+            ADMIN_PASSWORD: 'd1r3ctu5'
+            DB_CLIENT: 'sqlite3'
+            DB_FILENAME: '/directus/database/db-directus.sqlite'
+            WEBSOCKETS_ENABLED: true
+            CORS_ENABLED: true
+            CORS_ORIGIN: '*'
+        links:
+            - nginx-webserver
+
+    node-nest:
+        build: app-nest
+        restart: always
