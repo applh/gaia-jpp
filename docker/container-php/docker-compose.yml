@@ -40,6 +40,14 @@ services:
             - ./root-setup:/root/setup
         restart: always
 
+    php-fpm4:
+        build: ../image-php-fpm-jupyter
+        volumes:
+            - ./app-symfony:/var/www/html
+            - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
+            - ./root-setup:/root/setup
+        restart: always
+
     node-directus:
         image: directus/directus:latest
         restart: always
