@@ -17,6 +17,7 @@ services:
             - ./app-laravel:/var/www/html-laravel
             - ./app-symfony:/var/www/html-symfony
             - ./app-nest:/var/www/html-nest
+            - ./app-directus:/var/www/html-directus
         restart: always
         links:
             - php-fpm
