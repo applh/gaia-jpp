@@ -19,6 +19,7 @@ services:
             - ./app-nest:/var/www/html-nest
             - ./app-directus:/var/www/html-directus
             - ./app-fastify:/var/www/html-fastify
+            - ./app-nuxt/.output:/var/www/html-nuxt
         restart: always
         links:
             - php-fpm
