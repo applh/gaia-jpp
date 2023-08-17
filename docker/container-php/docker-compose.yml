@@ -18,6 +18,7 @@ services:
             - ./app-symfony:/var/www/html-symfony
             - ./app-nest:/var/www/html-nest
             - ./app-directus:/var/www/html-directus
+            - ./app-fastify:/var/www/html-fastify
         restart: always
         links:
             - php-fpm
@@ -78,4 +79,8 @@ services:
 
     node-nest:
         build: app-nest
+        restart: always
+
+    node-fastify:
+        build: app-fastify
         restart: always
