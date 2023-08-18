@@ -81,7 +81,11 @@ services:
     node-nest:
         build: app-nest
         restart: always
+        volumes:
+            - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
 
     node-fastify:
         build: app-fastify
         restart: always
+        volumes:
+            - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
