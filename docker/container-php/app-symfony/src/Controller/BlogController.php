@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\Cache;
@@ -90,6 +91,37 @@ final class BlogController extends AbstractController
         // stops the execution
 
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
+    }
+
+    #[Route('/perf', name: 'blog_perf', methods: ['GET'])]
+    public function perf(): Response
+    {
+        // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
+        // it's not available in the 'prod' environment to prevent leaking sensitive information.
+        // It can be used both in PHP files and Twig templates, but it requires to
+        // have enabled the DebugBundle. Uncomment the following line to see it in action:
+        //
+        // dump($post, $this->getUser(), new \DateTime());
+        //
+        // The result will be displayed either in the Symfony Profiler or in the stream output.
+        // See https://symfony.com/doc/current/profiler.html
+        // See https://symfony.com/doc/current/templates.html#the-dump-twig-utilities
+        //
+        // You can also leverage Symfony's 'dd()' function that dumps and
+        // stops the execution
+
+        // return JSON response
+        $response = new JsonResponse();
+        $now = date("Y-m-d H:i:s");
+        $response->setData([
+            'now' => $now,
+            'success' => true,
+            'data' => [
+                'id' => 1,
+                'name' => 'John Doe',
+            ],
+        ]);
+        return $response;
     }
 
     /**

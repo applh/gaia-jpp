@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/perf', function () {
+    $data = [
+        "now" => date("Y-m-d H:i:s"),
+        "total" => 0,
+        "duration" => 0,
+        "oups" => "",
+        "data" => [],
+    ];
+    return $data;
+});

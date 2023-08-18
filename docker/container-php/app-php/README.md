@@ -30,9 +30,11 @@
 
 
 * localhost PHP
+* https://www.php.net/manual/en/features.commandline.webserver.php
 
 ```
-php -S php-localhost.test:3666
+php -S php-localhost.test:3666 -t public/
+
 ```
 
 * localhost Node Fastify
