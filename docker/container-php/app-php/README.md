@@ -26,6 +26,31 @@
   * with Nginx and PHP-FPM 
 
 
+### Commands
+
+
+* localhost PHP
+
+```
+php -S php-localhost.test:3666
+```
+
+* localhost Node Fastify
+
+```
+npm run dev
+
+npm start
+
+```
+
+* Docker
+
+```
+docker-compose build
+docker-compose up -d
+```
+
 ### Performances 
 
 About 10-15 ms per query to read 1000 rows

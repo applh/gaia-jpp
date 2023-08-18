@@ -6,7 +6,8 @@ module.exports = async function (fastify, opts) {
         let limit = Math.floor(request.query.limit || 1000)
         // compute execution time
         let start = new Date()
-        fastify.sqlite.all('SELECT * FROM news ORDER BY id DESC LIMIT ' + limit, (err, rows) => {
+        let oups = Math.floor(Math.random() * 100000)
+        fastify.sqlite.all("SELECT * FROM news WHERE id NOT IN ('" + oups + "') ORDER BY id DESC LIMIT " + limit, (err, rows) => {
             if (err) {
                 console.error(err)
                 return
@@ -20,6 +21,7 @@ module.exports = async function (fastify, opts) {
                 now: start,
                 limit,
                 duration: end,
+                oups,
                 data: rows
             }
 
