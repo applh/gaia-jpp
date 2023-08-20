@@ -159,3 +159,10 @@ docker build -t nest-cloud-run .
 docker run -p8765:3000 nest-cloud-run
 
 ```
+
+### Performances
+
+* fastify is faster than prisma/express (x1.5-x2)
+* 🔥 Surprising: for +1600 Json rows
+* Docker+Nginx+PHP-FPM is faster than localhost Node + Prisma/Express 
+* 🔥 PHP localhost built-in server is always the best 😎

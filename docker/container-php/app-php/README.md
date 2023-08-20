@@ -36,6 +36,68 @@
 php -S php-localhost.test:3666 -t public/
 
 ```
+* Apache Bench
+
+```
+ab -n 1000 -c 10 http://php-localhost.test:3666/
+```
+
+```
+This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking php-localhost.test (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:        
+Server Hostname:        php-localhost.test
+Server Port:            3666
+
+Document Path:          /
+Document Length:        246872 bytes
+
+Concurrency Level:      10
+Time taken for tests:   1.190 seconds
+Complete requests:      1000
+Failed requests:        116
+   (Connect: 0, Receive: 0, Length: 116, Exceptions: 0)
+Total transferred:      247035285 bytes
+HTML transferred:       246872285 bytes
+Requests per second:    840.29 [#/sec] (mean)
+Time per request:       11.901 [ms] (mean)
+Time per request:       1.190 [ms] (mean, across all concurrent requests)
+Transfer rate:          202715.30 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     2   12   1.3     11      20
+Waiting:        2   11   1.2     11      19
+Total:          3   12   1.3     12      20
+
+Percentage of the requests served within a certain time (ms)
+  50%     12
+  66%     12
+  75%     12
+  80%     12
+  90%     12
+  95%     14
+  98%     17
+  99%     18
+ 100%     20 (longest request)
+```
 
 * localhost Node Fastify
 
