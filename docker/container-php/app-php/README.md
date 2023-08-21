@@ -135,7 +135,6 @@ About 10-15 ms per query to read 1000 rows
 
 ![Alt text](test/400rows.png)
 
-
 #### 800 ROWS
 
 ![Alt text](test/800rows.png)
