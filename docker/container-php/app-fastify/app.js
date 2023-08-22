@@ -49,6 +49,9 @@ module.exports = async function (fastify, opts) {
     let port = process.env.PORT || 3000
     console.log('PORT', port)
     let dsn = process.env.DSN || 'mysql://root:mydbroot@mydbhost/app-php'
+    // local mysql server with npm start could be 
+    // DSN=mysql://root:root@127.0.0.1:3306/app-php npm start
+
     console.log('DSN', dsn)
     fastify.register(require('@fastify/mysql'), {
         connectionString: dsn
