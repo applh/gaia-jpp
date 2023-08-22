@@ -147,3 +147,13 @@ About 10-15 ms per query to read 1000 rows
 
 ![Alt text](test/3200rows.png)
 
+## Docker x Php Conflict
+
+* if there's a Php loop and inside there's an include to a file which is mounted, then the execution time is very slow 😱
+* Hack: copy the file to include in the container local filesystem
+  * the Php function tmpnam() can be used to create a temporary file
+  * https://www.php.net/manual/fr/function.tempnam.php
+  * 🔥 Only Php can move code dynamically so easily 😎
+  * Performances are then acceptable, but still slow 😅
+  * So best workaround is to avoid to include files in a loop ?! 😅 
+
