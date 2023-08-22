@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>News</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,8 +18,12 @@
         </nav>
     </header>
     <main>
-        <h1>HOME</h1>
+        <h1>NEWS</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur at tempora mollitia labore sequi libero quam aspernatur quos nesciunt adipisci aperiam dignissimos possimus, excepturi, et dicta veritatis enim ipsum consequuntur.</p>
+        <section>
+            <h2>latest news</h2>
+            <?php view::read() ?>
+        </section>
     </main>
     <footer>
         <p>all rights reserved / 2023</p>

@@ -5,6 +5,8 @@ class response
     static $content_type = "application/json";
     static $content = "";
 
+    static $rows = [];
+    
     static function send ()
     {
         // set header

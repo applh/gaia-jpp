@@ -10,6 +10,14 @@ class router_main
         controller::load_template($template, $params);
     }
 
+    static function news($params = [])
+    {
+        $template = "news";
+
+        // find template file
+        controller::load_template($template, $params);
+    }
+
     static function app($params = [])
     {
         $template = "app";
@@ -30,6 +38,14 @@ class router_main
     static function admin($params = [])
     {
         $template = "admin";
+
+        // find template file
+        controller::load_template($template, $params);
+    }
+
+    static function empty($params = [])
+    {
+        $template = "empty";
 
         // find template file
         controller::load_template($template, $params);
