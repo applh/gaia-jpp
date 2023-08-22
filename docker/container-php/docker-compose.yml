@@ -1,6 +1,25 @@
 version: "3.9"
 
 services:
+    mydbhost:
+        # We use a mariadb image which supports both amd64 & arm64 architecture
+        image: mariadb:latest
+        # If you really want to use MySQL, uncomment the following line
+        #image: mysql:8.0.27
+        command: '--default-authentication-plugin=mysql_native_password'
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            # WARNING: hostname is the name of the service in this docker-compose file
+            # (hostname is here: mydbhost)
+            - MYSQL_DATABASE=mydb
+            - MYSQL_USER=mydbuser
+            - MYSQL_PASSWORD=mydbpassword
+            - MYSQL_ROOT_PASSWORD=mydbroot
+        expose:
+            - 3306
+            - 33060
 
     nginx-webserver:
         image: nginx:latest
@@ -23,6 +42,15 @@ services:
         restart: always
         links:
             - php-fpm
+        depends_on:
+            - mydbhost
+            - php-fpm
+            - php-fpm2
+            - php-fpm3
+            - php-fpm4
+            - node-directus
+            - node-nest
+            - node-fastify
 
     php-fpm:
         build: ../image-php-fpm-jupyter
@@ -75,8 +103,6 @@ services:
             WEBSOCKETS_ENABLED: true
             CORS_ENABLED: true
             CORS_ORIGIN: '*'
-        links:
-            - nginx-webserver
 
     node-nest:
         build: app-nest
@@ -89,3 +115,6 @@ services:
         restart: always
         volumes:
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
+
+volumes:
+    db_data:

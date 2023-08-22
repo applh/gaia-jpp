@@ -13,7 +13,7 @@ class index
         // echo "Hello World! $now";
         // phpinfo();
 
-        $path_data = __DIR__ . "/../../my-data";
+        $path_data = __DIR__ . "/../my-data";
         // https://www.php.net/manual/en/function.realpath.php
         $path_data = realpath($path_data);
 

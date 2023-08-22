@@ -49,3 +49,15 @@ caddy file-server --listen :3666 --root public/
 * css
 * js
 * ...
+
+
+## php_fastcgi
+
+
+https://caddyserver.com/docs/caddyfile/directives/php_fastcgi
+
+```
+caddy fastcgi --listen :3666 --root public/ --index index.php --php php-fpm:9000
+
+```
+
