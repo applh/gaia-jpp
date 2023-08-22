@@ -19,7 +19,7 @@ class index
 
         if ($path_data !== false) {
             // echo "<br>path_data: $path_data";
-            $path_db_news = "$path_data/db-news.sqlite";
+            $path_db_news = "$path_data/db-users.sqlite";
             if (file_exists($path_db_news)) {
                 // echo "<br>path_db_news: $path_db_news";
             } else {
@@ -38,12 +38,12 @@ class index
         }
 
         if ($pdo ?? false) {
-            $limit = intval($_REQUEST["limit"] ?? 1000);
+            $limit = intval(1.0 * ($_REQUEST["limit"] ?? 1000));
 
             $oups = mt_rand(1, 100000);
 
             // https://www.php.net/manual/en/pdo.query.php
-            $stmt = $pdo->prepare("SELECT * FROM news WHERE id NOT IN ( '$oups' ) ORDER BY id DESC LIMIT $limit");
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE id NOT IN ( '$oups' ) ORDER BY id DESC LIMIT $limit");
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             // echo "<br>rows: " . count($rows);

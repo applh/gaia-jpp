@@ -7,7 +7,7 @@ module.exports = async function (fastify, opts) {
         // compute execution time
         let start = new Date()
         let oups = Math.floor(Math.random() * 100000)
-        fastify.sqlite.all("SELECT * FROM news WHERE id NOT IN ('" + oups + "') ORDER BY id DESC LIMIT " + limit, 
+        fastify.sqlite.all("SELECT * FROM users WHERE id NOT IN ('" + oups + "') ORDER BY id DESC LIMIT " + limit, 
             (err, rows) => {
                 if (err) {
                     console.error(err)
