@@ -20,7 +20,7 @@
     <main>
         <h1>NEWS</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur at tempora mollitia labore sequi libero quam aspernatur quos nesciunt adipisci aperiam dignissimos possimus, excepturi, et dicta veritatis enim ipsum consequuntur.</p>
-        <section>
+        <section class="s2">
             <h2>latest news</h2>
             <?php view::read() ?>
         </section>

@@ -1,7 +1,102 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+header nav {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+}
+/* display nav horizontally */
+header nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
 h1 {
     color: blue;
+    text-align: center;
 }
 
 section {
-    margin: 20px;
+}
+
+main > p, section > p {
+    text-align: center;
+    padding: 1rem;
+}
+
+
+/* make section level h3 display as 3 columns */
+h2 {
+    width: 100%;
+    text-align: center;
+}
+
+.s2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.s3 {
+    width: calc(100% / 1);
+    padding: 0.5rem;;
+}
+
+/* media queries */
+@media (min-width: 800px) {
+    .s3 {
+        width: calc(100% / 2);
+    }
+}
+
+@media (min-width: 1200px) {
+    .s3 {
+        width: calc(100% / 3);
+    }
+}
+
+@media (min-width: 1600px) {
+    .s3 {
+        width: calc(100% / 4);
+    }
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.s3 img {
+    width: 100%;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+}
+
+.s3 p {
+    text-align: left;
+    padding: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
 }

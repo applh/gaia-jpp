@@ -42,9 +42,11 @@ class view
             if ($skip_template) {
                 $html_item = 
                 <<<HTML
-                <section>
+                <section class="s3">
                     <h3>{$row["name"]}</h3>
+                    <img src="photo.jpg" alt="">
                     <p>{$index}, {$row["id"]}, {$row["email"]}</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam velit, magni odio, suscipit corrupti dicta totam deleniti sed adipisci necessitatibus sapiente dolorum optio eius nemo rerum. Maiores facere laboriosam perspiciatis.</p>
                 </section>
                 HTML;                
             }
