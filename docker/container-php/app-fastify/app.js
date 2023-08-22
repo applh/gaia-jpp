@@ -45,5 +45,12 @@ module.exports = async function (fastify, opts) {
         dbFile: path_db,
     })
 
-
+    // get port from environment variable
+    let port = process.env.PORT || 3000
+    console.log('PORT', port)
+    let dsn = process.env.DSN || 'mysql://root:mydbroot@mydbhost/app-php'
+    console.log('DSN', dsn)
+    fastify.register(require('@fastify/mysql'), {
+        connectionString: dsn
+      })
 }
