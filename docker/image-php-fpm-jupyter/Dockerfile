@@ -84,9 +84,16 @@ RUN /var/www/venv/bin/playwright install chromium
 # and playwright must be installed in $HOME/.cache
 # move /root/.cache to /var/www/home/.cache
 # change owner (recursive)
+
+
 RUN mkdir /var/www/home \
         && mv /root/.cache /var/www/home/.cache \
-        && chown -R www-data:www-data /var/www/home
+        && chown -R www-data:www-data /var/www/home \
+        && mkdir /var/code \
+        && chown -R www-data:www-data /var/code
+
+# PHP: add /var/code as volume for faster file access
+# TODO: copy PHP source code in /var/code
 
 RUN apt-get clean && apt-get autoclean
 

@@ -34,20 +34,18 @@ services:
             - ./app:/var/www/html
             - ./app-php:/var/www/html-php
             - ./app-laravel:/var/www/html-laravel
-            - ./app-symfony:/var/www/html-symfony
+            # - ./app-symfony:/var/www/html-symfony
             - ./app-nest:/var/www/html-nest
             - ./app-directus:/var/www/html-directus
             - ./app-fastify:/var/www/html-fastify
             - ./app-nuxt/.output:/var/www/html-nuxt
         restart: always
-        links:
-            - php-fpm
         depends_on:
             - mydbhost
             - php-fpm
             - php-fpm2
             - php-fpm3
-            - php-fpm4
+            # - php-fpm4
             - node-directus
             - node-nest
             - node-fastify
@@ -63,6 +61,7 @@ services:
     php-fpm2:
         build: ../image-php-fpm-jupyter
         volumes:
+            - var_code:/var/code
             - ./app-php:/var/www/html-php
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
@@ -86,13 +85,13 @@ services:
             - ./root-setup:/root/setup
         restart: always
 
-    php-fpm4:
-        build: ../image-php-fpm-jupyter
-        volumes:
-            - ./app-symfony:/var/www/html-symfony
-            - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
-            - ./root-setup:/root/setup
-        restart: always
+    # php-fpm4:
+    #     build: ../image-php-fpm-jupyter
+    #     volumes:
+    #         - ./app-symfony:/var/www/html-symfony
+    #         - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
+    #         - ./root-setup:/root/setup
+    #     restart: always
 
     node-directus:
         image: directus/directus:latest
@@ -126,5 +125,7 @@ services:
         volumes:
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
 
+# using a volume for PHP code is about the same as using container local /tmp
 volumes:
     db_data:
+    var_code:
