@@ -2,7 +2,7 @@
 
 class view 
 {
-    static function read () 
+    static function read ($loop_template = null) 
     {
         model::read();
         $rows = response::$rows ?? [];
@@ -15,15 +15,21 @@ class view
         if (!$skip_template) {
             $tmp_dir = sys_get_temp_dir();
 
-            // get the code from template item.php
-            $code_item = file_get_contents(__DIR__ . "/../templates/item.php");
+            // get the code from template parts/loop-item.php
+            $loop_template ??= "loop-item";
+            $code_item = file_get_contents(__DIR__ . "/../templates/parts/$loop_template.php");
             // copy the code to a temporary file
             $tmp_file = tempnam($tmp_dir, "item");
             file_put_contents($tmp_file, $code_item);
     
-            $html_bloc .= "<b>tmp_dir: $tmp_dir</b><br>";
-            $html_bloc .= "<b>tmp_file: $tmp_file</b><br>";
-    
+            $html_bloc .= 
+            <<<HTML
+            <div class="w100 text-center">
+                <p>loop_template: $loop_template</p>
+                <p>tmp_dir: $tmp_dir</p>
+                <p>tmp_file: $tmp_file</p>
+            </div>
+            HTML;
         }
 
         foreach($rows as $index => $row) {
@@ -44,7 +50,7 @@ class view
                 <<<HTML
                 <section class="s3">
                     <h3>{$row["name"]}</h3>
-                    <img src="photo.jpg" alt="">
+                    <img src="/photo.jpg" alt="">
                     <p>{$index}, {$row["id"]}, {$row["email"]}</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam velit, magni odio, suscipit corrupti dicta totam deleniti sed adipisci necessitatibus sapiente dolorum optio eius nemo rerum. Maiores facere laboriosam perspiciatis.</p>
                 </section>

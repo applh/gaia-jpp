@@ -25,7 +25,7 @@ services:
         image: nginx:latest
         ports:
             - "${XP_ENV_PORT:-8666}:80"
-            - "${XP_ENV_PORT:-443}:443"
+            # - "${XP_ENV_PORT:-443}:443"
         volumes:
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ${XP_ENV_NGINX_CONF:-./nginx-ssl.conf}:/etc/nginx/conf.d/default.conf
@@ -67,6 +67,16 @@ services:
             - ${XP_ENV_DATA_DIR:-./my-data}:/var/www/my-data
             - ./root-setup:/root/setup
         restart: always
+        environment:
+            - APP_MODE=docker
+            # WARNING: hostname is the name of the service in this docker-compose file
+            # (hostname is here: mydbhost)
+            - MYSQL_HOST=mydbhost
+            # - MYSQL_DATABASE=mydb
+            - MYSQL_DATABASE=app-php
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=mydbroot
+            # - MYSQL_ROOT_PASSWORD=mydbroot
 
     php-fpm3:
         build: ../image-php-fpm-jupyter

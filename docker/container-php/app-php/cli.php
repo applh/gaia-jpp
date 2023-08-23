@@ -15,6 +15,11 @@ class cli
         // add spl_autoload_register
         spl_autoload_register("cli::autoloader_class");
 
+        // vendor autoload
+        $vendor_autoload = __DIR__ . "/vendor/autoload.php";
+        if (file_exists($vendor_autoload))
+            require_once __DIR__ . "/vendor/autoload.php";
+
         // fill $mix_steps from 0 to 100
         for ($i = 0; $i <= 100; $i++) {
             static::$mix_steps[$i] = [];
@@ -76,6 +81,7 @@ class cli
             $subrouters = [
                 "api" => "router_api",
                 "admin" => "router_admin",
+                "assets" => "router_assets",
             ];
             $router = $subrouters[$dirparts[0]] ?? $router;
         }
@@ -84,15 +90,28 @@ class cli
         // remove non alpha characters
         $method = preg_replace("/[^a-zA-Z0-9_]/", "", $method);
         $callable = "$router::$method";
+        $params = [
+            "now" => $now,
+            "uri" => $uri,
+            "dirname" => $dirname,
+            "filename" => $filename,
+            "extension" => $extension,
+        ];
+
+        // if extension is json then set content_type to application/json
+        if ($extension == "json") {
+            $params["content_type"] = "application/json";
+            $params["show_result"] = false;
+        }
         if (is_callable($callable)) {
-            $params = [
-                "now" => $now,
-                "uri" => $uri,
-                "dirname" => $dirname,
-                "filename" => $filename,
-                "extension" => $extension,
-            ];
             $callable($params);
+        }
+        else {
+            // generic method
+            if (is_callable("etc_$router::index")) {
+                $callable = "etc_$router::index";
+                $callable($params);
+            }
         }
 
     }

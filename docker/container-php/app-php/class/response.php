@@ -2,7 +2,7 @@
 
 class response 
 {
-    static $content_type = "application/json";
+    static $content_type = "text/html";
     static $content = "";
 
     static $rows = [];

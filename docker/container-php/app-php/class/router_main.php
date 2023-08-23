@@ -2,61 +2,26 @@
 
 class router_main
 {
-    static function index($params = [])
-    {
-        $template = "home";
+    // add here specific routes
+}
 
+
+/**
+ * Helper class to auomatically route to a template
+ */
+class etc_router_main
+{
+    /**
+     */
+    static function index ($params)
+    {
+        // try automatic template from filename
+        $template = $params["filename"] ?? "";
+        // WARNING: COULD BE TOO DANGEROUS AS IT ALLOWS TO LOAD ANY FILE
+        $template = basename($template);
+                
         // find template file
         controller::load_template($template, $params);
-    }
 
-    static function news($params = [])
-    {
-        $template = "news";
-
-        // find template file
-        controller::load_template($template, $params);
-    }
-
-    static function app($params = [])
-    {
-        $template = "app";
-
-        // find template file
-        controller::load_template($template, $params);
-    }
-
-    static function api($params = [])
-    {
-        $template = "api";
-        $params["content_type"] = "application/json";
-        $params["show_result"] = false;
-        // find template file
-        controller::load_template($template, $params);
-    }
-
-    static function admin($params = [])
-    {
-        $template = "admin";
-
-        // find template file
-        controller::load_template($template, $params);
-    }
-
-    static function empty($params = [])
-    {
-        $template = "empty";
-
-        // find template file
-        controller::load_template($template, $params);
-    }
-
-    static function test_sql($params = [])
-    {
-        $template = "test-sql";
-        $params["content_type"] = "application/json";
-        $params["show_result"] = false;
-        // find template file
-        controller::load_template($template, $params);
     }
 }
