@@ -15,9 +15,9 @@ $count_request = 0;
 $founds = [];
 while (count($rows) < $limit) {
     $current_limit = mt_rand(
-        min(0.05 * $limit, $limit - count($rows)),
-        min(0.1 * $limit, $limit - count($rows)),
-                    );
+        intval(min(0.04 * $limit, $limit - count($rows))),
+        intval(min(0.08 * $limit, $limit - count($rows))),
+    );
     $current_offset = $offset + count($rows);
     model::read("users", $current_limit, $current_offset);
     $founds[] = response::$rows ?? [];
