@@ -33,6 +33,13 @@
 * https://www.php.net/manual/en/features.commandline.webserver.php
 
 ```
+# ROUTER
+# ALL ROUTES TO public/index.php
+
+php -S php-localhost.test:3666 -t public/ public/index.php
+
+# local files are served directly
+# url with no extension are served by public/index.php
 php -S php-localhost.test:3666 -t public/
 
 ```
@@ -123,29 +130,7 @@ About 10-15 ms per query to read 1000 rows
 
 ### Comparison between Fastify and PHP
 
-#### 100 rows
-
-![Alt text](test/100rows.png)
-
-#### 200 ROWS
-
-![Alt text](test/200rows.png)
-
-#### 400 ROWS
-
-![Alt text](test/400rows.png)
-
-#### 800 ROWS
-
-![Alt text](test/800rows.png)
-
-#### 1600 ROWS
-
-![Alt text](test/1600rows.png)
-
-#### 3200 ROWS
-
-![Alt text](test/3200rows.png)
+* PHP is faster than Fastify 😎
 
 ## Docker x Php Conflict
 

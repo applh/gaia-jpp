@@ -32,8 +32,9 @@ class model
                 $env = "localhost";
             }
             // if port is 8777, then it's localhost
-            if ($_SERVER["SERVER_PORT"] == 8777) {
+            if ($_SERVER["SERVER_PORT"] == 3666) {
                 $env = "localhost";
+                $db_name = "app-php";
             }
             // if port is 80, then it's mydbhost
             if ($_SERVER["SERVER_PORT"] == 80) {
@@ -57,13 +58,11 @@ class model
         return $pdo;
     }
 
-    static function read($table = null)
+    static function read($table = null, $limit = 100, $offset = 0)
     {
         $table ??= "users";
         $order_by = "id DESC";
 
-        $limit = intval($_REQUEST["limit"] ?? 100);
-        $offset = intval($_REQUEST["offset"] ?? 0);
         // limit and offset must be positive
         $limit = max(0, $limit);
         $offset = max(0, $offset);

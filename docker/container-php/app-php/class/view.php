@@ -2,9 +2,9 @@
 
 class view 
 {
-    static function read ($loop_template = null) 
+    static function read ($loop_template = null, $limit = 100, $offset = 0) 
     {
-        model::read();
+        model::read("users", $limit, $offset);
         $rows = response::$rows ?? [];
 
         $html_bloc = "";

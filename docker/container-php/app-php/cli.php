@@ -96,6 +96,7 @@ class cli
             "dirname" => $dirname,
             "filename" => $filename,
             "extension" => $extension,
+            "path" => $path,
         ];
 
         // if extension is json then set content_type to application/json
