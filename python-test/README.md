@@ -43,3 +43,20 @@
 ![Alt text](img/3200rows.png)
 
 * Note: local MySQL is not stable and loosing performance rapidly if data volume is also important ?!
+
+
+## CHARTS / SQLITE
+
+* With SQLite, PHP is always better than Fastify
+  * localhost
+  * Docker
+    * DDev is about the same as localhost + Fastify (surprising...😱😎)
+    * (DDev is containers Nginx + PHP)
+    * TODO: check DDev + Fastify ?
+
+![Alt text](img-sqlite/100rows.png) 
+![Alt text](img-sqlite/200rows.png) 
+![Alt text](img-sqlite/400rows.png) 
+![Alt text](img-sqlite/800rows.png) 
+![Alt text](img-sqlite/1600rows.png) 
+![Alt text](img-sqlite/3200rows.png)
