@@ -88,7 +88,9 @@ But the content is the same for all devices.
       * (deflate / gzip)
       * caches
   * dev tools: chrome > network > waterfall
-
+  * Server Timing API
+  * https://web.dev/custom-metrics/?utm_source=devtools#server-timing-api
+  
 * UX: User Experience
   * Humans
   * 1s is acceptable
@@ -138,6 +140,110 @@ Cumulative Layout Shift (CLS) mesure la stabilité visuelle d'un site web. Il me
 
 Google a annoncé que les Web Core Vitals deviendront un facteur de classement en mai 2021. Cela signifie que les sites web qui performant bien sur ces métriques bénéficieront d'un coup de pouce dans les résultats de recherche. Il est important pour les propriétaires de sites web et les développeurs d'optimiser leur site web pour les Web Core Vitals afin de s'assurer que leur site web est convivial pour les utilisateurs et qu'il se classe bien dans les résultats de recherche.
 ```
+
+## Docker Containers
+
+* Docker Containers are application blocks that are isolated and can be assembled to build a complex application
+* Each container will add a 1ms latency from request to response
+  * examples: 
+  * 1 container including (Nginx + PHP-FPM) = 1ms
+  * 2 containers = (Nginx) + (PHP-FPM) = 2ms
+  * 3 containers = (Nginx) + (PHP-FPM) + (MariaDB)= 3ms
+* Tips:
+  * Having (Nginx) as front web server is a good practice
+    * At the application layer, it's possible to mix different (languages)
+      * (PHP)
+      * (Node)
+      * ...
+
+```
+.
+└── (nginx)
+    ├── (php)
+    │   └── (mariadb)
+    ├── (nodejs)
+    │   └── (mariadb)
+    └── (...)
+```
+
+### Container Features
+
+So useful for development
+* port mapping
+* local networks
+* volumes
+  * local to one container
+  * shared between containers
+  * mounts folders/files with local folders/files synchronisation
+* environment variables
+* secrets
+
+#### Docker secret files
+
+https://docs.docker.com/engine/swarm/secrets/#use-secrets-in-compose
+
+```yaml
+services:
+   db:
+     image: mysql:latest
+     volumes:
+       - db_data:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD_FILE: /run/secrets/db_password
+     secrets:
+       - db_root_password
+       - db_password
+
+   wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - "8000:80"
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+     secrets:
+       - db_password
+
+
+secrets:
+   db_password:
+     file: db_password.txt
+   db_root_password:
+     file: db_root_password.txt
+
+volumes:
+    db_data:
+```
+
+### MacOS filesystem conflicts
+
+* Docker can mount local folders into containers
+  * automatic synchronization
+  * very useful for development
+* But MacOS filesystem is too different from Docker filesystem
+  * Slow performances
+  * avoid: lot of files, lot of folders, lot of subfolders
+    * nodejs node_modules/, PHP vendor/, etc...
+  * in PHP, avoid looping on files and folders
+    * example: list.php has a loop on include a PHP template item.php
+
+
+### Eco-Conception
+
+* Docker is a (very useful) workaround to heterogenous applications ecosystem
+  * features
+    * very easy to setup
+    * very useful for cloud deployments (CI/CD)
+  * but not a long term solution
+  * containers mixer crazyness 😎🎉😱🤮
+* Each container builds its own filesystem based on Alpine Linux
+  * thousands of system files are duplicated in each container 😱 
 
 ## Intelligence
 
