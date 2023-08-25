@@ -42,6 +42,8 @@ Most visitors are using a mobile phone to visit a website.
   * Mobile Small = 320x640 pixels
   * iOS tablets = 768x1024 pixels
 * Portrait or landscape usage
+  * Mobile Small (landscape) = 640x320 pixels
+  * iOS tablets (landscape) = 1024x768 pixels
   
 And large screens are also used, HD, full HD, 4K, 8K, ...
 * HD = 1280 x 720 pixels
@@ -50,8 +52,35 @@ And large screens are also used, HD, full HD, 4K, 8K, ...
 * 8K = 7680 x 4320 pixels
 
 But the content is the same for all devices.
-* Mobile first
-  * 320px
+* Mobile first (width)
+  * 320 px
+  * 640 px
+  * 720 px
+  * 768 px
+  * 1024 px
+  * 1080 px
+  * 1280 px
+  * 1920 px
+
+Columns are important as text lines can't be too long for human eyes comfort.
+* Examples:
+* columns (min-width: 400px) 
+  * 1 column (default)
+    * 320 px
+    * 640 px
+    * 720 px
+    * 768 px
+  * 2 columns (min-width: 800px)
+    * 1024 px
+    * 1080 px
+  * 3 columns (min-width: 1200px)
+    * 1280 px
+  * 4 columns (min-width: 1600px)
+    * 1920 px
+  * 5 columns (min-width: 2000px)
+    * 2160 px
+  * 6 columns (min-width: 2400px)
+    * 3840 px
 
 ### SEO constraints conflicting
 
@@ -91,24 +120,32 @@ But the content is the same for all devices.
   * Server Timing API
   * https://web.dev/custom-metrics/?utm_source=devtools#server-timing-api
   
-* UX: User Experience
-  * Humans
-  * 1s is acceptable
-  * 100ms is fast
-  * 60 FPS = 16ms is ideal
-  * 30 FPS = 33ms is fluid
-* Above The Fold
-  * A visitor is passive and waits for the page to load
-  * The visitor is not scrolling
-  * The visitor is not clicking
-  * Frustration is growing as the visitor is waiting
-  * Solution: show a teaser quickly
-    * a title
-    * a text
-    * a picture
-    * a button
-    * ...
-  * Keep the visitor busy while the page is loading
+
+### UX: User Experience
+
+* Human brains
+* 1s is acceptable
+* 100ms is fast
+* 33ms is fluid (30 FPS)
+* 16ms is ideal (60 FPS)
+
+
+### Above The Fold
+
+The first part of the page that is visible without scrolling is called "Above The Fold". 
+Note: this surface depends on the screen size and the browser window size.
+
+* A visitor is passive and waits for the page to load
+* The visitor is not scrolling
+* The visitor is not clicking
+* Frustration is growing as the visitor is waiting
+* Solution: show a teaser quickly
+  * a title
+  * a text
+  * a picture
+  * a button
+  * ...
+* Keep the visitor busy while the page is loading
 
 
 ## Generative AI for content
