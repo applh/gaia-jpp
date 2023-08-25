@@ -52,7 +52,7 @@ class view
                     <h3>{$row["name"]}</h3>
                     <img src="/photo.jpg" alt="">
                     <p>{$index}, {$row["id"]}, {$row["email"]}</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam velit, magni odio, suscipit corrupti dicta totam deleniti sed adipisci necessitatibus sapiente dolorum optio eius nemo rerum. Maiores facere laboriosam perspiciatis.</p>
+                    <p>Search Engine Optimization (SEO) is the practice of optimizing a website to rank higher in search engine results pages (SERPs). This is achieved through various techniques such as keyword research, on-page optimization, link building, and content creation. SEO is important for businesses to increase their online visibility and attract more organic traffic to their website.</p>
                 </section>
                 HTML;                
             }
