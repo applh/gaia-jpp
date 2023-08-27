@@ -185,7 +185,7 @@ Google a annoncé que les Web Core Vitals deviendront un facteur de classement e
   * examples: 
   * 1 container including (Nginx + PHP-FPM) = 1ms
   * 2 containers = (Nginx) + (PHP-FPM) = 2ms
-  * 3 containers = (Nginx) + (PHP-FPM) + (MariaDB)= 3ms
+  * 3 containers = (Nginx) + (PHP-FPM) + (MariaDB) = 3ms
 * Tips:
   * Having (Nginx) as front web server is a good practice
     * At the application layer, it's possible to mix different (languages)

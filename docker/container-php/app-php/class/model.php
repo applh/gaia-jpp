@@ -69,6 +69,8 @@ class model
 
         $sql = "SELECT * FROM `$table` ORDER BY $order_by LIMIT $limit OFFSET $offset";
         model::send_sql($sql);
+
+        return response::$rows;
     }
 
     static function send_sql ($sql)
